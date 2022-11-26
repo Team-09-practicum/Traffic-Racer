@@ -13,7 +13,7 @@ export enum AppRoutes {
   MAIN = 'main',
   GAME = 'game',
   AUTH = 'auth',
-  REGISTRATION = 'registation',
+  REGISTRATION = 'registration',
   USERINFO = 'userinfo',
   STATS = 'stats',
   FORUM = 'forum',
@@ -47,7 +47,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     element: <AuthPage />,
   },
   [AppRoutes.REGISTRATION]: {
-    path: RoutePath.registation,
+    path: RoutePath.registration,
     element: <RegistrationPage />,
   },
   [AppRoutes.USERINFO]: {

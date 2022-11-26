@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import './App.css'
-import './styles/index.scss'
 import { AppRouter } from './utils/router/AppRouter'
 
 function App() {
@@ -17,7 +16,7 @@ function App() {
   return (
     <div className="App">
       Вот тут будет жить ваше приложение :)
-      {/* <AppRouter /> для инспользования необходимо доработать тесты */}
+      <AppRouter />
     </div>
   )
 }
