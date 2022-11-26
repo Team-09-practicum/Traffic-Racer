@@ -1,5 +1,5 @@
 import { Link} from 'react-router-dom'
-import { RoutePath } from '../../utils/router/routeConfig'
+import { RoutePath } from '@/utils/router/routeConfig'
 
 export const AuthPage = () => {
 
