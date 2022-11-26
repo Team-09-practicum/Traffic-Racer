@@ -1,6 +1,7 @@
 import App from './App'
 import { render, screen } from '@testing-library/react'
 
+jest.mock('./utils/router/AppRouter')
 const appContent = 'Вот тут будет жить ваше приложение :)'
 
 // @ts-ignore
