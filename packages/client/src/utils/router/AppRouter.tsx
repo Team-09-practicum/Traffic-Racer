@@ -3,8 +3,7 @@ import React from 'react';
 import { RoutePath } from './routeConfig';
 
 import { AuthPage } from '@/pages/authPage/AuthPage';
-import { Error404Page } from '@/pages/error404Page/Error404Page';
-import { Error500Page } from '@/pages/error500Page/Error500Page';
+import { ErrorPage } from '@/pages/errorPage/ErrorPage';
 import { ForumPage } from '@/pages/forumPage/ForumPage';
 import { GamePage } from '@/pages/gamePage/GamePage';
 import { MainPage } from '@/pages/mainPage/MainPage';
@@ -21,7 +20,16 @@ export const AppRouter = () => (
     <Route path={RoutePath.userinfo} element={UserInfoPage()} />
     <Route path={RoutePath.stats} element={StatsPage()} />
     <Route path={RoutePath.forum} element={ForumPage()} />
-    <Route path={RoutePath.error404} element={Error404Page()} />
-    <Route path={RoutePath.error500} element={Error500Page()} />
+    <Route
+      path={RoutePath.error404}
+      element={ErrorPage({
+        nameError: '404',
+        textError: 'Страница не существует',
+      })}
+    />
+    <Route
+      path={RoutePath.error500}
+      element={ErrorPage({ nameError: '500', textError: 'Мы уже фиксим' })}
+    />
   </Routes>
 );
