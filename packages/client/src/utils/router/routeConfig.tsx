@@ -6,6 +6,6 @@ export const RoutePath: Record<string, string> = {
   userinfo: '/userinfo',
   stats: '/stats',
   forum: '/forum',
-  error404: '*',
+  error404: '/404',
   error500: '/500',
 };

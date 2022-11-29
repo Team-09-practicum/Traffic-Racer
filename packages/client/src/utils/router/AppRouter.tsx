@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import React from 'react';
 import { RoutePath } from './routeConfig';
 
@@ -11,25 +11,25 @@ import { RegistrationPage } from '@/pages/registrationPage/RegistrationPage';
 import { StatsPage } from '@/pages/statsPage/StatsPage';
 import { UserInfoPage } from '@/pages/userInfoPage/UserInfoPage';
 
+const NoMatch = () => <Navigate to={RoutePath.error404} replace />;
+
 export const AppRouter = () => (
   <Routes>
-    <Route path={RoutePath.main} element={MainPage()} />
-    <Route path={RoutePath.game} element={GamePage()} />
-    <Route path={RoutePath.auth} element={AuthPage()} />
-    <Route path={RoutePath.registration} element={RegistrationPage()} />
-    <Route path={RoutePath.userinfo} element={UserInfoPage()} />
-    <Route path={RoutePath.stats} element={StatsPage()} />
-    <Route path={RoutePath.forum} element={ForumPage()} />
+    <Route path={RoutePath.main} element={<MainPage />} />
+    <Route path={RoutePath.game} element={<GamePage />} />
+    <Route path={RoutePath.auth} element={<AuthPage />} />
+    <Route path={RoutePath.registration} element={<RegistrationPage />} />
+    <Route path={RoutePath.userinfo} element={<UserInfoPage />} />
+    <Route path={RoutePath.stats} element={<StatsPage />} />
+    <Route path={RoutePath.forum} element={<ForumPage />} />
     <Route
       path={RoutePath.error404}
-      element={ErrorPage({
-        nameError: '404',
-        textError: 'Страница не существует',
-      })}
+      element={<ErrorPage nameError="404" textError="Страница не существует" />}
     />
     <Route
       path={RoutePath.error500}
-      element={ErrorPage({ nameError: '500', textError: 'Мы уже фиксим' })}
+      element={<ErrorPage nameError="500" textError="Мы уже фиксим" />}
     />
+    <Route path="*" element={NoMatch()} />
   </Routes>
 );
