@@ -40,6 +40,7 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'import/no-unresolved': ['error', { ignore: ['@*'] }],
+    'no-plusplus': 'off',
   },
   settings: {
     'import/resolver': {
