@@ -11,11 +11,11 @@ interface IErrorPage {
 export const ErrorPage = ({ nameError, textError }: IErrorPage) => (
   <div className="error">
     <div className="error__text">
-      <h2 className="error__title">Ошибка {nameError}</h2>
+      <h1 className="error__title">Ошибка {nameError}</h1>
       <p className="error__subtitle">{textError}</p>
     </div>
-    <div className="error__link">
-      <Link to={RoutePath.main}> Главное меню </Link>
-    </div>
+    <Link className="error__link" to={RoutePath.main}>
+      Главное меню
+    </Link>
   </div>
 );
