@@ -1,11 +1,30 @@
-import { Link } from 'react-router-dom';
 import React from 'react';
-import { RoutePath } from '@/utils/router/routeConfig';
+import { Typography, Row, Col, Form, Input, Button } from 'antd';
+import './AuthPage.scss';
+
+const { Title } = Typography;
 
 export const AuthPage = () => (
-  <div>
-    Авторизация
-    <Link to={RoutePath.main}> Главное меню </Link>
-    <Link to={RoutePath.registration}> Регистрация </Link>
-  </div>
+  <Row justify="center" align="middle" className="auth">
+    <Col className="auth__col">
+      <Title className="auth__title">Вход</Title>
+      <Form size="large">
+        <Form.Item
+          name="login"
+          rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input placeholder="Логин" />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}>
+          <Input.Password placeholder="Пароль" />
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType="submit" className="auth__button">
+            Авторизация
+          </Button>
+        </Form.Item>
+      </Form>
+    </Col>
+  </Row>
 );

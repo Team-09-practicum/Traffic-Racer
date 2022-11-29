@@ -1,0 +1,15 @@
+.auth {
+  height: 100vh;
+
+  &__col {
+    width: 300px;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}
