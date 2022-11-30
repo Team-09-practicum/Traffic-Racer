@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Typography, Row, Col, Form, Input, Button } from 'antd';
+import { RoutePath } from '@/utils/router/routeConfig';
 import './AuthPage.scss';
 
 const { Title } = Typography;
@@ -8,7 +10,7 @@ export const AuthPage = () => (
   <Row justify="center" align="middle" className="auth">
     <Col className="auth__col">
       <Title className="auth__title">Вход</Title>
-      <Form size="large">
+      <Form size="large" className="auth__form">
         <Form.Item
           name="login"
           rules={[{ required: true, message: 'Пожалуйста, введите логин!' }]}>
@@ -25,6 +27,9 @@ export const AuthPage = () => (
           </Button>
         </Form.Item>
       </Form>
+      <Link className="auth__link" to={RoutePath.registration}>
+        Нет аккаунта?
+      </Link>
     </Col>
   </Row>
 );
