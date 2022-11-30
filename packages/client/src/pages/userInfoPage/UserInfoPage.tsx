@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Link } from 'react-router-dom';
 import React from 'react';
-import { Typography, Form, Input, Button } from 'antd';
+import { Typography, Form, Input, Button, Avatar } from 'antd';
 import { RoutePath } from '@/utils/router/routeConfig';
 import './UserInfoPage.scss';
 
@@ -15,6 +15,9 @@ export const UserInfoPage = () => (
   <div className="profile">
     <Form {...layout} name="basic" className="profile__form" layout="vertical">
       <Title className="profile__form-title">Профиль</Title>
+      <Avatar className="profile__avatar" size={96}>
+        User
+      </Avatar>
       <Form.Item className="profile__form-item" label="Почта" name="email">
         <Input />
       </Form.Item>
