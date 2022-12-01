@@ -1,0 +1,29 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  &__form {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__form-item {
+    width: 100%;
+  }
+  &__avatar {
+    margin-bottom: 16px;
+    &:hover {
+      background: #000;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+  &__button {
+    width: 100%;
+    margin-top: 16px;
+  }
+}
