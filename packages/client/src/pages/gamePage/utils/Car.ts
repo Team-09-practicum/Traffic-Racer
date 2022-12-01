@@ -9,10 +9,28 @@ export type CollisionArea = {
   width: number;
 };
 
+interface ICar {
+  step: number;
+  positions: number[];
+  currentLane: number;
+  nextLane: number;
+  carImage: HTMLImageElement;
+  carNearMyBack?: ICar;
+  carSpeed: number;
+  isMovingLeft: boolean;
+  isMovingRight: boolean;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  collisionArea: CollisionArea;
+  showCollisionArea: boolean;
+}
+
 /**
  * Класс автомобиля
  */
-export class Car {
+export class Car implements ICar {
   step = 0.1;
 
   positions = [0, 1, 2, 3];
@@ -25,8 +43,7 @@ export class Car {
 
   static carTypeArray: string[] = [ladaImg];
 
-  // eslint-disable-next-line no-use-before-define
-  carNearMyBack!: Car | undefined;
+  carNearMyBack!: ICar | undefined;
 
   carSpeed = 0.0;
 
