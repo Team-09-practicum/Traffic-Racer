@@ -153,7 +153,7 @@ export class Car implements ICar {
       this.increaseSpeed(0.005);
 
       // Если подъехала вплотную, уравниваем скорости
-      if (isCloseToY(this.collisionArea, this.carNearMyBack.collisionArea, 40)) {
+      if (isCloseToY(this.collisionArea, this.carNearMyBack.collisionArea, GameConfig.collision.minCloseDistance)) {
         this.carSpeed = this.carNearMyBack.carSpeed;
       }
     }
@@ -191,7 +191,7 @@ export class Car implements ICar {
    * @param {number} lane - Полоса.
    */
   updatePositionXAccordingLane(lane: number) {
-    this.x = lane * GameConfig.scenario.lanesSize + 170;
+    this.x = lane * GameConfig.scenario.lanesSize + GameConfig.roadside.width;
     this.collisionArea.x = this.x + this.width / 2 - this.collisionArea.width / 2;
   }
 

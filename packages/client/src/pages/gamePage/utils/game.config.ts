@@ -6,10 +6,12 @@ export const GameConfig = {
   roadside: {
     trees: 10,
     treeDistance: 60,
+    width: 170,
   },
   collision: {
     nearDistanceX: 20,
     nearDistanceY: 100,
+    minCloseDistance: 40,
   },
   scenario: {
     numberOfLanes: 4,
