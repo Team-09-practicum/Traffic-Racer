@@ -215,9 +215,9 @@ export class Car {
    * @param {number} speed - Скорость.
    */
   setCarSpeed(speed: number) {
-    if (speed <= GameConfig.traffic.minCarSpeed) this.carSpeed = 1 - GameConfig.traffic.minCarSpeed;
-    else if (speed >= GameConfig.traffic.maxCarSpeed) this.carSpeed = 1 - GameConfig.traffic.maxCarSpeed;
-    else this.carSpeed = 1 - speed;
+    if (speed < GameConfig.traffic.minCarSpeed) this.carSpeed = GameConfig.traffic.minCarSpeed;
+    else if (speed > GameConfig.traffic.maxCarSpeed) this.carSpeed = GameConfig.traffic.maxCarSpeed;
+    else this.carSpeed = +speed.toFixed(1);
   }
 
   /**
