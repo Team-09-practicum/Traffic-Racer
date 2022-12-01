@@ -1,6 +1,6 @@
 import roadImg from '../assets/scenario/road.jpg';
 import { Tree } from './roadside/Tree';
-import { GameConfig } from '@/pages/gamePage/utils/game.config';
+import { GameConfig } from './game.config';
 
 /**
  * Класс определяющий сценарий игры

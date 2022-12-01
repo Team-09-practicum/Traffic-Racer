@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Dispatch, FC, SetStateAction, useEffect, useRef } from 'react';
-import { Scenario } from '../utils/Scenario';
-import { Car } from '../utils/Car';
-import { Traffic } from '../utils/Traffic';
+import { Scenario, Car, Traffic } from '../utils';
 import { GameConfig } from '../utils/game.config';
 
 type TrafficRacerProps = {
