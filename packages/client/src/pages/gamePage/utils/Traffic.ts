@@ -9,6 +9,8 @@ import { Car } from './Car';
 export class Traffic {
   canvas!: HTMLCanvasElement;
 
+  context!: CanvasRenderingContext2D;
+
   initialCarsYPosition = -100;
 
   cars: (Car | undefined)[] = [];
@@ -31,6 +33,8 @@ export class Traffic {
    */
   constructor(canvas: HTMLCanvasElement, carPlayer: Car | null, gameOverRef: MutableRefObject<boolean>) {
     this.canvas = canvas;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.context = canvas.getContext('2d')!;
     this.gameOverRef = gameOverRef;
     this.carPlayer = carPlayer;
     this.nextEmptyLane = getRandomIntBetweenInterval(0, GameConfig.scenario.numberOfLanes - 1);
@@ -114,11 +118,10 @@ export class Traffic {
 
   /**
    * Отрисовка трафика
-   * @param {CanvasRenderingContext2D} context - Контекст Canvas.
    */
-  draw(context: CanvasRenderingContext2D) {
+  draw() {
     this.cars.forEach((car) => {
-      if (car) car.drawCar(context);
+      if (car) car.drawCar(this.context);
     });
   }
 

@@ -14,6 +14,8 @@ export class Scenario {
 
   canvas!: HTMLCanvasElement;
 
+  context!: CanvasRenderingContext2D;
+
   x!: number;
 
   y!: number;
@@ -29,6 +31,8 @@ export class Scenario {
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.canvas.style.backgroundColor = 'green';
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.context = canvas.getContext('2d')!;
 
     this.x = canvas.width / 2 - this.roadImageWidth / 2;
     this.y = 0;
@@ -41,14 +45,13 @@ export class Scenario {
 
   /**
    * Отрисовка дороги (в т.ч. обочины)
-   * @param {CanvasRenderingContext2D} context - Контекст Canvas.
    */
-  drawRoad(context: CanvasRenderingContext2D) {
-    context.drawImage(this.roadImage, this.x, this.y, this.roadImageWidth, this.roadImageHeight);
-    context.drawImage(this.roadImage, this.x, this.y2, this.roadImageWidth, this.roadImageHeight);
+  drawRoad() {
+    this.context.drawImage(this.roadImage, this.x, this.y, this.roadImageWidth, this.roadImageHeight);
+    this.context.drawImage(this.roadImage, this.x, this.y2, this.roadImageWidth, this.roadImageHeight);
 
     this.trees.forEach((tree) => {
-      tree.draw(context);
+      tree.draw(this.context);
     });
   }
 
