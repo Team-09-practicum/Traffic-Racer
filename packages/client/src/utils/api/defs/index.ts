@@ -1,0 +1,1 @@
+export { postSignUp } from './postSignUp';
