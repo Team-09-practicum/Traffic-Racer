@@ -7,14 +7,13 @@ export const GamePage = () => {
   const [isGameStarted, setGameStarted] = useState(false);
   const [isGameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
-
-  const isFirstStart = () => !isGameStarted && !isGameOver;
+  const isFirstStart = !isGameStarted && !isGameOver;
 
   return (
     <div>
       <Link to={RoutePath.main}> Главное меню </Link>
 
-      {isFirstStart() && <div>Нажмите любую клавишу для старта</div>}
+      {isFirstStart && <div>Нажмите любую клавишу для старта</div>}
       {isGameStarted && <div>Игра началась</div>}
       {isGameOver && <div>Game Over</div>}
       <div>Score: {score}</div>
