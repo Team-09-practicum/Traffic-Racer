@@ -87,28 +87,26 @@ export class Car {
    * Движение автомобиля влево
    */
   moveToLeft() {
-    if (!(this.isMovingRight || this.isMovingLeft)) {
-      if (this.currentLane > this.positions[0]) {
-        this.nextLane = this.currentLane - 1;
-        this.movingLeft();
-        this.isMovingLeft = true;
-        this.isMovingRight = false;
-      }
-    }
+    if (this.isMovingRight || this.isMovingLeft) return;
+    if (this.currentLane <= this.positions[0]) return;
+
+    this.nextLane = this.currentLane - 1;
+    this.movingLeft();
+    this.isMovingLeft = true;
+    this.isMovingRight = false;
   }
 
   /**
    * Движение автомобиля вправо
    */
   moveToRight() {
-    if (!(this.isMovingRight || this.isMovingLeft)) {
-      if (this.currentLane < this.positions[this.positions.length - 1]) {
-        this.nextLane = this.currentLane + 1;
-        this.movingRight();
-        this.isMovingLeft = false;
-        this.isMovingRight = true;
-      }
-    }
+    if (this.isMovingRight || this.isMovingLeft) return;
+    if (this.currentLane >= this.positions[this.positions.length - 1]) return;
+
+    this.nextLane = this.currentLane + 1;
+    this.movingRight();
+    this.isMovingLeft = false;
+    this.isMovingRight = true;
   }
 
   movingLeft() {

@@ -70,12 +70,7 @@ export class Traffic {
    */
   canCreateCarInLane(laneNum: number) {
     const carsInCurrentLane = this.carsInLane(laneNum);
-
-    for (let i = 0; i < carsInCurrentLane.length; i++) {
-      const car = carsInCurrentLane[i];
-      if (car && car.y < this.necessaryRoadSpace) return false;
-    }
-    return true;
+    return !carsInCurrentLane.some((car) => car.y < this.necessaryRoadSpace);
   }
 
   /**
@@ -165,20 +160,19 @@ export class Traffic {
    */
   // eslint-disable-next-line class-methods-use-this
   preventCollisionInLane(carsInCurrentLane: Car[]) {
-    if (carsInCurrentLane.length > 1) {
-      for (let i = 0; i < carsInCurrentLane.length; i++) {
-        const car = carsInCurrentLane[i];
-        car.carNearMyBack = undefined;
-      }
+    if (!carsInCurrentLane.length) return;
+    for (let i = 0; i < carsInCurrentLane.length; i++) {
+      const car = carsInCurrentLane[i];
+      car.carNearMyBack = undefined;
+    }
 
-      for (let i = 0; i < carsInCurrentLane.length; i++) {
-        const car1 = carsInCurrentLane[i];
-        for (let j = i + 1; j < carsInCurrentLane.length; j++) {
-          const car2 = carsInCurrentLane[j];
-          if (isCloseTo(car1.collisionArea, car2.collisionArea)) {
-            if (car1.y < car2.y) car1.carNearMyBack = car2;
-            else car2.carNearMyBack = car1;
-          }
+    for (let i = 0; i < carsInCurrentLane.length; i++) {
+      const car1 = carsInCurrentLane[i];
+      for (let j = i + 1; j < carsInCurrentLane.length; j++) {
+        const car2 = carsInCurrentLane[j];
+        if (isCloseTo(car1.collisionArea, car2.collisionArea)) {
+          if (car1.y < car2.y) car1.carNearMyBack = car2;
+          else car2.carNearMyBack = car1;
         }
       }
     }
@@ -190,13 +184,12 @@ export class Traffic {
   changeEmptyLane() {
     const changeEmptyLaneProbability = Math.random();
 
-    if (changeEmptyLaneProbability < 0.002) {
-      if (this.nextEmptyLane === this.emptyLane) {
-        this.nextEmptyLane = getRandomIntBetweenInterval(0, GameConfig.scenario.numberOfLanes - 1);
-        while (this.nextEmptyLane === this.emptyLane) {
-          this.nextEmptyLane = getRandomIntBetweenInterval(0, GameConfig.scenario.numberOfLanes - 1);
-        }
-      }
+    if (changeEmptyLaneProbability >= 0.002) return;
+    if (this.nextEmptyLane !== this.emptyLane) return;
+
+    this.nextEmptyLane = getRandomIntBetweenInterval(0, GameConfig.scenario.numberOfLanes - 1);
+    while (this.nextEmptyLane === this.emptyLane) {
+      this.nextEmptyLane = getRandomIntBetweenInterval(0, GameConfig.scenario.numberOfLanes - 1);
     }
   }
 
@@ -204,10 +197,8 @@ export class Traffic {
    * Смена свободной полосы (если следующая пустая свободна от машин)
    */
   tryChangeEmptyLane() {
-    if (this.nextEmptyLane !== this.emptyLane) {
-      if (!this.carsInLane(this.nextEmptyLane).length) {
-        this.emptyLane = this.nextEmptyLane;
-      }
+    if (this.nextEmptyLane !== this.emptyLane && !this.carsInLane(this.nextEmptyLane).length) {
+      this.emptyLane = this.nextEmptyLane;
     }
   }
 
