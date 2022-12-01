@@ -46,8 +46,8 @@ export const TrafficRacer: Props = ({
     if (!canvasCtxRef.current) return;
     canvasCtxRef.current.clearRect(0, 0, width, height);
 
-    scenario.drawRoad(canvasCtxRef.current);
-    traffic.draw(canvasCtxRef.current);
+    scenario.drawRoad();
+    traffic.draw();
 
     if (isOver.current) {
       isStarted.current = false;
