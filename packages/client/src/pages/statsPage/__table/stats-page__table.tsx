@@ -1,0 +1,45 @@
+import { Typography } from 'antd';
+import React from 'react';
+import { IStatsItem } from '../typings';
+import { StatsPagePlayerInfo } from '../__player-info/stats-page__player-info';
+
+import './stats-page__table.scss';
+
+interface Props {
+  scores: IStatsItem[];
+}
+
+export const StatsPageTable = (props: Props) => {
+  const { scores } = props;
+
+  return (
+    <div className="stats-page__table-wrapper">
+      <table className="stats-page__table">
+        <tr>
+          <th>
+            <Typography.Title level={4}>#</Typography.Title>
+          </th>
+          <th>
+            <Typography.Title level={4}>Игрок</Typography.Title>
+          </th>
+          <th>
+            <Typography.Title level={4}>Очки</Typography.Title>
+          </th>
+        </tr>
+        {scores.map((scoreItem, index) => (
+          <tr>
+            <th>
+              <Typography>{index + 1}</Typography>
+            </th>
+            <th>
+              <StatsPagePlayerInfo avatarImgSrc={scoreItem.avatar} playerName={scoreItem.name} />
+            </th>
+            <th>
+              <Typography>{scoreItem.score}</Typography>
+            </th>
+          </tr>
+        ))}
+      </table>
+    </div>
+  );
+};

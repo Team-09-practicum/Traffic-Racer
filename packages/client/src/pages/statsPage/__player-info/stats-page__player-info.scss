@@ -1,0 +1,35 @@
+@import '@/design';
+
+.stats-page {
+  &__player-info {
+    display: flex;
+    align-items: center;
+  }
+
+  &__player-avatar-wrapper {
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    border: $Black400 4px solid;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+
+  &__player-avatar {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__player-avatar-background {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__player-avatar-letter {
+    color: white;
+    font-size: 24px;
+  }
+}
