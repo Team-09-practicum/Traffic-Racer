@@ -1,7 +1,7 @@
 import React from 'react';
-import './StartGame.scss';
+import './GameStart.scss';
 
-const StartGame = () => (
+const GameStart = () => (
   <div className="modalWindow">
     <div className="modalWindow__blink">
       <h3 className="modalWindow__blink__text__instr">
@@ -14,4 +14,4 @@ const StartGame = () => (
   </div>
 );
 
-export default StartGame;
+export default GameStart;
