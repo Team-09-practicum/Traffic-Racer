@@ -9,7 +9,7 @@ export interface SignUpProps {
   phone: 'string';
 }
 
-export const signUpController = async (userInfo: SignUpProps) => {
+export const signUp = async (userInfo: SignUpProps) => {
   await api.postSignUp({
     data: userInfo,
     onSuccess: (res) => {
