@@ -13,13 +13,7 @@ type TrafficRacerProps = {
 
 type Props = FC<TrafficRacerProps>;
 
-export const TrafficRacer: Props = ({
-  height,
-  width,
-  setGameStarted,
-  setGameOver,
-  setScore,
-}) => {
+export const TrafficRacer: Props = ({ height, width, setGameStarted, setGameOver, setScore }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const canvasCtxRef = useRef<CanvasRenderingContext2D | null>(null);
   const animationID = useRef<number>();

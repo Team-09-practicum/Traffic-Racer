@@ -45,7 +45,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     'no-plusplus': 'off',
     'react/require-default-props': 'off',
-    'max-len': ['error', { code: 180 }],
+    'max-len': ['error', { code: 120, ignoreComments: true }],
   },
   settings: {
     'import/resolver': {
