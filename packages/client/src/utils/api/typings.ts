@@ -11,7 +11,11 @@ export interface IRequestParams<E> {
   urlParams?: object | URLSearchParams;
   data?: string | object | ArrayBuffer;
   onSuccess?: (response: E) => void;
-  onError?: () => void;
+  onError?: (err: unknown) => void;
 }
 
 export type IMakeRequestParams<T> = IDefParams & IRequestParams<T>;
+
+export interface ErrorResProps {
+  [x: string]: ErrorResProps;
+}

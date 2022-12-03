@@ -32,9 +32,9 @@ export const makeRequest = async <T>({
     if (onSuccess) {
       onSuccess(response.data);
     }
-  } catch {
+  } catch (err) {
     if (onError) {
-      onError();
+      onError(err);
     }
   }
 };
