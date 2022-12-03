@@ -3,7 +3,17 @@ import React, { useCallback } from 'react';
 import { Typography, Form, Input, Button, Avatar, Radio } from 'antd';
 import { appRoutes } from '@/utils/router/appRoutes';
 import React, { useCallback, useState } from 'react';
-import { Typography, Form, Input, Button, Avatar, Radio, Modal } from 'antd';
+import {
+  Typography,
+  Form,
+  Input,
+  Button,
+  Avatar,
+  Radio,
+  Modal,
+  Row,
+  Col,
+} from 'antd';
 import { RoutePath } from '@/utils/router/routeConfig';
 import './UserInfoPage.scss';
 
@@ -109,8 +119,38 @@ export const UserInfoPage = () => {
             name="first_name">
             <Input />
           </Form.Item>
+          <Form.Item
+            className="profile__form-item"
+            label="Фамилия"
+            name="second_name">
+            <Input />
+          </Form.Item>
+          <Form.Item
+            className="profile__form-item"
+            label="Имя в игре"
+            name="display_name">
+            <Input />
+          </Form.Item>
+          <Form.Item
+            className="profile__form-item"
+            label="Телефон"
+            name="phone">
+            <Input />
+          </Form.Item>
+          <Form.Item className="profile__form-item">
+            <Button
+              className="profile__button"
+              htmlType="submit"
+              type="primary">
+              Сохранить
+            </Button>
+          </Form.Item>
+          <Link to={RoutePath.сhangePassword}> Изменить пароль </Link>
+          <br />
+          <br />
+          <Link to={RoutePath.main}> Главное меню </Link>
         </Form>
-      </Modal>
-    </div>
+      </Col>
+    </Row>
   );
 };

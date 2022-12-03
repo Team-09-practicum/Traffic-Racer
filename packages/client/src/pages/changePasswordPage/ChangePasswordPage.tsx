@@ -14,7 +14,6 @@ export const ChangePasswordPage = () => {
   return (
     <Row justify="center" align="middle" className="password">
       <Col className="password__col">
-        {' '}
         <Title className="password__form-title">Пароль</Title>
         <Form
           size="large"
