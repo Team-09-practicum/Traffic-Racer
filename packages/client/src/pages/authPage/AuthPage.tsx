@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 import { Typography, Row, Col, Form, Input, Button } from 'antd';
 import { RoutePath } from '@/utils/router/routeConfig';
 import './AuthPage.scss';
-import { signIn, SignInProps } from '@/controllers/signIn';
+import { signIn, ISignIn } from '@/controllers/signIn';
 
 const { Title } = Typography;
 
 export const AuthPage = () => {
-  const submit = useCallback(
-    (inputValues: SignInProps) => signIn(inputValues),
-    []
-  );
+  const submit = useCallback((inputValues: ISignIn) => signIn(inputValues), []);
 
   return (
     <Row justify="center" align="middle" className="auth">

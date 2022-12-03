@@ -1,11 +1,11 @@
 import { api } from '@/utils/api';
 
-export interface ChangePasswordProps {
+export interface IChangePassword {
   oldPassword: 'string';
   newPassword: 'string';
 }
 
-export const changePassword = async (passwords: ChangePasswordProps) => {
+export const changePassword = async (passwords: IChangePassword) => {
   await api.putPasswordChange({
     data: passwords,
     // eslint-disable-next-line no-console

@@ -1,6 +1,6 @@
 import { api } from '@/utils/api';
 
-export interface SignUpProps {
+export interface ISignUp {
   first_name: 'string';
   second_name: 'string';
   login: 'string';
@@ -9,7 +9,7 @@ export interface SignUpProps {
   phone: 'string';
 }
 
-export const signUp = async (userInfo: SignUpProps) => {
+export const signUp = async (userInfo: ISignUp) => {
   await api.postSignUp({
     data: userInfo,
     onSuccess: (res) => {

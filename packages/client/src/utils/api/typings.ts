@@ -7,7 +7,7 @@ export interface IDefParams {
   headers?: Record<string, string>;
 }
 
-export interface ErrorResProps {
+export interface IErrorRes {
   response: {
     data: {
       reason: string;

@@ -1,18 +1,14 @@
-/* eslint-disable no-console */
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Row, Col, Form, Input, Button } from 'antd';
 import { RoutePath } from '@/utils/router/routeConfig';
 import './RegistrationPage.scss';
-import { signUp, SignUpProps } from '@/controllers/signUp';
+import { signUp, ISignUp } from '@/controllers/signUp';
 
 const { Title } = Typography;
 
 export const RegistrationPage = () => {
-  const submit = useCallback(
-    (inputValues: SignUpProps) => signUp(inputValues),
-    []
-  );
+  const submit = useCallback((inputValues: ISignUp) => signUp(inputValues), []);
 
   return (
     <Row justify="center" align="middle" className="reg">
