@@ -1,0 +1,49 @@
+.gameOverPage {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.53);
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transition: 0.5s;
+    opacity: 0;
+    animation: ani 1s forwards;
+    pointer-events: all;
+    color: white;
+    &__text {
+        margin: 15px;
+    }
+    &__link {
+        color: inherit; 
+        text-decoration: inherit; 
+        cursor: pointer;
+        margin: 10px;
+        font-size: 16px
+      }
+    &__link:hover {
+        color: red
+    }
+}
+    
+@keyframes ani {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
+
+.blink {
+    animation: blink 3s linear infinite; 
+    font-weight: bold; 
+    color: rgb(7, 7, 7); 
+}
+
+@keyframes blink {  
+    0% { color: rgb(255, 255, 255); }
+    50% { color: rgb(95, 95, 95); }
+    100% { color: rgb(255, 255, 255); } 
+}

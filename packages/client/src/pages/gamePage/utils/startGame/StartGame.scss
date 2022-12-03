@@ -1,0 +1,36 @@
+.modalWindow {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+    opacity: 1;
+    pointer-events: all
+
+}    
+
+.modalWindow__blink {
+    animation: blink 3s linear infinite; 
+    color: rgb(7, 7, 7);
+    &__text{
+        margin: 15px auto;
+        display: flex;
+        justify-content: center;
+    }
+    &__text__instr{
+        color: white;
+    }
+    }
+    
+@keyframes modalWindow__blink {  
+    0% { color: rgb(255, 255, 255); }
+    50% { color: rgb(95, 95, 95); }
+    100% { color: rgb(255, 255, 255); } 
+}

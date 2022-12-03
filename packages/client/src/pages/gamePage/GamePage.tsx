@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { RoutePath } from '@/utils/router/routeConfig';
 import { TrafficRacer } from './components/TrafficRacer';
+import StartGame from './utils/startGame/startGame';
+import EndGame from './utils/endGame/EndGame';
 
 export const GamePage = () => {
   const [isGameStarted, setGameStarted] = useState(false);
@@ -13,9 +15,9 @@ export const GamePage = () => {
     <div>
       <Link to={RoutePath.main}> Главное меню </Link>
 
-      {isFirstStart && <div>Нажмите любую клавишу для старта</div>}
+      {isFirstStart && <StartGame />}
       {isGameStarted && <div>Игра началась</div>}
-      {isGameOver && <div>Game Over</div>}
+      {isGameOver && <EndGame score={score} />}
       <div>Score: {score}</div>
 
       <TrafficRacer
