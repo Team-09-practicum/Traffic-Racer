@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
 import { api } from '@/utils/api';
 
-export const logoutController = async () => {
+export const logout = async () => {
   await api.postLogout({
     data: {},
+    // eslint-disable-next-line no-console
     onSuccess: (res) => console.log('%cResponse = ', 'color: green', res),
   });
 };

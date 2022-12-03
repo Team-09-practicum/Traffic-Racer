@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { RoutePath } from '@/utils/router/routeConfig';
-import { logoutController } from '@/controllers/logoutController';
+import { logout } from '@/controllers/logout';
 
 export const MainPage = () => {
-  const logout = () => logoutController();
+  const logoutProcess = useCallback(() => logout(), []);
 
   return (
     <div>
@@ -14,7 +14,7 @@ export const MainPage = () => {
       <Link to={RoutePath.forum}> Форум </Link>
       <Link to={RoutePath.game}> Игра </Link>
       <Link to={RoutePath.userinfo}> Настройка игрока </Link>
-      <button type="button" onClick={logout}>
+      <button type="button" onClick={logoutProcess}>
         Выйти
       </button>
     </div>

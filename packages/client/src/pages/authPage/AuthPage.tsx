@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Row, Col, Form, Input, Button } from 'antd';
 import { RoutePath } from '@/utils/router/routeConfig';
 import './AuthPage.scss';
-import { signInController, SignInProps } from '@/controllers/signInController';
+import { signIn, SignInProps } from '@/controllers/signIn';
 
 const { Title } = Typography;
 
 export const AuthPage = () => {
-  const submit = (values: SignInProps) => signInController(values);
+  const submit = useCallback(
+    (inputValues: SignInProps) => signIn(inputValues),
+    []
+  );
 
   return (
     <Row justify="center" align="middle" className="auth">

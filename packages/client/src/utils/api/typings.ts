@@ -7,6 +7,14 @@ export interface IDefParams {
   headers?: Record<string, string>;
 }
 
+export interface ErrorResProps {
+  response: {
+    data: {
+      reason: string;
+    };
+  };
+}
+
 export interface IRequestParams<E> {
   urlParams?: object | URLSearchParams;
   data?: string | object | ArrayBuffer;
@@ -15,7 +23,3 @@ export interface IRequestParams<E> {
 }
 
 export type IMakeRequestParams<T> = IDefParams & IRequestParams<T>;
-
-export interface ErrorResProps {
-  [x: string]: ErrorResProps;
-}
