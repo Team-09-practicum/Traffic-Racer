@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import React, { useCallback } from 'react';
 import { Typography, Form, Input, Button, Avatar, Radio } from 'antd';
 import { appRoutes } from '@/utils/router/appRoutes';
+import React, { useCallback, useState } from 'react';
+import { Typography, Form, Input, Button, Avatar, Radio, Modal } from 'antd';
+import { RoutePath } from '@/utils/router/routeConfig';
 import './UserInfoPage.scss';
 
 const layout = {
@@ -26,6 +29,20 @@ const userProfile = {
 export const UserInfoPage = () => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const submitHandler = useCallback((): void => {}, []);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="profile">
@@ -68,12 +85,38 @@ export const UserInfoPage = () => {
           <Button className="profile__button" htmlType="submit" type="primary">
             Сохранить
           </Button>
-          <Button className="profile__button" htmlType="button" type="primary">
+          <Button
+            className="profile__button"
+            htmlType="button"
+            type="primary"
+            onClick={showModal}>
             Изменить пароль
           </Button>
         </Form.Item>
       </Form>
       <Link to={appRoutes.main}> Главное меню </Link>
+      <Link to={RoutePath.main}> Главное меню </Link>
+      <Link to={RoutePath.сhangePassword}> Изменить пароль </Link>
+      <Modal
+        centered
+        title="Изменение пароля"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="back" type="primary" onClick={handleCancel}>
+            Изменить
+          </Button>,
+        ]}>
+        <Form>
+          <Form.Item
+            className="profile__form-item"
+            label="Имя"
+            name="first_name">
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };
