@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { Link } from 'react-router-dom';
 import React, { useCallback } from 'react';
 import { Typography, Form, Input, Button, Avatar, Radio } from 'antd';
@@ -8,10 +7,6 @@ import { Typography, Form, Input, Button, Avatar, Radio, Modal } from 'antd';
 import { RoutePath } from '@/utils/router/routeConfig';
 import './UserInfoPage.scss';
 
-const layout = {
-  labelCol: { span: 10 },
-  wrapperCol: { span: 34 },
-};
 const { Title } = Typography;
 
 // временная заглушка
@@ -46,14 +41,13 @@ export const UserInfoPage = () => {
 
   return (
     <div className="profile">
+      <Title className="profile__form-title">Профиль</Title>
       <Form
-        {...layout}
         name="basic"
         className="profile__form"
         layout="vertical"
         initialValues={userProfile || {}}
         onFinish={submitHandler}>
-        <Title className="profile__form-title">Профиль</Title>
         <Avatar className="profile__avatar" size={96}>
           User
         </Avatar>
