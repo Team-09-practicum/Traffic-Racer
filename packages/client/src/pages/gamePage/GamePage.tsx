@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { RoutePath } from '@/utils/router/routeConfig';
 import { TrafficRacer } from './components/TrafficRacer';
-import GameEnd from './utils/endGame/EndGame';
+import GameEnd from './utils/endGame/GameEnd';
 import GameStart from './utils/startGame/GameStart';
 
 export const GamePage = () => {
