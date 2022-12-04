@@ -9,10 +9,10 @@ import {
   Input,
   Button,
   Avatar,
-  Radio,
   Modal,
   Row,
   Col,
+  Upload,
 } from 'antd';
 import { RoutePath } from '@/utils/router/routeConfig';
 import './UserInfoPage.scss';
@@ -150,6 +150,21 @@ export const UserInfoPage = () => {
           <br />
           <Link to={RoutePath.main}> Главное меню </Link>
         </Form>
+        <Modal
+          centered
+          title="Изменение аватарки"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={[
+            <Button key="change" type="primary" onClick={handleCancel}>
+              Изменить
+            </Button>,
+          ]}>
+          <Upload>
+            <Button>Выбрать файл</Button>
+          </Upload>
+        </Modal>
       </Col>
     </Row>
   );
