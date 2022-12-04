@@ -1,4 +1,4 @@
-export const RoutePath: Record<string, string> = {
+export const appRoutes: Record<string, string> = {
   main: '/',
   game: '/game',
   auth: '/auth',
@@ -8,4 +8,5 @@ export const RoutePath: Record<string, string> = {
   forum: '/forum',
   error404: '/404',
   error500: '/500',
+  topic: '/forum/topic/:id',
 };

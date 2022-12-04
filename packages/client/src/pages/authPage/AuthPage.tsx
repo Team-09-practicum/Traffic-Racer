@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Typography, Row, Col, Form, Input, Button } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RoutePath } from '@/utils/router/routeConfig';
+import { appRoutes } from '@/utils/router/appRoutes';
 import { authSchema } from '@/utils/validation/validationSchema';
 import './AuthPage.scss';
 
@@ -54,7 +54,7 @@ export const AuthPage = () => {
             </Button>
           </Form.Item>
         </Form>
-        <Link className="auth__link" to={RoutePath.registration}>
+        <Link className="auth-page__link" to={appRoutes.registration}>
           Нет аккаунта?
         </Link>
       </Col>

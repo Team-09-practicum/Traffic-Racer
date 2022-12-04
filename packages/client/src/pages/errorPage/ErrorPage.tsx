@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import { RoutePath } from '@/utils/router/routeConfig';
+import { appRoutes } from '@/utils/router/appRoutes';
 import './ErrorPage.scss';
 
 interface IErrorPage {
@@ -14,7 +14,7 @@ export const ErrorPage = ({ nameError, textError }: IErrorPage) => (
       <h1 className="error__title">Ошибка {nameError}</h1>
       <p className="error__subtitle">{textError}</p>
     </div>
-    <Link className="error__link" to={RoutePath.main}>
+    <Link className="error__link" to={appRoutes.main}>
       Главное меню
     </Link>
   </div>
