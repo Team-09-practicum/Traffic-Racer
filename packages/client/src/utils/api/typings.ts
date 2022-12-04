@@ -7,11 +7,19 @@ export interface IDefParams {
   headers?: Record<string, string>;
 }
 
+export interface IErrorRes {
+  response: {
+    data: {
+      reason: string;
+    };
+  };
+}
+
 export interface IRequestParams<E> {
   urlParams?: object | URLSearchParams;
   data?: string | object | ArrayBuffer;
   onSuccess?: (response: E) => void;
-  onError?: () => void;
+  onError?: (err: unknown) => void;
 }
 
 export type IMakeRequestParams<T> = IDefParams & IRequestParams<T>;
