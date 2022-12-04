@@ -15,44 +15,22 @@ export const RegistrationPage = () => {
       <Col className="reg__col">
         <Title className="reg__title">Регистрация</Title>
         <Form size="large" className="reg__form" onFinish={submit}>
-          <Form.Item
-            name="first_name"
-            rules={[
-              { required: true, message: 'Пожалуйста, введите ваше имя!' },
-            ]}>
+          <Form.Item name="first_name" rules={[{ required: true, message: 'Пожалуйста, введите ваше имя!' }]}>
             <Input placeholder="Имя" />
           </Form.Item>
-          <Form.Item
-            name="second_name"
-            rules={[
-              { required: true, message: 'Пожалуйста, введите вашу фамилию!' },
-            ]}>
+          <Form.Item name="second_name" rules={[{ required: true, message: 'Пожалуйста, введите вашу фамилию!' }]}>
             <Input placeholder="Фамилия" />
           </Form.Item>
-          <Form.Item
-            name="email"
-            rules={[
-              { required: true, message: 'Пожалуйста, введите вам email!' },
-            ]}>
+          <Form.Item name="email" rules={[{ required: true, message: 'Пожалуйста, введите вам email!' }]}>
             <Input placeholder="Email" />
           </Form.Item>
-          <Form.Item
-            name="phone"
-            rules={[
-              { required: true, message: 'Пожалуйста, введите ваш телефон!' },
-            ]}>
+          <Form.Item name="phone" rules={[{ required: true, message: 'Пожалуйста, введите ваш телефон!' }]}>
             <Input placeholder="Телефон" />
           </Form.Item>
-          <Form.Item
-            name="login"
-            rules={[{ required: true, message: 'Пожалуйста, введите логин!' }]}>
+          <Form.Item name="login" rules={[{ required: true, message: 'Пожалуйста, введите логин!' }]}>
             <Input placeholder="Логин" />
           </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              { required: true, message: 'Пожалуйста, введите пароль!' },
-            ]}>
+          <Form.Item name="password" rules={[{ required: true, message: 'Пожалуйста, введите пароль!' }]}>
             <Input.Password placeholder="Пароль" />
           </Form.Item>
           <Form.Item>

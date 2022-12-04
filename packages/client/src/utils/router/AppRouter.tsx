@@ -22,14 +22,8 @@ export const AppRouter = () => (
     <Route path={RoutePath.userinfo} element={<UserInfoPage />} />
     <Route path={RoutePath.stats} element={<StatsPage />} />
     <Route path={RoutePath.forum} element={<ForumPage />} />
-    <Route
-      path={RoutePath.error404}
-      element={<ErrorPage nameError="404" textError="Страница не существует" />}
-    />
-    <Route
-      path={RoutePath.error500}
-      element={<ErrorPage nameError="500" textError="Мы уже фиксим" />}
-    />
+    <Route path={RoutePath.error404} element={<ErrorPage nameError="404" textError="Страница не существует" />} />
+    <Route path={RoutePath.error500} element={<ErrorPage nameError="500" textError="Мы уже фиксим" />} />
     <Route path="*" element={NoMatch()} />
   </Routes>
 );

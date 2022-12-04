@@ -15,16 +15,10 @@ export const AuthPage = () => {
       <Col className="auth__col">
         <Title className="auth__title">Вход</Title>
         <Form size="large" className="auth__form" onFinish={submit}>
-          <Form.Item
-            name="login"
-            rules={[{ required: true, message: 'Пожалуйста, введите логин!' }]}>
+          <Form.Item name="login" rules={[{ required: true, message: 'Пожалуйста, введите логин!' }]}>
             <Input placeholder="Логин" />
           </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              { required: true, message: 'Пожалуйста, введите пароль!' },
-            ]}>
+          <Form.Item name="password" rules={[{ required: true, message: 'Пожалуйста, введите пароль!' }]}>
             <Input.Password placeholder="Пароль" />
           </Form.Item>
           <Form.Item>

@@ -1,0 +1,12 @@
+.stats-page {
+  &__table-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__table {
+    width: 50%;
+    max-width: 500px;
+    border-spacing: 8px;
+  }
+}
