@@ -11,7 +11,7 @@ export class Traffic {
 
   context!: CanvasRenderingContext2D;
 
-  initialCarsYPosition = -100;
+  initialCarsYPosition = -GameConfig.traffic.carHeight;
 
   cars: (Car | undefined)[] = [];
 

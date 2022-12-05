@@ -10,7 +10,7 @@ export class Scenario {
 
   roadImageWidth = 500;
 
-  roadImageHeight = 600;
+  roadImageHeight = 500;
 
   canvas!: HTMLCanvasElement;
 
@@ -34,10 +34,14 @@ export class Scenario {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.context = canvas.getContext('2d')!;
 
-    this.x = canvas.width / 2 - this.roadImageWidth / 2;
-    this.y = 0;
-    this.y2 = -this.roadImageHeight;
+    this.roadImage.onload = () => {
+      this.roadImageHeight =
+        this.canvas.height > this.roadImage.naturalHeight ? this.canvas.height : this.roadImage.naturalHeight;
 
+      this.x = canvas.width / 2 - this.roadImageWidth / 2;
+      this.y = 0;
+      this.y2 = -this.roadImageHeight;
+    };
     this.roadImage.src = roadImg;
 
     this.createTrees();
@@ -67,6 +71,16 @@ export class Scenario {
     if (this.y2 >= 0) this.y2 = -this.roadImageHeight;
 
     this.updateTrees(speed);
+  }
+
+  /**
+   * Обновление высоты дороги
+   * @param {number} height - Высота в пикселях.
+   */
+  setRoadImageHeight(height: number) {
+    this.roadImageHeight = height;
+    this.y = 0;
+    this.y2 = -height;
   }
 
   /**
