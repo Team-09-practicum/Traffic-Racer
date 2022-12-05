@@ -55,9 +55,9 @@ export class Car implements ICar {
 
   y!: number;
 
-  height = 100;
+  height = GameConfig.traffic.carHeight;
 
-  width = 100;
+  width = GameConfig.traffic.carWidth;
 
   collisionArea: CollisionArea;
 

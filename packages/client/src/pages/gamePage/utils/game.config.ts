@@ -1,4 +1,8 @@
 export const GameConfig = {
+  general: {
+    width: 800,
+    background: 'green',
+  },
   level: {
     initialSpeed: 3,
     amountIncrease: 1,
@@ -21,9 +25,10 @@ export const GameConfig = {
     minCarSpeed: 0.3,
     maxCarSpeed: 0.8,
     cars: 5,
+    carHeight: 100,
+    carWidth: 100,
   },
   player: {
     carType: 0,
-    initialY: 390,
   },
 };
