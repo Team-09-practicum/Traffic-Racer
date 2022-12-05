@@ -1,4 +1,4 @@
-@import '@/design';
+@import '../../constants';
 .game-start {
   position: fixed;
   top: 0;
@@ -9,17 +9,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $background-color;
+  background-color: rgba($background-color, 0.5);
   pointer-events: none;
-  &__text {
+  & > &__text {
     margin: 16px auto;
-    &.ant-typography {
-      color: $text-color-start-end;
-    }
-    &__blink {
-      &.ant-typography {
-        animation: blink 2s linear infinite;
-      }
+    color: $text-color-start-end;
+    &_blink {
+      animation: blink 2s linear infinite;
     }
   }
 }

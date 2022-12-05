@@ -9,7 +9,7 @@ export const GameStart = () => (
     <Title className="game-start__text" level={3}>
       Используйте ← → для маневрирования
     </Title>
-    <Title className="game-start__text__blink" level={3}>
+    <Title className="game-start__text_blink" level={3}>
       Нажмите любую клавишу для старта
     </Title>
   </div>

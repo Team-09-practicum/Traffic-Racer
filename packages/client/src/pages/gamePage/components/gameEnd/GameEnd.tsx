@@ -22,7 +22,7 @@ export const GameEnd = ({ score }: IGameEnd) => (
     <Link className="game-end__link" to={RoutePath.stats}>
       Таблица лучших
     </Link>
-    <Title className="game-end__text__blink" level={3}>
+    <Title className="game-end__text_blink" level={3}>
       Для повтора нажмите любую клавишу
     </Title>
   </Col>

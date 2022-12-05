@@ -1,4 +1,4 @@
-@import '@/design';
+@import '../../constants';
 .game-end {
   position: fixed;
   top: 0;
@@ -10,16 +10,12 @@
   align-items: center;
   justify-content: center;
   animation: makeVisible 1s forwards;
-  background-color: $background-color;
-  &__text {
+  background-color: rgba($background-color, 0.5);
+  & > &__text {
     margin: 16px auto;
-    &.ant-typography {
-      color: $text-color-start-end;
-    }
-    &__blink {
-      &.ant-typography {
-        animation: blink 2s linear infinite;
-      }
+    color: $text-color-start-end;
+    &_blink {
+      animation: blink 2s linear infinite;
     }
   }
   &__link {
