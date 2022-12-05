@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import React, { useCallback } from 'react';
 import { Typography, Form, Input, Button, Avatar, Radio } from 'antd';
-import { RoutePath } from '@/utils/router/routeConfig';
+import { appRoutes } from '@/utils/router/appRoutes';
 import './UserInfoPage.scss';
 
 const layout = {
@@ -73,7 +73,7 @@ export const UserInfoPage = () => {
           </Button>
         </Form.Item>
       </Form>
-      <Link to={RoutePath.main}> Главное меню </Link>
+      <Link to={appRoutes.main}> Главное меню </Link>
     </div>
   );
 };

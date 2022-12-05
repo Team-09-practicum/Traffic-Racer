@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import { RoutePath } from '@/utils/router/routeConfig';
+import { appRoutes } from '@/utils/router/appRoutes';
 import './GameEnd.scss';
 
 const { Title } = Typography;
@@ -16,10 +16,10 @@ export const GameEnd = ({ score }: IGameEnd) => (
     <Title className="game-end__text" level={2}>
       Ваш результат : {score}
     </Title>
-    <Link className="game-end__link" to={RoutePath.main}>
+    <Link className="game-end__link" to={appRoutes.main}>
       Главное меню
     </Link>
-    <Link className="game-end__link" to={RoutePath.stats}>
+    <Link className="game-end__link" to={appRoutes.stats}>
       Таблица лучших
     </Link>
     <Title className="game-end__text_blink" level={3}>
