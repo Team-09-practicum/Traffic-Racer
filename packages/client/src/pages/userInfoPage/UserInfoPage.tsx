@@ -49,16 +49,10 @@ export const UserInfoPage = () => {
         <Form.Item className="profile__form-item" label="Имя" name="first_name">
           <Input />
         </Form.Item>
-        <Form.Item
-          className="profile__form-item"
-          label="Фамилия"
-          name="second_name">
+        <Form.Item className="profile__form-item" label="Фамилия" name="second_name">
           <Input />
         </Form.Item>
-        <Form.Item
-          className="profile__form-item"
-          label="Имя в игре"
-          name="display_name">
+        <Form.Item className="profile__form-item" label="Имя в игре" name="display_name">
           <Input />
         </Form.Item>
         <Form.Item className="profile__form-item" label="Телефон" name="phone">

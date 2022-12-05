@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_HOST, API_PATH } from '../constants';
-import { IMakeRequestParams } from './typings';
+import { showNetworkError } from '../showNetworkError';
+import { IErrorRes, IMakeRequestParams } from './typings';
 
 const defaultHeaders = {
   'content-type': 'application/json',
@@ -32,9 +33,12 @@ export const makeRequest = async <T>({
     if (onSuccess) {
       onSuccess(response.data);
     }
-  } catch {
+  } catch (err) {
+    if ((err as IErrorRes).response.data.reason) {
+      showNetworkError((err as IErrorRes).response.data.reason);
+    }
     if (onError) {
-      onError();
+      onError(err);
     }
   }
 };
