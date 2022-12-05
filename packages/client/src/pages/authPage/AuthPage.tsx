@@ -1,28 +1,55 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Row, Col, Form, Input, Button } from 'antd';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { RoutePath } from '@/utils/router/routeConfig';
+import { authSchema } from '@/utils/validation/validationSchema';
 import './AuthPage.scss';
-import { signIn, ISignIn } from '@/controllers/signIn';
 
 const { Title } = Typography;
 
+interface IAuthInput {
+  login: string;
+  password: string;
+}
+
 export const AuthPage = () => {
-  const submit = useCallback((inputValues: ISignIn) => signIn(inputValues), []);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IAuthInput>({
+    mode: 'onChange',
+    resolver: yupResolver(authSchema),
+  });
+
+  const onSubmit = (data: IAuthInput) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+  };
 
   return (
-    <Row justify="center" align="middle" className="auth">
-      <Col className="auth__col">
-        <Title className="auth__title">Вход</Title>
-        <Form size="large" className="auth__form" onFinish={submit}>
-          <Form.Item name="login" rules={[{ required: true, message: 'Пожалуйста, введите логин!' }]}>
-            <Input placeholder="Логин" />
+    <Row justify="center" align="middle" className="auth-page">
+      <Col className="auth-page__col">
+        <Title className="auth-page__title">Вход</Title>
+        <Form size="large" className="auth-page__form" onFinish={handleSubmit(onSubmit)}>
+          <Form.Item validateStatus={errors.login ? 'error' : ''} help={errors.login?.message}>
+            <Controller
+              name="login"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="Логин" />}
+            />
           </Form.Item>
-          <Form.Item name="password" rules={[{ required: true, message: 'Пожалуйста, введите пароль!' }]}>
-            <Input.Password placeholder="Пароль" />
+          <Form.Item validateStatus={errors.password ? 'error' : ''} help={errors.password?.message}>
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => <Input.Password {...field} placeholder="Пароль" />}
+            />
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit" className="auth__button">
+            <Button htmlType="submit" className="auth-page__button" disabled={!!Object.keys(errors).length}>
               Авторизация
             </Button>
           </Form.Item>
