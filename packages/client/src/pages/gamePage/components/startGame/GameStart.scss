@@ -9,12 +9,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.53);
+  background-color: $background-color;
   pointer-events: none;
   &__text {
     margin: 16px auto;
     &.ant-typography {
-      color: $base;
+      color: $text-color-start-end;
     }
     &__blink {
       &.ant-typography {
@@ -26,12 +26,12 @@
 
 @keyframes blink {
   0% {
-    color: $base;
+    color: $text-color-start-end;
   }
   50% {
-    color: $true-black;
+    color: $background-color;
   }
   100% {
-    color: $base;
+    color: $text-color-start-end;
   }
 }
