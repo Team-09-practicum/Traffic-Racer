@@ -1,0 +1,49 @@
+@import '@/design';
+.game-end {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: makeVisible 1s forwards;
+  background-color: rgba(0, 0, 0, 0.53);
+  &__text {
+    margin: 16px auto;
+    &.ant-typography {
+      color: $base;
+    }
+    &__blink {
+      &.ant-typography {
+        animation: blink 2s linear infinite;
+      }
+    }
+  }
+  &__link {
+    margin: 12px;
+  }
+}
+
+@keyframes makeVisible {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0% {
+    color: $base;
+  }
+  50% {
+    color: $true-black;
+  }
+  100% {
+    color: $base;
+  }
+}
