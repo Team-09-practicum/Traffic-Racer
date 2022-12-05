@@ -35,10 +35,10 @@ export const RegistrationPage = () => {
   };
 
   return (
-    <Row justify="center" align="middle" className="reg">
-      <Col className="reg__col">
-        <Title className="reg__title">Регистрация</Title>
-        <Form size="large" className="reg__form" onFinish={handleSubmit(onSubmit)}>
+    <Row justify="center" align="middle" className="registration-page">
+      <Col className="registration-page__col">
+        <Title className="registration-page__title">Регистрация</Title>
+        <Form size="large" className="registration-page__form" onFinish={handleSubmit(onSubmit)}>
           <Form.Item validateStatus={errors.first_name ? 'error' : ''} help={errors.first_name?.message}>
             <Controller
               name="first_name"
@@ -89,12 +89,12 @@ export const RegistrationPage = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit" className="reg__button" disabled={!!Object.keys(errors).length}>
+            <Button htmlType="submit" className="registration-page__button" disabled={!!Object.keys(errors).length}>
               Создать аккаунт
             </Button>
           </Form.Item>
         </Form>
-        <Link className="reg__link" to={RoutePath.auth}>
+        <Link className="registration-page__link" to={RoutePath.auth}>
           Уже есть аккаунт?
         </Link>
       </Col>

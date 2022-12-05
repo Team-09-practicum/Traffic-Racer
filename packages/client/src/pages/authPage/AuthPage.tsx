@@ -30,10 +30,10 @@ export const AuthPage = () => {
   };
 
   return (
-    <Row justify="center" align="middle" className="auth">
-      <Col className="auth__col">
-        <Title className="auth__title">Вход</Title>
-        <Form size="large" className="auth__form" onFinish={handleSubmit(onSubmit)}>
+    <Row justify="center" align="middle" className="auth-page">
+      <Col className="auth-page__col">
+        <Title className="auth-page__title">Вход</Title>
+        <Form size="large" className="auth-page__form" onFinish={handleSubmit(onSubmit)}>
           <Form.Item validateStatus={errors.login ? 'error' : ''} help={errors.login?.message}>
             <Controller
               name="login"
@@ -49,7 +49,7 @@ export const AuthPage = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit" className="auth__button" disabled={!!Object.keys(errors).length}>
+            <Button htmlType="submit" className="auth-page__button" disabled={!!Object.keys(errors).length}>
               Авторизация
             </Button>
           </Form.Item>

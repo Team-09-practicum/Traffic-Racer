@@ -5,6 +5,7 @@ export const authSchema = yup.object().shape({
   login: yup
     .string()
     .required('Пожалуйста, введите логин')
+    .min(5, 'Логин должен быть не короче 5 символов')
     .max(16, 'Логин не должен превышать 16 символов')
     .matches(/(?!^\d+$)[A-Za-z0-9_-]/, 'Логин может содержать только латинские буквы, цифры, _ и -'),
   password: yup
@@ -32,3 +33,7 @@ export const registrationSchema = authSchema.concat(
       .oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
   })
 );
+
+export const messageSchema = yup.object().shape({
+  message: yup.string().required('Пожалуйста, введите сообщение'),
+});
