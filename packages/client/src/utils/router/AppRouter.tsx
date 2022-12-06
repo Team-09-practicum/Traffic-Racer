@@ -21,6 +21,7 @@ export const AppRouter = () => (
     <Route path={appRoutes.auth} element={<AuthPage />} />
     <Route path={appRoutes.registration} element={<RegistrationPage />} />
     <Route path={appRoutes.userinfo} element={<UserInfoPage />} />
+    <Route path={appRoutes.userinfo} element={<ChangePasswordPage />} />
     <Route path={appRoutes.stats} element={<StatsPage />} />
     <Route path={appRoutes.forum} element={<ForumPage />} />
     <Route path={appRoutes.error404} element={<ErrorPage nameError="404" textError="Страница не существует" />} />
