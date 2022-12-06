@@ -1,9 +1,9 @@
 import { Typography } from 'antd';
 import React from 'react';
-import { IStatsItem } from '../typings';
-import { StatsPagePlayerInfo } from '../__player-info/stats-page__player-info';
+import { IStatsItem } from '../../typings';
+import { StatsPagePlayerInfo } from '../playerInfo/StatsPagePlayerInfo';
 
-import './stats-page__table.scss';
+import './StatsPageTable.scss';
 
 interface Props {
   scores: IStatsItem[];

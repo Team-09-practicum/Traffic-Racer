@@ -1,8 +1,8 @@
 import { Typography } from 'antd';
 import React from 'react';
-import { getAvatarBackgroundColor, getFirstLetterFromName } from '../utils';
+import { getAvatarBackgroundColor, getFirstLetterFromName } from '../../utils';
 
-import './stats-page__player-info.scss';
+import './StatsPagePlayerInfo.scss';
 
 interface Props {
   avatarImgSrc?: string | null;

@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { Typography } from 'antd';
 import { appRoutes } from '@/utils/router/appRoutes';
-import { StatsPageTable } from './__table/stats-page__table';
+import { StatsPageTable } from './components/table/StatsPageTable';
 import { response } from './mocks';
 
-import './stats-page.scss';
+import './StatsPage.scss';
 
 export const StatsPage = () => (
   <>
