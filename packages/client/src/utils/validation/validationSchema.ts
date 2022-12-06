@@ -37,3 +37,17 @@ export const registrationSchema = authSchema.concat(
 export const messageSchema = yup.object().shape({
   message: yup.string().required('Пожалуйста, введите сообщение'),
 });
+
+export const changePasswordSchema = yup.object().shape({
+  oldPassword: yup.string().required('Пожалуйста, введите пароль'),
+  newPassword: yup
+    .string()
+    .required('Пожалуйста, введите пароль')
+    .min(8, 'Пароль должен быть не короче 8 символов')
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/, 'Пароль должен содержать минимум одну букву и одну цифру')
+    .notOneOf([yup.ref('oldPassword'), null], 'Старый и новый пароли совпадают'),
+  confirm_password: yup
+    .string()
+    .required('Пожалуйста, подтвердите пароль')
+    .oneOf([yup.ref('newPassword'), null], 'Пароли не совпадают'),
+});
