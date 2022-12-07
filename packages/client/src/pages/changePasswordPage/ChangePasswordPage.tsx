@@ -11,9 +11,9 @@ import { changePasswordSchema } from '@/utils/validation/validationSchema';
 const { Title } = Typography;
 
 interface IPasswordInput {
-  oldPassword: 'string';
-  newPassword: 'string';
-  confirm_password: 'string';
+  oldPassword: string;
+  newPassword: string;
+  confirm_password: string;
 }
 
 export const ChangePasswordPage = () => {

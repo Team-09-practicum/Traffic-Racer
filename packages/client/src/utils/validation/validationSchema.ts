@@ -51,3 +51,24 @@ export const changePasswordSchema = yup.object().shape({
     .required('Пожалуйста, подтвердите пароль')
     .oneOf([yup.ref('newPassword'), null], 'Пароли не совпадают'),
 });
+
+export const profileSchema = registrationSchema.concat(
+  yup.object().shape(
+    {
+      display_name: yup
+        .string()
+        .nullable()
+        .when('display_name', (value) => {
+          if (value?.length > 0) {
+            return yup
+              .string()
+              .min(3, 'Имя должно быть не короче 3 символов')
+              .max(10, 'Имя не должно превышать 10 символов')
+              .matches(/(?!^\d+$)[A-Za-z0-9_-]/, 'Имя может содержать только латинские буквы, цифры, _ и -');
+          }
+          return yup.string().notRequired();
+        }),
+    },
+    [['display_name', 'display_name']]
+  )
+);
