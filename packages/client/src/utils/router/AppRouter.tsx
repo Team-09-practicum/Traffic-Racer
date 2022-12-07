@@ -10,6 +10,7 @@ import { MainPage } from '@/pages/mainPage/MainPage';
 import { RegistrationPage } from '@/pages/registrationPage/RegistrationPage';
 import { StatsPage } from '@/pages/statsPage/StatsPage';
 import { UserInfoPage } from '@/pages/userInfoPage/UserInfoPage';
+import { ChangePasswordPage } from '@/pages/changePasswordPage/ChangePasswordPage';
 
 const NoMatch = () => <Navigate to={appRoutes.error404} replace />;
 
@@ -20,6 +21,7 @@ export const AppRouter = () => (
     <Route path={appRoutes.auth} element={<AuthPage />} />
     <Route path={appRoutes.registration} element={<RegistrationPage />} />
     <Route path={appRoutes.userinfo} element={<UserInfoPage />} />
+    <Route path={appRoutes.сhangePassword} element={<ChangePasswordPage />} />
     <Route path={appRoutes.stats} element={<StatsPage />} />
     <Route path={appRoutes.forum} element={<ForumPage />} />
     <Route path={appRoutes.error404} element={<ErrorPage nameError="404" textError="Страница не существует" />} />

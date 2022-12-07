@@ -1,8 +1,8 @@
 import { api } from '@/utils/api';
 
 export interface IChangePassword {
-  oldPassword: 'string';
-  newPassword: 'string';
+  oldPassword: string;
+  newPassword: string;
 }
 
 export const changePassword = async (passwords: IChangePassword) => {

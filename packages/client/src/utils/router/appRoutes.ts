@@ -4,6 +4,7 @@ export const appRoutes: Record<string, string> = {
   auth: '/auth',
   registration: '/registration',
   userinfo: '/userinfo',
+  сhangePassword: '/changePassword',
   stats: '/stats',
   forum: '/forum',
   error404: '/404',
