@@ -35,8 +35,7 @@ export class Scenario {
     this.context = canvas.getContext('2d')!;
 
     this.roadImage.onload = () => {
-      this.roadImageHeight =
-        this.canvas.height > this.roadImage.naturalHeight ? this.canvas.height : this.roadImage.naturalHeight;
+      this.roadImageHeight = Math.max(this.canvas.height, this.roadImage.naturalHeight);
 
       this.x = canvas.width / 2 - this.roadImageWidth / 2;
       this.y = 0;

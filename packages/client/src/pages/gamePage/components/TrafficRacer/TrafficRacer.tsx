@@ -39,7 +39,6 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
 
   const draw = () => {
     if (!canvasCtxRef.current) return;
-    // console.log("HEIGHT", localHeight.current)
     canvasCtxRef.current.clearRect(0, 0, GameConfig.general.width, localHeight.current);
 
     scenario.current?.drawRoad();

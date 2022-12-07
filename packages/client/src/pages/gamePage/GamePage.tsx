@@ -26,7 +26,7 @@ export const GamePage = () => {
       {isFirstStart && <GameStart />}
       {isGameOver && <GameEnd score={score} />}
       {isGameStarted && (
-        <div className="score">
+        <div className="game-page__score">
           <Space direction="vertical" align="end">
             <Text strong>Счёт:</Text>
             <Title>{score}</Title>
