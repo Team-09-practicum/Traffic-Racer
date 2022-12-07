@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import React, { useCallback, useState } from 'react';
 import { Typography, Form, Input, Button, Avatar, Modal, Row, Col } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Link } from '@/components';
 import { appRoutes } from '@/utils/router/appRoutes';
 import { changeAvatar } from '@/controllers/changeAvatar';
 import { UserProfileForm } from './typings';
@@ -47,12 +47,13 @@ export const UserInfoPage = () => {
   }, []);
 
   const uploadAvatar = useCallback((): void => {
-    if (image) {
-      const formData = new FormData();
-      formData.append('avatar', image);
-      changeAvatar(formData);
-      setIsModalOpen(false);
+    if (!image) {
+      return;
     }
+    const formData = new FormData();
+    formData.append('avatar', image);
+    changeAvatar(formData);
+    setIsModalOpen(false);
   }, [image]);
 
   const showModal = () => {
@@ -64,55 +65,55 @@ export const UserInfoPage = () => {
   };
 
   return (
-    <Row justify="center" align="middle" className="profile">
-      <Col className="profile__col">
-        <Title className="profile__form-title">Профиль</Title>
-        <Avatar className="profile__avatar" onClick={showModal} />
-        <Form name="basic" className="profile__form" layout="vertical" onFinish={handleSubmit(onSubmit)}>
+    <Row justify="center" align="middle" className="profile-page">
+      <Col className="profile-page__col">
+        <Title className="profile-page__form-title">Профиль</Title>
+        <Avatar className="profile-page__avatar " onClick={showModal} />
+        <Form name="basic" className="profile-page__form" layout="vertical" onFinish={handleSubmit(onSubmit)}>
           <Form.Item
-            className="profile__form-item"
+            className="profile-page__form-item"
             label="Почта"
             validateStatus={errors.email ? 'error' : ''}
             help={errors.email?.message}>
             <Controller name="email" control={control} render={({ field }) => <Input {...field} />} />
           </Form.Item>
           <Form.Item
-            className="profile__form-item"
+            className="profile-page__form-item"
             label="Логин"
             validateStatus={errors.login ? 'error' : ''}
             help={errors.login?.message}>
             <Controller name="login" control={control} render={({ field }) => <Input {...field} />} />
           </Form.Item>
           <Form.Item
-            className="profile__form-item"
+            className="profile-page__form-item"
             label="Имя"
             validateStatus={errors.first_name ? 'error' : ''}
             help={errors.first_name?.message}>
             <Controller name="first_name" control={control} render={({ field }) => <Input {...field} />} />
           </Form.Item>
           <Form.Item
-            className="profile__form-item"
+            className="profile-page__form-item"
             label="Фамилия"
             validateStatus={errors.second_name ? 'error' : ''}
             help={errors.second_name?.message}>
             <Controller name="second_name" control={control} render={({ field }) => <Input {...field} />} />
           </Form.Item>
           <Form.Item
-            className="profile__form-item"
+            className="profile-page__form-item"
             label="Имя в игре"
             validateStatus={errors.display_name ? 'error' : ''}
             help={errors.display_name?.message}>
             <Controller name="display_name" control={control} render={({ field }) => <Input {...field} />} />
           </Form.Item>
           <Form.Item
-            className="profile__form-item"
+            className="profile-page__form-item"
             label="Телефон"
             validateStatus={errors.phone ? 'error' : ''}
             help={errors.phone?.message}>
             <Controller name="phone" control={control} render={({ field }) => <Input {...field} />} />
           </Form.Item>
-          <Form.Item className="profile__form-item">
-            <Button className="profile__button" htmlType="submit" type="primary">
+          <Form.Item className="profile-page__form-item">
+            <Button className="profile-page__button" htmlType="submit" type="primary">
               Сохранить
             </Button>
           </Form.Item>
@@ -132,7 +133,7 @@ export const UserInfoPage = () => {
             </Button>,
           ]}>
           <Form>
-            <Input onChange={handleChangeAvatar} accept="image/*" type="file" className="profile__avatar-input" />
+            <Input onChange={handleChangeAvatar} accept="image/*" type="file" className="profile-page__avatar-input" />
           </Form>
         </Modal>
       </Col>

@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Typography, Form, Input, Button, Col, Row } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Link } from '@/components';
 import { appRoutes } from '@/utils/router/appRoutes';
 import './ChangePasswordPage.scss';
 import { changePassword } from '@/controllers/changePassword';
@@ -26,15 +26,18 @@ export const ChangePasswordPage = () => {
     resolver: yupResolver(changePasswordSchema),
   });
 
-  const onSubmit = useCallback((data: IPasswordInput) => changePassword(data), []);
-
   return (
-    <Row justify="center" align="middle" className="password">
-      <Col className="password__col">
-        <Title className="password__form-title">Пароль</Title>
-        <Form size="large" name="basic" className="password__form" layout="vertical" onFinish={handleSubmit(onSubmit)}>
+    <Row justify="center" align="middle" className="password-page">
+      <Col className="password-page__col">
+        <Title className="password-page__form-title">Пароль</Title>
+        <Form
+          size="large"
+          name="basic"
+          className="password-page__form"
+          layout="vertical"
+          onFinish={handleSubmit(changePassword)}>
           <Form.Item
-            className="password__form-item"
+            className="password-page__form-item"
             validateStatus={errors.oldPassword ? 'error' : ''}
             help={errors.oldPassword?.message}>
             <Controller
@@ -44,7 +47,7 @@ export const ChangePasswordPage = () => {
             />
           </Form.Item>
           <Form.Item
-            className="password__form-item"
+            className="password-page__form-item"
             validateStatus={errors.newPassword ? 'error' : ''}
             help={errors.newPassword?.message}>
             <Controller
@@ -54,7 +57,7 @@ export const ChangePasswordPage = () => {
             />
           </Form.Item>
           <Form.Item
-            className="password__form-item"
+            className="password-page__form-item"
             validateStatus={errors.confirm_password ? 'error' : ''}
             help={errors.confirm_password?.message}>
             <Controller
@@ -63,8 +66,8 @@ export const ChangePasswordPage = () => {
               render={({ field }) => <Input.Password {...field} placeholder="Подтвердите  пароль" />}
             />
           </Form.Item>
-          <Form.Item className="password__form-item">
-            <Button className="password__button" htmlType="submit" type="primary">
+          <Form.Item className="password-page__form-item">
+            <Button className="password-page__button" htmlType="submit" type="primary">
               Сохранить
             </Button>
           </Form.Item>
