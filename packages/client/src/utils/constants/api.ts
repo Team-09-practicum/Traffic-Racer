@@ -9,4 +9,5 @@ export const apiPaths = {
   postLogout: '/auth/logout',
   putPassword: '/user/password',
   putAvatar: '/user/profile/avatar',
+  putProfile: '/user/profile',
 };
