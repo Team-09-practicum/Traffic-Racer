@@ -2,8 +2,9 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
   text-align: center;
+  height: 100%;
+
   &__text {
     align-items: center;
     display: flex;
