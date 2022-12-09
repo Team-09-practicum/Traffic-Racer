@@ -21,6 +21,7 @@ module.exports = {
     'jsx-quotes': [2, 'prefer-double'],
     quotes: [2, 'single', { allowTemplateLiterals: true }],
     'import/extensions': 'off',
+    'no-param-reassign': 'off', // for reduxtoolkit
     'react/function-component-definition': [
       2,
       {
