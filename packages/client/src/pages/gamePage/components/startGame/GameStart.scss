@@ -14,6 +14,11 @@
   & > &__text {
     margin: 16px auto;
     color: $text-color-start-end;
+
+    .ant-typography {
+      color: inherit;
+    }
+
     &_blink {
       animation: blink 2s linear infinite;
     }
