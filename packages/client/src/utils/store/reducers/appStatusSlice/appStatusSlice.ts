@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IAppStatus } from '../../typings';
+import { IAppStatus } from '@/typings/IAppStatus';
 
 const initialState: IAppStatus = {
   isAuth: false,

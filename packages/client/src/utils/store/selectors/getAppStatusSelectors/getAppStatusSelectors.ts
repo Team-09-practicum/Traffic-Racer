@@ -1,4 +1,4 @@
-import type { IAppStatus } from '../../typings';
+import type { IAppStatus } from '@/typings/IAppStatus';
 
 export const getIsAuth = (state: IAppStatus) => state.isAuth;
 

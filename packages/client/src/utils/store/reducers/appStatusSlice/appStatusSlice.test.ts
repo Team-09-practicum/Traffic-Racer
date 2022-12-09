@@ -1,5 +1,5 @@
 import { DeepPartial } from '@reduxjs/toolkit';
-import { IAppStatus } from '../../typings';
+import { IAppStatus } from '@/typings/IAppStatus';
 import { appStatusReducer, appStatusActions } from './appStatusSlice';
 
 describe('appStatusSlice.test', () => {

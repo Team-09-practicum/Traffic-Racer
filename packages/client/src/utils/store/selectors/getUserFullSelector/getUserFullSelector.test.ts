@@ -1,5 +1,5 @@
 import { DeepPartial } from '@reduxjs/toolkit';
-import { IUser } from '../../typings';
+import { IUser } from '@/typings/IUser';
 import { getUserFull } from './getUserFullSelector';
 
 describe('getUserFull', () => {

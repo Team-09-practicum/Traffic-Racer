@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
+import { IStateScheme } from '@/typings/IStateSchema';
 import { createReduxStore } from './store';
-import { IStateScheme } from './typings';
 
 interface IStoreProvider {
   children?: ReactNode;

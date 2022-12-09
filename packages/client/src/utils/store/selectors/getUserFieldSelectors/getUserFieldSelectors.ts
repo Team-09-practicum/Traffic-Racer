@@ -1,4 +1,4 @@
-import type { IUser } from '../../typings';
+import type { IUser } from '@/typings/IUser';
 
 export const getUserId = (state: IUser) => state.id;
 
