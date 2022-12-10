@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import { AppRouter } from '@/utils/router/AppRouter';
 import { Navigation } from '@/components/navigation/Navigation';
 import { StoreProvider } from './utils/store/StoreProvider';
+
 import './app.scss';
 
 const { Header, Content } = Layout;
