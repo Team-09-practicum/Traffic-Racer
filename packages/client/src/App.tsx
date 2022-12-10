@@ -1,16 +1,24 @@
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
-import { AppRouter } from './utils/router/AppRouter';
-import './app.scss';
+import { Layout } from 'antd';
+import { AppRouter } from '@/utils/router/AppRouter';
+import { Navigation } from '@/components/navigation/Navigation';
 import { StoreProvider } from './utils/store/StoreProvider';
+import './app.scss';
+
+const { Header, Content } = Layout;
 
 const App = () => (
   <StoreProvider>
-    <div className="App">
-      <Toaster />
-      Вот тут будет жить ваше приложение :)
-      <AppRouter />
-    </div>
+    <Layout className="layout">
+      <Header>
+        <Navigation />
+      </Header>
+      <Content className="layout__content">
+        <Toaster />
+        <AppRouter />
+      </Content>
+    </Layout>
   </StoreProvider>
 );
 
