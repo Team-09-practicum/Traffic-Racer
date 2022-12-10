@@ -1,6 +1,6 @@
 import { DeepPartial } from '@reduxjs/toolkit';
-import { IAppStatus } from '@/typings/IAppStatus';
-import { getIsAuth, getIsLoading } from './getAppStatusSelectors';
+import { IAppStatus, LoadingStatus } from '@/typings/IAppStatus';
+import { getIsAuth, getLoadingStatus } from './getAppStatusSelectors';
 
 describe('getAppStatusSelectors', () => {
   test('should return isAuth', () => {
@@ -9,10 +9,10 @@ describe('getAppStatusSelectors', () => {
     };
     expect(getIsAuth(state as IAppStatus)).toEqual(true);
   });
-  test('should return isLoading', () => {
+  test('should return loading', () => {
     const state: DeepPartial<IAppStatus> = {
-      isLoading: true,
+      loading: LoadingStatus.Unsent,
     };
-    expect(getIsLoading(state as IAppStatus)).toEqual(true);
+    expect(getLoadingStatus(state as IAppStatus)).toEqual(LoadingStatus.Unsent);
   });
 });

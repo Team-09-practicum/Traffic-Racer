@@ -25,17 +25,17 @@ const changedmockUser = {
 };
 
 describe('userSlice.test', () => {
-  test('shuld change full user info ', () => {
+  test('should change full user info ', () => {
     const state: IUser = mockUser;
     expect(userReducer(state, userActions.changeUserFullInfo(changedmockUser))).toEqual(changedmockUser);
   });
-  test('shuld change user id', () => {
+  test('should change user id', () => {
     const state: DeepPartial<IUser> = {
       id: 101,
     };
     expect(userReducer(state as IUser, userActions.changeUserId(11))).toEqual({ id: 11 });
   });
-  test('shuld change user email', () => {
+  test('should change user email', () => {
     const state: DeepPartial<IUser> = {
       email: 'test@email.ru',
     };
@@ -43,7 +43,7 @@ describe('userSlice.test', () => {
       email: 'test@gmail.com',
     });
   });
-  test('shuld change user login', () => {
+  test('should change user login', () => {
     const state: DeepPartial<IUser> = {
       login: 'Admin',
     };
@@ -51,7 +51,7 @@ describe('userSlice.test', () => {
       login: 'user',
     });
   });
-  test('shuld change user first name', () => {
+  test('should change user first name', () => {
     const state: DeepPartial<IUser> = {
       first_name: 'Any',
     };
@@ -59,7 +59,7 @@ describe('userSlice.test', () => {
       first_name: 'user',
     });
   });
-  test('shuld change user second name', () => {
+  test('should change user second name', () => {
     const state: DeepPartial<IUser> = {
       second_name: 'Second',
     };
@@ -67,7 +67,7 @@ describe('userSlice.test', () => {
       second_name: 'Third',
     });
   });
-  test('shuld change user display name', () => {
+  test('should change user display name', () => {
     const state: DeepPartial<IUser> = {
       display_name: 'Winner',
     };
@@ -75,7 +75,7 @@ describe('userSlice.test', () => {
       display_name: 'Looser',
     });
   });
-  test('shuld change user phone number', () => {
+  test('should change user phone number', () => {
     const state: DeepPartial<IUser> = {
       phone: '910000111',
     };
@@ -83,7 +83,7 @@ describe('userSlice.test', () => {
       phone: '901111000',
     });
   });
-  test('shuld change user avatar', () => {
+  test('should change user avatar', () => {
     const state: DeepPartial<IUser> = {
       avatar: 'emptypath',
     };

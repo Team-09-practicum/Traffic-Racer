@@ -1,4 +1,11 @@
+export enum LoadingStatus {
+  Unsent = 'unsent',
+  Pending = `pending`,
+  Success = `success`,
+  Failure = `failure`,
+}
+
 export interface IAppStatus {
-  isLoading: boolean;
+  loading: LoadingStatus;
   isAuth: boolean;
 }

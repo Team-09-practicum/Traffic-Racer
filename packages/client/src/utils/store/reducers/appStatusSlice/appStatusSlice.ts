@@ -1,29 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { IAppStatus } from '@/typings/IAppStatus';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IAppStatus, LoadingStatus } from '@/typings/IAppStatus';
 
 const initialState: IAppStatus = {
   isAuth: false,
-  isLoading: false,
+  loading: LoadingStatus.Unsent,
 };
 
 export const appStatusSlice = createSlice({
   name: 'appStatus',
   initialState,
   reducers: {
-    setIsLoadingTrue: (state) => {
-      state.isLoading = true;
+    setLoadingStatus: (state: IAppStatus, action: PayloadAction<LoadingStatus>) => {
+      state.loading = action.payload;
     },
-    setIsLoadingFalse: (state) => {
-      state.isLoading = false;
-    },
-    setIsAuthTrue: (state) => {
-      state.isAuth = true;
-    },
-    setIsAuthFalse: (state) => {
-      state.isAuth = false;
+    setIsAuth: (state: IAppStatus, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload;
     },
   },
 });
 
-export const { actions: appStatusActions } = appStatusSlice;
-export const { reducer: appStatusReducer } = appStatusSlice;
+export const { actions: appStatusActions, reducer: appStatusReducer } = appStatusSlice;
