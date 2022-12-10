@@ -21,6 +21,10 @@ module.exports = {
     'jsx-quotes': [2, 'prefer-double'],
     quotes: [2, 'single', { allowTemplateLiterals: true }],
     'import/extensions': 'off',
+    'no-param-reassign': 'off', // for reduxtoolkit
+    // next 2 string for fix bug with using enum with eslint
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
     'react/function-component-definition': [
       2,
       {
