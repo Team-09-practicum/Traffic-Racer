@@ -3,6 +3,12 @@ interface IConfig {
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 }
 
+/**
+ * Регистрация Service Worker.
+ * Добавляет несколько уведомлений жизненного цикла SW и коллбеков из config.
+ * @param {string} swUrl - Путь к файлу Service Worker.
+ * @param {IConfig} config - Параметры.
+ */
 function registerValidSW(swUrl: string, config?: IConfig) {
   navigator.serviceWorker
     .register(swUrl)
@@ -40,6 +46,12 @@ function registerValidSW(swUrl: string, config?: IConfig) {
     });
 }
 
+/**
+ * Функция-враппер над функцией регистрации Service Worker.
+ * Ограничивает регистрацию SW режимом 'production'.
+ * Добавляет уведомление о наличии Service Worker.
+ * @param {IConfig} config - Параметры.
+ */
 export function registerSW(config?: IConfig) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     const publicUrl = new URL(import.meta.env.BASE_URL as string, window.location.href);

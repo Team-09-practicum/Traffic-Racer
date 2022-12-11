@@ -8,6 +8,12 @@ interface ICompileTsServiceWorker {
     writeBundle(): Promise<void>;
   };
 }
+
+/**
+ * Плагин для rollup. Используется в Vite (vite.config.ts).
+ * Компилирует файл Service Worker из ts в js. Кладёт его в папку dist.
+ * @returns {ICompileTsServiceWorker} Плагин.
+ */
 export const CompileTsServiceWorker: ICompileTsServiceWorker = () => ({
   name: 'compile-typescript-service-worker',
   async writeBundle() {
