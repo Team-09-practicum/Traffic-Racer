@@ -1,4 +1,5 @@
 @import './constants';
+
 .game-page {
   position: relative;
 
@@ -11,5 +12,20 @@
     .ant-typography {
       color: inherit;
     }
+  }
+
+  &__fullscreen-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  &__fullscreen-button-icon {
+    color: $base;
+    font-size: 40px;
   }
 }

@@ -95,6 +95,10 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
   })();
 
   const handleKeydown = (event: KeyboardEvent) => {
+    if (event.shiftKey && event.key === 'F11') {
+      return;
+    }
+
     if (!isStarted.current) startGame();
     else if (event.code === 'ArrowLeft') {
       player.current?.moveToLeft();
