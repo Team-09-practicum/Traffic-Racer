@@ -29,4 +29,10 @@ describe('appStatusSlice.test', () => {
       loading: LoadingStatus.Failure,
     });
   });
+  test('should change isSoundOn to false ', () => {
+    const state: DeepPartial<IAppStatus> = { isSoundOn: true };
+    expect(appStatusReducer(state as IAppStatus, appStatusActions.setIsSoundOn(false))).toEqual({
+      isSoundOn: false,
+    });
+  });
 });

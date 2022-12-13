@@ -11,7 +11,7 @@ export default {
   },
   moduleNameMapper: {
     '\\.(css|scss)$': 'identity-obj-proxy',
-    '\\.(jpg|jpeg|png)$': 'identity-obj-proxy',
+    '\\.(jpg|jpeg|png|mp3)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
 };

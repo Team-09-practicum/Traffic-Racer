@@ -4,6 +4,7 @@ import { IAppStatus, LoadingStatus } from '@/typings/IAppStatus';
 const initialState: IAppStatus = {
   isAuth: false,
   loading: LoadingStatus.Unsent,
+  isSoundOn: true,
 };
 
 export const appStatusSlice = createSlice({
@@ -15,6 +16,9 @@ export const appStatusSlice = createSlice({
     },
     setIsAuth: (state: IAppStatus, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
+    },
+    setIsSoundOn: (state: IAppStatus, action: PayloadAction<boolean>) => {
+      state.isSoundOn = action.payload;
     },
   },
 });

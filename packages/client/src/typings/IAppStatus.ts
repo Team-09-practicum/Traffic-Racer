@@ -8,4 +8,5 @@ export enum LoadingStatus {
 export interface IAppStatus {
   loading: LoadingStatus;
   isAuth: boolean;
+  isSoundOn: boolean;
 }

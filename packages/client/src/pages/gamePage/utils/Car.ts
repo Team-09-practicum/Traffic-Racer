@@ -1,6 +1,7 @@
 import { GameConfig } from './game.config';
 import ladaImg from '../assets/traffic/lada.png';
 import { isCloseToY } from './helpers';
+import { wheelSkidSound } from './wheelSkidSound';
 
 export type CollisionArea = {
   x: number;
@@ -63,6 +64,8 @@ export class Car implements ICar {
 
   showCollisionArea = true;
 
+  skidSound = wheelSkidSound();
+
   /**
    * Конструктор класса.
    * @param {number} initialPosition - Начальная позиция Y.
@@ -103,12 +106,17 @@ export class Car implements ICar {
   /**
    * Движение автомобиля влево
    */
-  moveToLeft() {
+  moveToLeft(soundValue: boolean | undefined) {
     if (this.isMovingRight || this.isMovingLeft) return;
     if (this.currentLane <= this.positions[0]) return;
 
     this.nextLane = this.currentLane - 1;
     this.movingLeft();
+    this.skidSound.currentTime = 0;
+    this.skidSound = wheelSkidSound();
+    if (soundValue) {
+      this.skidSound.play();
+    }
     this.isMovingLeft = true;
     this.isMovingRight = false;
   }
@@ -116,12 +124,17 @@ export class Car implements ICar {
   /**
    * Движение автомобиля вправо
    */
-  moveToRight() {
+  moveToRight(soundValue: boolean | undefined) {
     if (this.isMovingRight || this.isMovingLeft) return;
     if (this.currentLane >= this.positions[this.positions.length - 1]) return;
 
     this.nextLane = this.currentLane + 1;
     this.movingRight();
+    this.skidSound.currentTime = 0;
+    this.skidSound = wheelSkidSound();
+    if (soundValue) {
+      this.skidSound.play();
+    }
     this.isMovingLeft = false;
     this.isMovingRight = true;
   }

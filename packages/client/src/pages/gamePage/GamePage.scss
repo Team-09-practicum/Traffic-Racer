@@ -12,4 +12,10 @@
       color: inherit;
     }
   }
+  &__sound {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: $text-color-start-end;
+  }
 }
