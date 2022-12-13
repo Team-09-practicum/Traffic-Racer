@@ -64,7 +64,7 @@ export class Car implements ICar {
 
   showCollisionArea = true;
 
-  skidSound = wheelSkidSound();
+  skidSound: HTMLAudioElement | undefined;
 
   /**
    * Конструктор класса.
@@ -112,7 +112,6 @@ export class Car implements ICar {
 
     this.nextLane = this.currentLane - 1;
     this.movingLeft();
-    this.skidSound.currentTime = 0;
     this.skidSound = wheelSkidSound();
     if (soundValue) {
       this.skidSound.play();
@@ -130,7 +129,6 @@ export class Car implements ICar {
 
     this.nextLane = this.currentLane + 1;
     this.movingRight();
-    this.skidSound.currentTime = 0;
     this.skidSound = wheelSkidSound();
     if (soundValue) {
       this.skidSound.play();

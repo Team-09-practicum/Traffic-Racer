@@ -80,6 +80,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     if (!gameThemeSound.current) return;
     gameThemeSound.current.currentTime = 0;
     gameThemeSound.current.play();
+    gameThemeSound.current.volume = 0.3;
     if (!isSoundOn.current) {
       gameThemeSound.current.muted = true;
     }
