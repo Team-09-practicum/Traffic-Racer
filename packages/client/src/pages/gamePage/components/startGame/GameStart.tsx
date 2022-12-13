@@ -2,7 +2,7 @@ import React from 'react';
 import './GameStart.scss';
 import { Typography, Space } from 'antd';
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 export const GameStart = () => (
   <div className="game-start">
@@ -14,6 +14,15 @@ export const GameStart = () => (
         для маневрирования
       </Title>
     </Space>
+
+    <div className="game-start__fullscreen-instructions">
+      <Title level={4} className="game-start__fullscreen-text-instructions">
+        <Paragraph keyboard className="game-start__fullscreen-buttons">
+          SHIFT + F11
+        </Paragraph>
+        - переключить полноэкранный режим
+      </Title>
+    </div>
 
     <Title className="game-start__text_blink" level={3}>
       Нажмите любую клавишу для старта

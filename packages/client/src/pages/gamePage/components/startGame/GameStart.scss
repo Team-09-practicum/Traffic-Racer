@@ -1,11 +1,11 @@
 @import '../../constants';
 .game-start {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -22,6 +22,19 @@
     &_blink {
       animation: blink 2s linear infinite;
     }
+  }
+
+  &__fullscreen-instructions {
+    margin-bottom: 16px;
+
+    & > .game-start__fullscreen-text-instructions {
+      color: $base;
+    }
+  }
+
+  &__fullscreen-buttons {
+    display: inline;
+    color: $base;
   }
 }
 

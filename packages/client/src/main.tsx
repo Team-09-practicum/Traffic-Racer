@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import { registerSW } from '@/utils/serviceWorker/serviceWorkerRegistration';
 import './styles/index.scss';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -11,3 +12,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </BrowserRouter>
   </React.StrictMode>
 );
+
+registerSW();
