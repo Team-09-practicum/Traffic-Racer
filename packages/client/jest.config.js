@@ -14,4 +14,5 @@ export default {
     '\\.(jpg|jpeg|png)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
 };
