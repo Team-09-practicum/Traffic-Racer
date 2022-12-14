@@ -5,6 +5,9 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { appRoutes } from '@/utils/router/appRoutes';
 import { authSchema } from '@/utils/validation/validationSchema';
+import { signIn } from '@/controllers/signIn';
+import { useAppDispatch } from '@/utils/store/store';
+import { getUserInfo } from '@/utils/store/reducers/userSlice/userSlice';
 import './AuthPage.scss';
 
 const { Title } = Typography;
@@ -24,9 +27,11 @@ export const AuthPage = () => {
     resolver: yupResolver(authSchema),
   });
 
-  const onSubmit = (data: IAuthInput) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async (data: IAuthInput) => {
+    await signIn(data);
+    dispatch(getUserInfo());
   };
 
   return (

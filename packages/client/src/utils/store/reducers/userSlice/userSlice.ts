@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '@/typings/IUser';
+import { getUser } from '@/controllers/getUser';
 
 const initialState: IUser = {
   id: 0,
@@ -11,6 +12,8 @@ const initialState: IUser = {
   phone: '',
   avatar: '',
 };
+
+export const getUserInfo = createAsyncThunk('user/getUser', () => getUser() as unknown as IUser);
 
 export const userSlice = createSlice({
   name: 'user',
@@ -41,6 +44,11 @@ export const userSlice = createSlice({
     changeUserAvatar: (state, action: PayloadAction<string>) => {
       state.avatar = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getUserInfo.fulfilled, (state, action: PayloadAction<IUser>) => {
+      state = Object.assign(state, action.payload);
+    });
   },
 });
 

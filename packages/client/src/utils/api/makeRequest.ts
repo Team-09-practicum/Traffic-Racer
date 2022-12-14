@@ -33,6 +33,7 @@ export const makeRequest = async <T>({
     if (onSuccess) {
       onSuccess(response.data);
     }
+    return response.data;
   } catch (err) {
     if ((err as IErrorRes).response.data.reason) {
       showNetworkError((err as IErrorRes).response.data.reason);
@@ -40,5 +41,6 @@ export const makeRequest = async <T>({
     if (onError) {
       onError(err);
     }
+    return undefined;
   }
 };

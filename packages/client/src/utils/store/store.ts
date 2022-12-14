@@ -1,4 +1,5 @@
 import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import { appStatusReducer } from './reducers/appStatusSlice/appStatusSlice';
 import { userReducer } from './reducers/userSlice/userSlice';
 import { IStateScheme } from '@/typings/IStateSchema';
@@ -15,3 +16,7 @@ export function createReduxStore(initialState?: IStateScheme) {
     // devTools: Добавить значение `false` для отключения при продакт сборке
   });
 }
+
+type Store = ReturnType<typeof createReduxStore>;
+
+export const useAppDispatch: () => Store['dispatch'] = useDispatch;

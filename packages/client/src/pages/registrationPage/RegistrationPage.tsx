@@ -5,6 +5,9 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { appRoutes } from '@/utils/router/appRoutes';
 import { registrationSchema } from '@/utils/validation/validationSchema';
+import { ISignUp, signUp } from '@/controllers/signUp';
+import { useAppDispatch } from '@/utils/store/store';
+import { getUserInfo } from '@/utils/store/reducers/userSlice/userSlice';
 import './RegistrationPage.scss';
 
 const { Title } = Typography;
@@ -29,9 +32,13 @@ export const RegistrationPage = () => {
     resolver: yupResolver(registrationSchema),
   });
 
-  const onSubmit = (data: IRegInput) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async (data: IRegInput) => {
+    // eslint-disable-next-line camelcase, @typescript-eslint/no-unused-vars
+    const { confirm_password, ...rest } = data;
+    await signUp(rest as ISignUp);
+    dispatch(getUserInfo());
   };
 
   return (
