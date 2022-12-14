@@ -25,14 +25,16 @@ describe('Link Component', () => {
 
   describe('Link component props', () => {
     test('should have href', () => {
+      const dummyText = 'some-page';
+      const dummyHref = `/${dummyText}`;
       render(
         <Router>
-          <Link to="/some-page">Some Page</Link>
+          <Link to="/some-page">{dummyText}</Link>
         </Router>
       );
       const link: HTMLAnchorElement = screen.getByRole('link');
-      expect(link.textContent).toEqual('Some Page');
-      expect(link.href).toContain('/some-page');
+      expect(link.textContent).toEqual(dummyText);
+      expect(link.href).toContain(dummyHref);
     });
 
     test('should have a className', () => {
