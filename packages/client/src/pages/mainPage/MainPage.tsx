@@ -7,7 +7,7 @@ export const MainPage = () => {
   const logoutProcess = useCallback(() => logout(), []);
 
   return (
-    <div>
+    <div className="main-page">
       Гланое меню
       <Link to={appRoutes.auth}> Авторизация </Link>
       <Link to={appRoutes.stats}> Лидерборд </Link>
