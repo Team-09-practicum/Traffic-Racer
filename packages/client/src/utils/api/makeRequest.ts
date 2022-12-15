@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { API_HOST, API_PATH } from '../constants';
-import { showNetworkError } from '../showNetworkError';
 import { IErrorRes, IMakeRequestParams } from './typings';
 
 const defaultHeaders = {
