@@ -11,14 +11,11 @@ export const SoundOffButton = () => {
   const toggle = () => {
     dispatch(appStatusActions.setIsSoundOn(!soundOn));
   };
+  const SoundIcon = soundOn ? SoundFilled : SoundOutlined;
 
   return (
     <div>
-      {soundOn ? (
-        <SoundFilled className="sound-off-button" onClick={toggle} />
-      ) : (
-        <SoundOutlined className="sound-off-button" onClick={toggle} />
-      )}
+      <SoundIcon className="sound-off-button" onClick={toggle} />
     </div>
   );
 };

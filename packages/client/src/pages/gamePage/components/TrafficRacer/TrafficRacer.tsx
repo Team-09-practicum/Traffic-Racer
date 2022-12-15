@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { Dispatch, FC, SetStateAction, useEffect, useRef, memo } from 'react';
 import { useSelector } from 'react-redux';
-import { Scenario, Car, Traffic } from '../../utils';
-import { GameConfig } from '../../utils/game.config';
+import { Scenario, Car, Traffic, GameConfig, crashSound } from '../../utils';
 import './TrafficRacer.scss';
 import { getIsSoundOn } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
-import { crashSound } from '../../utils/crashSound';
 import gameSoundPath from '../../assets/sounds/gameSound.mp3';
 
 type TrafficRacerProps = {
@@ -81,9 +79,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     gameThemeSound.current.currentTime = 0;
     gameThemeSound.current.play();
     gameThemeSound.current.volume = 0.3;
-    if (!isSoundOn.current) {
-      gameThemeSound.current.muted = true;
-    }
+    gameThemeSound.current.muted = !isSoundOn.current;
 
     player.current = new Car(localHeight.current - GameConfig.traffic.carHeight - 10, GameConfig.player.carType);
     scenario.current = new Scenario(canvasRef.current);
@@ -152,11 +148,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
 
   useEffect(() => {
     if (!gameThemeSound.current) return;
-    if (isStarted.current && !isSoundOn.current) {
-      gameThemeSound.current.muted = true;
-    } else {
-      gameThemeSound.current.muted = false;
-    }
+    gameThemeSound.current.muted = isStarted.current && !isSoundOn.current;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSoundOn.current]);
 
