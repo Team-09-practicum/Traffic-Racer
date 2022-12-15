@@ -1,12 +1,18 @@
 import { screen } from '@testing-library/react';
 import { renderWithRouter } from '../renederWithRouter';
 
-jest.mock('react-router-dom', () => ({
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ...(jest.requireActual('react-router-dom') as any),
-}));
-
 describe('Router', () => {
+  beforeAll(() => {
+    Object.defineProperty(window, 'matchMedia', {
+      value: jest.fn(() => ({
+        matches: true,
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+      })),
+    });
+  });
+
+  // TODO: раскомментировать этот тест, когда на главной странице будет игра
   // test('should correct render home page', () => {
   //   act(() => {
   //     const route = '/';
