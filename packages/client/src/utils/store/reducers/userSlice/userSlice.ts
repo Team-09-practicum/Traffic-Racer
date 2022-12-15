@@ -47,7 +47,11 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getUserInfo.fulfilled, (state, action: PayloadAction<IUser>) => {
-      state = Object.assign(state, action.payload);
+      if (action.payload) {
+        state = Object.assign(state, action.payload);
+      } else {
+        state = Object.assign(state, initialState);
+      }
     });
   },
 });
