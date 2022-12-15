@@ -36,7 +36,8 @@ export const makeRequest = async <T>({
     return response.data;
   } catch (err) {
     if ((err as IErrorRes).response.data.reason) {
-      showNetworkError((err as IErrorRes).response.data.reason);
+      // eslint-disable-next-line no-console
+      console.log((err as IErrorRes).response.data.reason);
     }
     if (onError) {
       onError(err);
