@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '@/typings/IUser';
-import { getUser } from '@/controllers/getUser';
+import { fetchUser } from '../thunks/fetchUserThunk';
 
 const initialState: IUser = {
   id: 0,
@@ -12,8 +12,6 @@ const initialState: IUser = {
   phone: '',
   avatar: '',
 };
-
-export const getUserInfo = createAsyncThunk('user/getUser', () => getUser() as unknown as IUser);
 
 export const userSlice = createSlice({
   name: 'user',
@@ -46,7 +44,7 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getUserInfo.fulfilled, (state, action: PayloadAction<IUser>) => {
+    builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<IUser>) => {
       if (action.payload) {
         state = Object.assign(state, action.payload);
       } else {

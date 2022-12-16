@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/utils/store/store';
 import { logout } from '@/controllers/logout';
-import { getUserInfo } from '@/utils/store/reducers/userSlice/userSlice';
+import { fetchUser } from '@/utils/store/reducers/thunks/fetchUserThunk';
 import './Navigation.scss';
 
 const baseMenuItems = [
@@ -24,20 +24,20 @@ export const Navigation = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const userId = useAppSelector((state) => state.user.id);
+  const isAuth = useAppSelector((state) => state.appStatus.isAuth);
 
   return (
     <Menu
       onClick={async ({ key }) => {
         if (key === 'logout') {
           await logout();
-          dispatch(getUserInfo());
+          dispatch(fetchUser());
         } else {
           navigate(key);
         }
       }}
       selectedKeys={[pathname]}
-      items={userId ? authMenuItems : nonAuthMenuItems}
+      items={isAuth ? authMenuItems : nonAuthMenuItems}
       mode="horizontal"
       className="navigation"
     />

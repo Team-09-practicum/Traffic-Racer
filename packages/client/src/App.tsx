@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import { AppRouter } from '@/utils/router/AppRouter';
 import { Navigation } from '@/components/navigation/Navigation';
 import { useAppDispatch } from '@/utils/store/store';
-import { getUserInfo } from '@/utils/store/reducers/userSlice/userSlice';
+import { fetchUser } from './utils/store/reducers/thunks/fetchUserThunk';
 import './app.scss';
 
 const { Header, Content } = Layout;
@@ -13,7 +13,7 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getUserInfo());
+    dispatch(fetchUser());
   });
 
   return (

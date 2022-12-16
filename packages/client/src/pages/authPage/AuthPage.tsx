@@ -7,7 +7,7 @@ import { appRoutes } from '@/utils/router/appRoutes';
 import { authSchema } from '@/utils/validation/validationSchema';
 import { signIn } from '@/controllers/signIn';
 import { useAppDispatch } from '@/utils/store/store';
-import { getUserInfo } from '@/utils/store/reducers/userSlice/userSlice';
+import { fetchUser } from '@/utils/store/reducers/thunks/fetchUserThunk';
 import './AuthPage.scss';
 
 const { Title } = Typography;
@@ -31,7 +31,7 @@ export const AuthPage = () => {
 
   const onSubmit = async (data: IAuthInput) => {
     await signIn(data);
-    dispatch(getUserInfo());
+    dispatch(fetchUser());
   };
 
   return (

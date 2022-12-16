@@ -7,7 +7,7 @@ import { appRoutes } from '@/utils/router/appRoutes';
 import { registrationSchema } from '@/utils/validation/validationSchema';
 import { ISignUp, signUp } from '@/controllers/signUp';
 import { useAppDispatch } from '@/utils/store/store';
-import { getUserInfo } from '@/utils/store/reducers/userSlice/userSlice';
+import { fetchUser } from '@/utils/store/reducers/thunks/fetchUserThunk';
 import './RegistrationPage.scss';
 
 const { Title } = Typography;
@@ -38,7 +38,7 @@ export const RegistrationPage = () => {
     // eslint-disable-next-line camelcase, @typescript-eslint/no-unused-vars
     const { confirm_password, ...rest } = data;
     await signUp(rest as ISignUp);
-    dispatch(getUserInfo());
+    dispatch(fetchUser());
   };
 
   return (
