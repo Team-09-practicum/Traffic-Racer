@@ -3,7 +3,7 @@ export type {};
 declare const self: ServiceWorkerGlobalScope;
 
 // Имя кеша. Нужно менять каждый раз, когда содержимое файлов меняется.
-const CACHE_NAME = 'network-or-cache-v1';
+const CACHE_NAME = 'network-or-cache-v2';
 
 // Максимальное время выполениня запроса.
 const TIMEOUT = 400;
@@ -25,7 +25,7 @@ const FILE_LIST = [
   '/assets/car8.png',
   '/assets/car9.png',
   '/assets/car10.png',
-  '/assets/road.jpg',
+  '/assets/road.png',
   '/assets/tree1.png',
   '/assets/tree2.png',
   '/assets/tree3.png',
