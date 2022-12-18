@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { API_HOST, API_PATH } from '../constants';
-import { showNetworkError } from '../showNetworkError';
 import { IErrorRes, IMakeRequestParams } from './typings';
 
 const defaultHeaders = {
@@ -33,12 +32,15 @@ export const makeRequest = async <T>({
     if (onSuccess) {
       onSuccess(response.data);
     }
+    return response.data;
   } catch (err) {
     if ((err as IErrorRes).response.data.reason) {
-      showNetworkError((err as IErrorRes).response.data.reason);
+      // eslint-disable-next-line no-console
+      console.log((err as IErrorRes).response.data.reason);
     }
     if (onError) {
       onError(err);
     }
+    return undefined;
   }
 };

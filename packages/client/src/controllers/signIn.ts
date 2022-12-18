@@ -11,9 +11,4 @@ export const signIn = async (userInfo: ISignIn) => {
     // eslint-disable-next-line no-console
     onSuccess: (res) => console.log('%cResponse = ', 'color: green', res),
   });
-
-  api.getUser({
-    // eslint-disable-next-line no-console
-    onSuccess: (res) => console.log('%cResponse = ', 'color: green', res),
-  });
 };
