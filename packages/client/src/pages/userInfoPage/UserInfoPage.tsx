@@ -5,9 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from '@/components';
 import { appRoutes } from '@/utils/router/appRoutes';
 import { changeAvatar } from '@/controllers/changeAvatar';
-import { UserProfileForm } from './typings';
-import './UserInfoPage.scss';
 import { profileSchema } from '@/utils/validation/validationSchema';
+import { IUser } from '@/typings/IUser';
+import './UserInfoPage.scss';
 
 const { Title } = Typography;
 
@@ -16,7 +16,7 @@ export const UserInfoPage = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserProfileForm>({
+  } = useForm<IUser>({
     defaultValues: {
       first_name: 'Test',
       second_name: 'Testov',
@@ -33,7 +33,7 @@ export const UserInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState<File>();
 
-  const onSubmit = (data: UserProfileForm) => {
+  const onSubmit = (data: IUser) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };

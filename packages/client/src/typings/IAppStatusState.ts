@@ -5,7 +5,7 @@ export enum LoadingStatus {
   Failure = `failure`,
 }
 
-export interface IAppStatus {
+export interface IAppStatusState {
   loading: LoadingStatus;
   isAuth: boolean;
 }

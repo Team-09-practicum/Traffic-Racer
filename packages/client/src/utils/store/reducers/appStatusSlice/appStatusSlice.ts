@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAppStatus, LoadingStatus } from '@/typings/IAppStatus';
+import { IAppStatusState, LoadingStatus } from '@/typings/IAppStatusState';
 import { fetchUser } from '../thunks/fetchUserThunk';
 
-const initialState: IAppStatus = {
+const initialState: IAppStatusState = {
   isAuth: false,
   loading: LoadingStatus.Unsent,
 };
@@ -11,10 +11,10 @@ export const appStatusSlice = createSlice({
   name: 'appStatus',
   initialState,
   reducers: {
-    setLoadingStatus: (state: IAppStatus, action: PayloadAction<LoadingStatus>) => {
+    setLoadingStatus: (state: IAppStatusState, action: PayloadAction<LoadingStatus>) => {
       state.loading = action.payload;
     },
-    setIsAuth: (state: IAppStatus, action: PayloadAction<boolean>) => {
+    setIsAuth: (state: IAppStatusState, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
     },
   },

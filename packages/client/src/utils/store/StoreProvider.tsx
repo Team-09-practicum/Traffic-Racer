@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
-import { IStateScheme } from '@/typings/IStateSchema';
+import { IStateSchema } from '@/typings/IStateSchema';
 import { createReduxStore } from './store';
 
 interface IStoreProvider {
   children?: ReactNode;
-  initialState?: IStateScheme;
+  initialState?: IStateSchema;
 }
 
 export const StoreProvider = (props: IStoreProvider) => {

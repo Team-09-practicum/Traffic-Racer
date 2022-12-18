@@ -1,7 +1,7 @@
-import { IAppStatus } from './IAppStatus';
-import { IUser } from './IUser';
+import { IUserState } from './IUserState';
+import { IAppStatusState } from './IAppStatusState';
 
-export interface IStateScheme {
-  user: IUser;
-  appStatus: IAppStatus;
+export interface IStateSchema {
+  user: IUserState;
+  appStatus: IAppStatusState;
 }
