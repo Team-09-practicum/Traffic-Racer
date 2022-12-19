@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Layout } from 'antd';
 import { AppRouter } from '@/utils/router/AppRouter';
 import { Navigation } from '@/components/navigation/Navigation';
-import { StoreProvider } from './utils/store/StoreProvider';
+import { useAppDispatch } from '@/utils/store/store';
+import { fetchUser } from './utils/store/reducers/thunks/fetchUserThunk';
 import './app.scss';
 
 const { Header, Content } = Layout;
 
-const App = () => (
-  <StoreProvider>
+const App = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  });
+
+  return (
     <Layout className="layout">
       <Header>
         <Navigation />
@@ -19,7 +26,7 @@ const App = () => (
         <AppRouter />
       </Content>
     </Layout>
-  </StoreProvider>
-);
+  );
+};
 
 export default App;
