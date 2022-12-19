@@ -38,6 +38,7 @@ const columns = [
 
 export const ForumPage = () => (
   <Table
+    className="forum-page__table"
     dataSource={response}
     columns={columns}
     rowKey={(topicItem) => topicItem.id}
