@@ -5,6 +5,7 @@ import { ConfigProvider } from 'antd';
 import { RegistrationPage } from './RegistrationPage';
 import { mockMedia } from '@/utils/test/mockMedia';
 
+jest.mock('react-redux');
 jest.mock('react-router-dom');
 mockMedia(); // used to avoid error
 describe('pages/RegistrationPage', () => {
