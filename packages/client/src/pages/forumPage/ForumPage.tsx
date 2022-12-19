@@ -37,20 +37,15 @@ const columns = [
 ];
 
 export const ForumPage = () => (
-  <>
-    <Link to={appRoutes.main} isRouter>
-      Главное меню
-    </Link>
-    <Table
-      dataSource={response}
-      columns={columns}
-      rowKey={(topicItem) => topicItem.id}
-      locale={{
-        triggerDesc: 'Сортировать по убыванию',
-        triggerAsc: 'Сортировать по возрастанию',
-        cancelSort: 'Отменить сортировку',
-        emptyText: 'Пока тут нет топиков...',
-      }}
-    />
-  </>
+  <Table
+    dataSource={response}
+    columns={columns}
+    rowKey={(topicItem) => topicItem.id}
+    locale={{
+      triggerDesc: 'Сортировать по убыванию',
+      triggerAsc: 'Сортировать по возрастанию',
+      cancelSort: 'Отменить сортировку',
+      emptyText: 'Пока тут нет топиков...',
+    }}
+  />
 );

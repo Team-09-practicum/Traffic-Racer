@@ -8,7 +8,6 @@ import './Navigation.scss';
 
 const baseMenuItems = [
   { key: '/', label: 'Главная' },
-  { key: '/game', label: 'Игра' },
   { key: '/stats', label: 'Лидерборд' },
   { key: '/forum', label: 'Форум' },
 ];

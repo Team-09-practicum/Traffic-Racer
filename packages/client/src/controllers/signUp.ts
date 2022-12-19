@@ -1,4 +1,5 @@
 import { api } from '@/utils/api';
+import { showNetworkError } from '@/utils/showNetworkError';
 
 export interface ISignUp {
   first_name: 'string';
@@ -12,9 +13,6 @@ export interface ISignUp {
 export const signUp = async (userInfo: ISignUp) => {
   await api.postSignUp({
     data: userInfo,
-    onSuccess: (res) => {
-      // eslint-disable-next-line no-console
-      console.log('User id =', res);
-    },
+    onError: (err) => showNetworkError(err.response.data.reason),
   });
 };

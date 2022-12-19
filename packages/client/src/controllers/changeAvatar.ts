@@ -1,9 +1,10 @@
 import { api } from '@/utils/api';
+import { showNetworkError } from '@/utils/showNetworkError';
 
 export const changeAvatar = async (form: FormData) => {
-  await api.putAvatarChange({
+  const newAvatar = await api.putAvatarChange({
     data: form,
-    // eslint-disable-next-line no-console
-    onSuccess: (res) => console.log('%cResponse = ', 'color: green', res),
+    onError: (err) => showNetworkError(err.response.data.reason),
   });
+  return newAvatar;
 };
