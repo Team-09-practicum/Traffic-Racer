@@ -90,7 +90,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
 
       update();
       draw();
-      requestAnimationFrame(gameLoop);
+      animationID.current = requestAnimationFrame(gameLoop);
     };
   })();
 

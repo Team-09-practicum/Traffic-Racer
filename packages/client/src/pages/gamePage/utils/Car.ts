@@ -1,5 +1,15 @@
 import { GameConfig } from './game.config';
-import ladaImg from '../assets/traffic/lada.png';
+import car1 from '../assets/traffic/car1.png';
+import car2 from '../assets/traffic/car2.png';
+import car3 from '../assets/traffic/car3.png';
+import car4 from '../assets/traffic/car4.png';
+import car5 from '../assets/traffic/car5.png';
+import car6 from '../assets/traffic/car6.png';
+import car7 from '../assets/traffic/car7.png';
+import car8 from '../assets/traffic/car8.png';
+import car9 from '../assets/traffic/car9.png';
+import car10 from '../assets/traffic/car10.png';
+
 import { isCloseToY } from './helpers';
 
 export type CollisionArea = {
@@ -41,7 +51,7 @@ export class Car implements ICar {
 
   carImage = new Image();
 
-  static carTypeArray: string[] = [ladaImg];
+  static carTypeArray: string[] = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10];
 
   carNearMyBack!: ICar | undefined;
 
@@ -61,7 +71,7 @@ export class Car implements ICar {
 
   collisionArea: CollisionArea;
 
-  showCollisionArea = true;
+  showCollisionArea = false;
 
   /**
    * Конструктор класса.

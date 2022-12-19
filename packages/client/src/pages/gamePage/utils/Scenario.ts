@@ -1,4 +1,4 @@
-import roadImg from '../assets/scenario/road.jpg';
+import roadImg from '../assets/scenario/road.png';
 import { Tree } from './roadside/Tree';
 import { GameConfig } from './game.config';
 
