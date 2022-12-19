@@ -13,7 +13,12 @@
       color: inherit;
     }
   }
-
+  &__sound {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: $text-color-start-end;
+  }
   &__fullscreen-button {
     position: absolute;
     right: 0;

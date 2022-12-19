@@ -5,6 +5,7 @@ import { fetchUser } from '../thunks/fetchUserThunk';
 const initialState: IAppStatusState = {
   isAuth: false,
   loading: LoadingStatus.Unsent,
+  isSoundOn: true,
 };
 
 export const appStatusSlice = createSlice({
@@ -16,6 +17,9 @@ export const appStatusSlice = createSlice({
     },
     setIsAuth: (state: IAppStatusState, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
+    },
+    setIsSoundOn: (state: IAppStatusState, action: PayloadAction<boolean>) => {
+      state.isSoundOn = action.payload;
     },
   },
   extraReducers: (builder) => {

@@ -32,3 +32,7 @@ export const isCloseTo: CheckIsCollide = (obj1, obj2) =>
 export function getRandomIntBetweenInterval(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function getRandomArrIndex(arrLength: number) {
+  return Math.floor(Math.random() * arrLength);
+}

@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Space, Typography } from 'antd';
+import { Space, Typography, Row } from 'antd';
 import { ShrinkOutlined, ArrowsAltOutlined } from '@ant-design/icons';
 import { TrafficRacer } from './components/TrafficRacer/TrafficRacer';
 import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
 import { useWindowSize } from '@/pages/gamePage/hooks/useWindowSize';
 import './GamePage.scss';
+import { SoundOffButton } from './components/soundOffButton/SoundOffButton';
 
 const { Text, Title } = Typography;
 
@@ -20,7 +21,6 @@ export const GamePage = () => {
   const [isFullscreenMode, setFullscreenMode] = useState(false);
   const isFirstStart = !isGameStarted && !isGameOver;
   const gamePageRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (gamePageRef.current) setPageTopOffset(gamePageRef.current.getBoundingClientRect().top);
   }, []);
@@ -65,12 +65,15 @@ export const GamePage = () => {
       {isFirstStart && <GameStart />}
       {isGameOver && <GameEnd score={score} />}
       {isGameStarted && (
-        <div className="game-page__score">
-          <Space direction="vertical" align="end">
+        <Row>
+          <Space className="game-page__sound">
+            <SoundOffButton />
+          </Space>
+          <Space className="game-page__score" direction="vertical" align="end">
             <Text strong>Счёт:</Text>
             <Title>{score}</Title>
           </Space>
-        </div>
+        </Row>
       )}
 
       <TrafficRacer
