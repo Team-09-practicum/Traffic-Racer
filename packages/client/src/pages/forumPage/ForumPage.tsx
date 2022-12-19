@@ -42,6 +42,7 @@ export const ForumPage = () => (
       Главное меню
     </Link>
     <Table
+      className="forum-page__table"
       dataSource={response}
       columns={columns}
       rowKey={(topicItem) => topicItem.id}
