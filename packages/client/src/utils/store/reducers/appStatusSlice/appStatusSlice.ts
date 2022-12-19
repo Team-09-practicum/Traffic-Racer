@@ -18,7 +18,7 @@ export const appStatusSlice = createSlice({
     setIsAuth: (state: IAppStatusState, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
     },
-    setIsSoundOn: (state: IAppStatus, action: PayloadAction<boolean>) => {
+    setIsSoundOn: (state: IAppStatusState, action: PayloadAction<boolean>) => {
       state.isSoundOn = action.payload;
     },
   },
