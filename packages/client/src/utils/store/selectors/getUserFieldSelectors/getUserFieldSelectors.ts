@@ -1,17 +1,20 @@
-import { IStateScheme } from '@/typings/IStateSchema';
+import { IStateSchema } from '@/typings/IStateSchema';
 
-export const getUserId = (state: IStateScheme) => state.user.id;
+export const getUserId = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo.id : undefined);
 
-export const getUserEmail = (state: IStateScheme) => state.user.email;
+export const getUserEmail = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo.email : undefined);
 
-export const getUserLogin = (state: IStateScheme) => state.user.login;
+export const getUserLogin = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo.login : undefined);
 
-export const getUserFirstName = (state: IStateScheme) => state.user.first_name;
+export const getUserFirstName = (state: IStateSchema) =>
+  state.user.userInfo ? state.user.userInfo?.first_name : undefined;
 
-export const getUserSecondName = (state: IStateScheme) => state.user.second_name;
+export const getUserSecondName = (state: IStateSchema) =>
+  state.user.userInfo ? state.user.userInfo?.second_name : undefined;
 
-export const getUserDisplayName = (state: IStateScheme) => state.user.display_name;
+export const getUserDisplayName = (state: IStateSchema) =>
+  state.user.userInfo ? state.user.userInfo?.display_name : undefined;
 
-export const getUserPhone = (state: IStateScheme) => state.user.phone;
+export const getUserPhone = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo?.phone : undefined);
 
-export const getUserAvatar = (state: IStateScheme) => state.user.avatar;
+export const getUserAvatar = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo?.avatar : undefined);

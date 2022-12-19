@@ -1,3 +1,3 @@
-import { IStateScheme } from '@/typings/IStateSchema';
+import { IStateSchema } from '@/typings/IStateSchema';
 
-export const getUserFull = (state: IStateScheme) => state.user;
+export const getUserFull = (state: IStateSchema) => state.user.userInfo;
