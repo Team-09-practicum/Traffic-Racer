@@ -4,9 +4,8 @@ import { CollisionArea } from './Car';
 import puddleImg1 from '../assets/obstacle/puddle1.png';
 import puddleImg2 from '../assets/obstacle/puddle2.png';
 import puddleImg3 from '../assets/obstacle/puddle3.png';
-import puddleImg4 from '../assets/obstacle/puddle4.png';
 
-const puddleImgArr = [puddleImg1, puddleImg2, puddleImg3, puddleImg4];
+const puddleImgArr = [puddleImg1, puddleImg2, puddleImg3];
 
 /**
  * Класс препятствий
@@ -31,6 +30,8 @@ export class Obstacle {
 
   image = new Image();
 
+  showCollisionArea = false;
+
   /**
    * Конструктор класса препятствий.
    * @param {number} emptyLane - Расположение.
@@ -40,7 +41,7 @@ export class Obstacle {
     this.type = type;
     const i = getRandomIntBetweenInterval(0, puddleImgArr.length - 1);
     if (this.type === GameConfig.obstacle.oil) {
-      this.image.src = '../assets/obstacle/oil.png';
+      this.image.src = 'src/pages/gamePage/assets/obstacle/oil.png';
     } else {
       this.image.src = puddleImgArr[i];
     }
@@ -63,6 +64,14 @@ export class Obstacle {
    */
   draw(context: CanvasRenderingContext2D) {
     context.drawImage(this.image, this.x, this.y, this.width, this.height);
+    if (this.showCollisionArea) {
+      context.strokeRect(
+        this.collisionArea.x,
+        this.collisionArea.y,
+        this.collisionArea.width,
+        this.collisionArea.height
+      );
+    }
   }
 
   /**
@@ -70,17 +79,19 @@ export class Obstacle {
    * @param {number} maxY - Максимально допустимое значение Y (высота Canvas)
    */
 
-  update(maxY: number) {
-    this.y += 1;
+  update(maxY: number, speed: number) {
+    this.y += speed;
     if (this.y >= maxY) {
       this.isOnRoad = false;
     } else {
       this.isOnRoad = true;
     }
+    this.collisionArea.x = this.x;
+    this.collisionArea.y = this.y;
   }
 
   /**
-   * Расчет новой координаты x (новое расположение на дороге)
+   * Расчет  координаты x (новое расположение на дороге)
    * @return {number} Значение x.
    */
   newXPosition(emptyLane: number): number {

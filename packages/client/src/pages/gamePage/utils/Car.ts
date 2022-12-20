@@ -35,6 +35,8 @@ interface ICar {
   width: number;
   collisionArea: CollisionArea;
   showCollisionArea: boolean;
+  isSliding: boolean;
+  passedOnPuddle: boolean;
 }
 
 /**
@@ -73,6 +75,10 @@ export class Car implements ICar {
 
   showCollisionArea = false;
 
+  isSliding!: boolean;
+
+  passedOnPuddle!: boolean;
+
   /**
    * Конструктор класса.
    * @param {number} initialPosition - Начальная позиция Y.
@@ -82,6 +88,8 @@ export class Car implements ICar {
     this.carImage.src = Car.carTypeArray[carTypeId];
     this.isMovingLeft = false;
     this.isMovingRight = false;
+    this.isSliding = false;
+    this.passedOnPuddle = false;
     this.y = initialPosition;
 
     this.collisionArea = {
@@ -193,6 +201,16 @@ export class Car implements ICar {
         this.collisionArea.width,
         this.collisionArea.height
       );
+    }
+    if (this.isSliding) {
+      const slideSide = Math.random();
+      // Slide car to random position
+      if (slideSide < 0.5) {
+        this.moveToLeft();
+      } else {
+        this.moveToRight();
+      }
+      this.isSliding = false;
     }
   }
 
