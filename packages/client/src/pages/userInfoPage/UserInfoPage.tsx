@@ -5,16 +5,14 @@ import { useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from '@/components';
 import { appRoutes } from '@/utils/router/appRoutes';
-import { changeAvatar } from '@/controllers/changeAvatar';
 import { profileSchema } from '@/utils/validation/validationSchema';
 import { getUserFull } from '@/utils/store/selectors/getUserFullSelector/getUserFullSelector';
-import { changeProfile } from '@/controllers/changeProfile';
 import { apiPaths } from '@/utils/constants';
 import { useAppDispatch } from '@/utils/store/store';
-import { fetchUser } from '@/utils/store/reducers/thunks/fetchUserThunk';
-import { userActions } from '@/utils/store/reducers/userSlice/userSlice';
 import { IUser } from '@/typings/IUser';
 import './UserInfoPage.scss';
+import { fetchChangeAvatar } from '@/utils/store/reducers/thunks/fetchChangeAvatarThunk';
+import { fetchChangeProfile } from '@/utils/store/reducers/thunks/fetchChangeProfileThunk';
 
 const { Title } = Typography;
 
@@ -42,9 +40,7 @@ export const UserInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState<File>();
   const onSubmit = async (data: IUser) => {
-    // eslint-disable-next-line no-console
-    await changeProfile(data);
-    dispatch(fetchUser());
+    dispatch(fetchChangeProfile(data));
   };
 
   const handleChangeAvatar = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -55,14 +51,13 @@ export const UserInfoPage = () => {
     setImage(files[0]);
   }, []);
 
-  const uploadAvatar = useCallback(async (): Promise<void> => {
+  const uploadAvatar = useCallback(() => {
     if (!image) {
       return;
     }
     const formData = new FormData();
     formData.append('avatar', image);
-    const newAvatar = await changeAvatar(formData);
-    dispatch(userActions.changeUserFullInfo(newAvatar as IUser));
+    dispatch(fetchChangeAvatar(formData));
     setIsModalOpen(false);
   }, [dispatch, image]);
 

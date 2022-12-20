@@ -10,5 +10,5 @@ export const apiPaths = {
   putPassword: '/user/password',
   putAvatar: '/user/profile/avatar',
   putProfile: '/user/profile',
-  showAvatar: `${API_HOST + API_PATH}/resources`,
+  showAvatar: `${API_HOST}${API_PATH}/resources`,
 };
