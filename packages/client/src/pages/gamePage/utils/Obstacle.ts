@@ -1,11 +1,11 @@
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 import { getRandomIntBetweenInterval } from './helpers';
 import { CollisionArea } from './Car';
+import oilImg from '../assets/obstacle/oil.png';
 import puddleImg1 from '../assets/obstacle/puddle1.png';
 import puddleImg2 from '../assets/obstacle/puddle2.png';
 import puddleImg3 from '../assets/obstacle/puddle3.png';
 import puddleImg4 from '../assets/obstacle/puddle4.png';
-import oil from '../assets/obstacle/oil.png';
 
 const puddleImgArr = [puddleImg1, puddleImg2, puddleImg3, puddleImg4];
 
@@ -43,7 +43,7 @@ export class Obstacle {
     this.type = type;
     const i = getRandomIntBetweenInterval(0, puddleImgArr.length - 1);
     if (this.type === GameConfig.obstacle.oil) {
-      this.image.src = oil;
+      this.image.src = oilImg;
     } else {
       this.image.src = puddleImgArr[i];
     }
