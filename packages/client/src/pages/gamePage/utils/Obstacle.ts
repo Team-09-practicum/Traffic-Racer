@@ -36,7 +36,7 @@ export class Obstacle {
   /**
    * Конструктор класса препятствий.
    * @param {number} emptyLane - Расположение.
-   * @param {number} type - Вид препятсвия.
+   * @param {number} type - Вид препятствия.
    */
   constructor(emptyLane: number, type: number) {
     this.type = type;
@@ -60,7 +60,7 @@ export class Obstacle {
   }
 
   /**
-   * Отрисовка препятсвия
+   * Отрисовка препятствия
    * @param {CanvasRenderingContext2D} context - Контекст Canvas.
    */
   draw(context: CanvasRenderingContext2D) {
@@ -76,7 +76,7 @@ export class Obstacle {
   }
 
   /**
-   * Обновление препятсвия
+   * Обновление препятствия
    * @param {number} maxY - Максимально допустимое значение Y (высота Canvas)
    */
 

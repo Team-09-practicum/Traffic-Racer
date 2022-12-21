@@ -248,19 +248,24 @@ export class Traffic {
   }
 
   /**
-   * Проверка наличия препятсвия в полосе
+   * Проверка наличия препятствия в полосе
    * * @param {number} laneNum - Индекс полосы.
    */
 
   hasObstaclesInLane(laneNum: number) {
-    if (this.scenario) {
-      return (
-        (this.scenario.oil && this.scenario.oil.lane === laneNum) ||
-        (this.scenario.puddle && this.scenario.puddle.lane === laneNum)
-      );
+    if (!this.scenario) {
+      return false;
     }
-    return false;
+    return (
+      (this.scenario.oil && this.scenario.oil.lane === laneNum) ||
+      (this.scenario.puddle && this.scenario.puddle.lane === laneNum)
+    );
   }
+
+  /**
+   * Проверка наличия препятствия или автомобиля в полосе
+   * * @param {number} laneNum - Индекс полосы.
+   */
 
   hasSomethingOnLane(laneNum: number) {
     const hasObjs = this.hasObstaclesInLane(laneNum);

@@ -100,7 +100,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
   const gameLoop = (() => {
     let oldTimeStamp = 0;
     let scoreTimeStamp = 0;
-    const scoreUpdateInterval = 1 / 25; // 20 кадров в секунду
+    const scoreUpdateInterval = 1 / 20; // 20 кадров в секунду
 
     return (timeStamp: number) => {
       const deltaTime = (timeStamp - oldTimeStamp) / 1000;
