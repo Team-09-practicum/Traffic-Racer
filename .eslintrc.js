@@ -67,4 +67,7 @@ module.exports = {
       },
     },
   ],
+  globals: {
+    JSX: true,
+  },
 };

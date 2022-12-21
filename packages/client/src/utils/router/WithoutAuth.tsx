@@ -4,10 +4,10 @@ import { Navigate } from 'react-router';
 import { getIsAuth } from '../store/selectors/getIsAuthSelector/getIsAuthSelector';
 
 interface IWithoutAuth {
-  children: React.ReactNode;
+  children: JSX.Element;
 }
 
 export const WithoutAuth = ({ children }: IWithoutAuth) => {
   const isAuth = useSelector(getIsAuth);
-  return <div>{isAuth === false ? children : <Navigate to="/" replace />}</div>;
+  return isAuth === false ? children : <Navigate to="/" replace />;
 };
