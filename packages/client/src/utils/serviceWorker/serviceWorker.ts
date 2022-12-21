@@ -1,3 +1,5 @@
+import { API_PATH } from '@/utils/constants';
+
 export type {};
 // eslint-disable-next-line no-undef
 declare const self: ServiceWorkerGlobalScope;
@@ -91,5 +93,7 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
 
   if (event.request.url.indexOf('http') !== 0) return;
+  if (request.method !== 'GET') return;
+  if (request.url.indexOf(API_PATH) !== -1) return;
   event.respondWith(networkFirst(request, TIMEOUT).catch(() => cachedData(request)));
 });
