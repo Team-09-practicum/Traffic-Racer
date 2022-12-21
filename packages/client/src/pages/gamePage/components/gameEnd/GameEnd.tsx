@@ -16,9 +16,6 @@ export const GameEnd = ({ score }: IGameEnd) => (
     <Title className="game-end__text" level={2}>
       Ваш результат : {score}
     </Title>
-    <Link className="game-end__link" to={appRoutes.main}>
-      <Button ghost>Главное меню</Button>
-    </Link>
     <Link className="game-end__link" to={appRoutes.stats}>
       <Button type="primary">Таблица лучших</Button>
     </Link>

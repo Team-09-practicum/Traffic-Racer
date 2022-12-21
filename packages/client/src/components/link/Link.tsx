@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Link = (props: Props) => {
-  const { isRouter = false, to, className, target = '_self', children } = props;
+  const { isRouter = true, to, className, target = '_self', children } = props;
 
   const navigate = useNavigate();
 

@@ -1,4 +1,5 @@
 import { api } from '@/utils/api';
+import { showNetworkError } from '@/utils/showNetworkError';
 
 export interface ISignIn {
   login: string;
@@ -8,7 +9,6 @@ export interface ISignIn {
 export const signIn = async (userInfo: ISignIn) => {
   await api.postSignIn({
     data: userInfo,
-    // eslint-disable-next-line no-console
-    onSuccess: (res) => console.log('%cResponse = ', 'color: green', res),
+    onError: (err) => showNetworkError(err.response.data.reason),
   });
 };

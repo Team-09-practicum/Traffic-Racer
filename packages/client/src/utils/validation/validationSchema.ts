@@ -52,7 +52,7 @@ export const changePasswordSchema = yup.object().shape({
     .oneOf([yup.ref('newPassword'), null], 'Пароли не совпадают'),
 });
 
-export const profileSchema = registrationSchema.concat(
+export const profileSchema = registrationSchema.omit(['password', 'confirm_password']).concat(
   yup.object().shape(
     {
       display_name: yup

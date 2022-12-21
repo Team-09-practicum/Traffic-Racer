@@ -1,10 +1,9 @@
 export const appRoutes: Record<string, string> = {
-  main: '/',
-  game: '/game',
+  game: '/',
   auth: '/auth',
   registration: '/registration',
   userinfo: '/userinfo',
-  сhangePassword: '/changePassword',
+  changePassword: '/changePassword',
   stats: '/stats',
   forum: '/forum',
   error404: '/404',

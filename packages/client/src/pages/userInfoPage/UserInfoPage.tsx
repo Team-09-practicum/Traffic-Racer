@@ -1,30 +1,37 @@
 import React, { useCallback, useState } from 'react';
 import { Typography, Form, Input, Button, Avatar, Modal, Row, Col } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from '@/components';
 import { appRoutes } from '@/utils/router/appRoutes';
-import { changeAvatar } from '@/controllers/changeAvatar';
 import { profileSchema } from '@/utils/validation/validationSchema';
+import { getUserFull } from '@/utils/store/selectors/getUserFullSelector/getUserFullSelector';
+import { apiPaths } from '@/utils/constants';
+import { useAppDispatch } from '@/utils/store/store';
 import { IUser } from '@/typings/IUser';
 import './UserInfoPage.scss';
+import { fetchChangeAvatar } from '@/utils/store/reducers/thunks/fetchChangeAvatarThunk';
+import { fetchChangeProfile } from '@/utils/store/reducers/thunks/fetchChangeProfileThunk';
 
 const { Title } = Typography;
 
 export const UserInfoPage = () => {
+  const dispatch = useAppDispatch();
+  const user = useSelector(getUserFull);
+  const avatarPath = `${apiPaths.showAvatar}/${user?.avatar}`;
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<IUser>({
     defaultValues: {
-      first_name: 'Test',
-      second_name: 'Testov',
-      display_name: 'test',
-      login: 'test111',
-      avatar: '',
-      email: 'test3@test.com',
-      phone: '89998887766',
+      first_name: user?.first_name,
+      second_name: user?.second_name,
+      display_name: user?.display_name || '',
+      login: user?.login,
+      email: user?.email,
+      phone: user?.phone,
     },
     mode: 'onChange',
     resolver: yupResolver(profileSchema),
@@ -32,10 +39,8 @@ export const UserInfoPage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState<File>();
-
-  const onSubmit = (data: IUser) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+  const onSubmit = async (data: IUser) => {
+    dispatch(fetchChangeProfile(data));
   };
 
   const handleChangeAvatar = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -46,15 +51,15 @@ export const UserInfoPage = () => {
     setImage(files[0]);
   }, []);
 
-  const uploadAvatar = useCallback((): void => {
+  const uploadAvatar = useCallback(() => {
     if (!image) {
       return;
     }
     const formData = new FormData();
     formData.append('avatar', image);
-    changeAvatar(formData);
+    dispatch(fetchChangeAvatar(formData));
     setIsModalOpen(false);
-  }, [image]);
+  }, [dispatch, image]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -68,7 +73,7 @@ export const UserInfoPage = () => {
     <Row justify="center" align="middle" className="profile-page">
       <Col className="profile-page__col">
         <Title className="profile-page__form-title">Профиль</Title>
-        <Avatar className="profile-page__avatar " onClick={showModal} />
+        <Avatar className="profile-page__avatar " src={avatarPath} onClick={showModal} />
         <Form name="basic" className="profile-page__form" layout="vertical" onFinish={handleSubmit(onSubmit)}>
           <Form.Item
             className="profile-page__form-item"
@@ -113,15 +118,19 @@ export const UserInfoPage = () => {
             <Controller name="phone" control={control} render={({ field }) => <Input {...field} />} />
           </Form.Item>
           <Form.Item className="profile-page__form-item">
-            <Button className="profile-page__button" htmlType="submit" type="primary">
+            <Button
+              className="profile-page__button"
+              htmlType="submit"
+              type="primary"
+              disabled={!!Object.keys(errors).length}>
               Сохранить
             </Button>
           </Form.Item>
         </Form>
-        <Link to={appRoutes.сhangePassword}> Изменить пароль </Link>
+        <Link to={appRoutes.changePassword}> Изменить пароль </Link>
         <br />
         <br />
-        <Link to={appRoutes.main}> Главное меню </Link>
+        <Link to={appRoutes.game}> Главное меню </Link>
         <Modal
           centered
           title="Изменение пароля"

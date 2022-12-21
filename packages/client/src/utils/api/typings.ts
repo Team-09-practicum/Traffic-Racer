@@ -19,7 +19,7 @@ export interface IRequestParams<E> {
   urlParams?: object | URLSearchParams;
   data?: string | object | ArrayBuffer;
   onSuccess?: (response: E) => void;
-  onError?: (err: unknown) => void;
+  onError?: (err: IErrorRes) => void;
 }
 
 export type IMakeRequestParams<T> = IDefParams & IRequestParams<T>;

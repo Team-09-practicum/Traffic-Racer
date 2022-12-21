@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 import { renderWithRouter } from '../renederWithRouter';
 
 describe('Router', () => {
@@ -12,15 +12,14 @@ describe('Router', () => {
     });
   });
 
-  // TODO: раскомментировать этот тест, когда на главной странице будет игра
-  // test('should correct render home page', () => {
-  //   act(() => {
-  //     const route = '/';
-  //     renderWithRouter({ route });
-  //   });
-  //   const main = document.querySelector('.game-page');
-  //   expect(main).toBeInTheDocument();
-  // });
+  test('should correct render home page', () => {
+    act(() => {
+      const route = '/';
+      renderWithRouter({ route });
+    });
+    const main = document.querySelector('.game-page');
+    expect(main).toBeInTheDocument();
+  });
 
   test('should correct navigate on stats page', () => {
     const route = '/stats';

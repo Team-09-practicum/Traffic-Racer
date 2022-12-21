@@ -1,4 +1,5 @@
 import { api } from '@/utils/api';
+import { showNetworkError } from '@/utils/showNetworkError';
 
 export interface IChangePassword {
   oldPassword: string;
@@ -8,7 +9,7 @@ export interface IChangePassword {
 export const changePassword = async (passwords: IChangePassword) => {
   await api.putPasswordChange({
     data: passwords,
-    // eslint-disable-next-line no-console
-    onSuccess: (res) => console.log('%cResponse = ', 'color: green', res),
+    onSuccess: () => window.history.go(-1),
+    onError: (err) => showNetworkError(err.response.data.reason),
   });
 };

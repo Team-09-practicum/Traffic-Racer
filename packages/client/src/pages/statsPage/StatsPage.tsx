@@ -9,7 +9,6 @@ import './StatsPage.scss';
 
 export const StatsPage = () => (
   <>
-    <Link to={appRoutes.main}> Главное меню </Link>
     <Typography.Title level={1} className="stats-page__title">
       Топ самых-самых
     </Typography.Title>
