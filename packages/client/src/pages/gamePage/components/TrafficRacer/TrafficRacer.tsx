@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { Dispatch, FC, SetStateAction, useEffect, useRef, memo } from 'react';
-import { Scenario, Car, Traffic } from '../../utils';
-import { GameConfig } from '../../utils/game.config';
+import { useSelector } from 'react-redux';
+import { Scenario, Car, Traffic, GameConfig, crashSound } from '../../utils';
 import './TrafficRacer.scss';
+import { getIsSoundOn } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
+import gameSoundPath from '../../assets/sounds/gameSound.mp3';
 
 type TrafficRacerProps = {
   height: number;
@@ -14,14 +16,17 @@ type TrafficRacerProps = {
 type Props = FC<TrafficRacerProps>;
 
 export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, setScore }) => {
+  const isSoundOn = useRef<boolean>();
+  isSoundOn.current = useSelector(getIsSoundOn);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const canvasCtxRef = useRef<CanvasRenderingContext2D | null>(null);
   const animationID = useRef<number>();
   const isStarted = useRef(false);
   const isOver = useRef(false);
   const localHeight = useRef<number>(height);
-
+  const gameThemeSound = useRef<HTMLAudioElement | null>(null);
   let speed = GameConfig.level.initialSpeed;
+  let playedCrash: boolean;
   const setSpeed = (newSpeed: number) => {
     speed = newSpeed;
   };
@@ -45,6 +50,13 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     traffic.draw();
 
     if (isOver.current) {
+      if (!playedCrash) {
+        if (isSoundOn.current) {
+          crashSound().play();
+        }
+        playedCrash = true;
+      }
+      gameThemeSound.current?.pause();
       isStarted.current = false;
       setGameStarted(false);
       setGameOver(true);
@@ -62,6 +74,12 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
 
   const startGame = () => {
     if (!canvasRef.current) return;
+    playedCrash = false;
+    if (!gameThemeSound.current) return;
+    gameThemeSound.current.currentTime = 0;
+    gameThemeSound.current.play();
+    gameThemeSound.current.volume = 0.3;
+    gameThemeSound.current.muted = !isSoundOn.current;
 
     player.current = new Car(localHeight.current - GameConfig.traffic.carHeight - 10, GameConfig.player.carType);
     scenario.current = new Scenario(canvasRef.current);
@@ -101,9 +119,9 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
 
     if (!isStarted.current) startGame();
     else if (event.code === 'ArrowLeft') {
-      player.current?.moveToLeft();
+      player.current?.moveToLeft(isSoundOn.current);
     } else if (event.code === 'ArrowRight') {
-      player.current?.moveToRight();
+      player.current?.moveToRight(isSoundOn.current);
     }
   };
 
@@ -129,6 +147,12 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
   }, []);
 
   useEffect(() => {
+    if (!gameThemeSound.current) return;
+    gameThemeSound.current.muted = isStarted.current && !isSoundOn.current;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSoundOn.current]);
+
+  useEffect(() => {
     localHeight.current = height;
 
     if (scenario.current) scenario.current.setRoadImageHeight(height);
@@ -137,6 +161,8 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
 
   return (
     <div className="traffic-racer" style={{ backgroundColor: GameConfig.general.background }}>
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+      <audio ref={gameThemeSound} src={gameSoundPath} loop />
       <canvas ref={canvasRef} height={height} width={GameConfig.general.width} />
     </div>
   );

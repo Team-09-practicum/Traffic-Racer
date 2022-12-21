@@ -2,35 +2,16 @@ export type {};
 // eslint-disable-next-line no-undef
 declare const self: ServiceWorkerGlobalScope;
 
-// Имя кеша. Нужно менять каждый раз, когда содержимое файлов меняется.
-const CACHE_NAME = 'network-or-cache-v2';
+// Имя кеша. Изменяется автоматически.
+const CACHE_NAME = 'network-or-cache';
 
 // Максимальное время выполениня запроса.
 const TIMEOUT = 400;
 
-// Список файлов для кеширования.
-const FILE_LIST = [
-  '/',
-  '/index.html',
-  '/vite.svg',
-  '/assets/index.css',
-  '/assets/index.js',
-  '/assets/car1.png',
-  '/assets/car2.png',
-  '/assets/car3.png',
-  '/assets/car4.png',
-  '/assets/car5.png',
-  '/assets/car6.png',
-  '/assets/car7.png',
-  '/assets/car8.png',
-  '/assets/car9.png',
-  '/assets/car10.png',
-  '/assets/road.png',
-  '/assets/tree1.png',
-  '/assets/tree2.png',
-  '/assets/tree3.png',
-  '/assets/tree4.png',
-];
+// Список файлов для кеширования. Формируется автоматически.
+// @ts-expect-error Property '__WB_MANIFEST' does not exist on type 'ServiceWorkerGlobalScope'.
+// eslint-disable-next-line no-underscore-dangle
+const FILE_LIST = self.__WB_MANIFEST;
 
 /**
  * Событие жизненного цикла SW.

@@ -11,6 +11,7 @@ import car9 from '../assets/traffic/car9.png';
 import car10 from '../assets/traffic/car10.png';
 
 import { isCloseToY } from './helpers';
+import { wheelSkidSound } from './wheelSkidSound';
 
 export type CollisionArea = {
   x: number;
@@ -73,6 +74,8 @@ export class Car implements ICar {
 
   showCollisionArea = false;
 
+  skidSound: HTMLAudioElement | undefined;
+
   /**
    * Конструктор класса.
    * @param {number} initialPosition - Начальная позиция Y.
@@ -113,12 +116,16 @@ export class Car implements ICar {
   /**
    * Движение автомобиля влево
    */
-  moveToLeft() {
+  moveToLeft(soundValue: boolean | undefined) {
     if (this.isMovingRight || this.isMovingLeft) return;
     if (this.currentLane <= this.positions[0]) return;
 
     this.nextLane = this.currentLane - 1;
     this.movingLeft();
+    this.skidSound = wheelSkidSound();
+    if (soundValue) {
+      this.skidSound.play();
+    }
     this.isMovingLeft = true;
     this.isMovingRight = false;
   }
@@ -126,12 +133,16 @@ export class Car implements ICar {
   /**
    * Движение автомобиля вправо
    */
-  moveToRight() {
+  moveToRight(soundValue: boolean | undefined) {
     if (this.isMovingRight || this.isMovingLeft) return;
     if (this.currentLane >= this.positions[this.positions.length - 1]) return;
 
     this.nextLane = this.currentLane + 1;
     this.movingRight();
+    this.skidSound = wheelSkidSound();
+    if (soundValue) {
+      this.skidSound.play();
+    }
     this.isMovingLeft = false;
     this.isMovingRight = true;
   }
