@@ -32,7 +32,7 @@ export const GameConfig = {
     carType: 0,
   },
   obstacle: {
-    pointsLossOnPuddle: 1000,
+    pointsLossOnPuddle: 100,
     puddle: 1,
     oil: 2,
   },

@@ -26,7 +26,7 @@ export class Traffic {
 
   gameOverRef: MutableRefObject<boolean>;
 
-  scenario!: Scenario;
+  scenario?: Scenario;
 
   /**
    * Конструктор класса сценария.
@@ -34,7 +34,12 @@ export class Traffic {
    * @param {Car | null} carPlayer - Класс Car игрока.
    * @param {MutableRefObject} gameOverRef - Ref для передачи состояния завершения игры.
    */
-  constructor(canvas: HTMLCanvasElement, carPlayer: Car | null, gameOverRef: MutableRefObject<boolean>) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    carPlayer: Car | null,
+    gameOverRef: MutableRefObject<boolean>,
+    scenario: Scenario
+  ) {
     this.canvas = canvas;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.context = canvas.getContext('2d')!;
@@ -42,6 +47,7 @@ export class Traffic {
     this.carPlayer = carPlayer;
     this.nextEmptyLane = getRandomIntBetweenInterval(0, GameConfig.scenario.numberOfLanes - 1);
     this.emptyLane = this.nextEmptyLane;
+    this.scenario = scenario;
     this.createCars();
   }
 

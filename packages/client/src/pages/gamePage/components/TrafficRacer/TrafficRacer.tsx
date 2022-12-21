@@ -33,7 +33,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
   const showStartScreen = () => {
     if (canvasRef.current) {
       scenario.current = new Scenario(canvasRef.current);
-      traffic = new Traffic(canvasRef.current, null, isOver);
+      traffic = new Traffic(canvasRef.current, null, isOver, scenario.current);
     }
   };
 
@@ -57,11 +57,8 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     scenario.current?.updateRoad(speed);
     traffic.update(speed);
 
-    if (isStarted.current) setScore((prev) => prev + speed);
-
     if (player.current?.passedOnPuddle) {
       setScore((prev) => prev - GameConfig.obstacle.pointsLossOnPuddle);
-
       player.current.passedOnPuddle = false;
     }
   };
@@ -71,7 +68,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
 
     player.current = new Car(localHeight.current - GameConfig.traffic.carHeight - 10, GameConfig.player.carType);
     scenario.current = new Scenario(canvasRef.current);
-    traffic = new Traffic(canvasRef.current, player.current, isOver);
+    traffic = new Traffic(canvasRef.current, player.current, isOver, scenario.current);
 
     isStarted.current = true;
     isOver.current = false;
@@ -84,9 +81,12 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
 
   const gameLoop = (() => {
     let oldTimeStamp = 0;
+    let scoreTimeStamp = 0;
+    const scoreUpdateInterval = 1 / 25; // 20 кадров в секунду
 
     return (timeStamp: number) => {
       const deltaTime = (timeStamp - oldTimeStamp) / 1000;
+      const scoreDeltaTime = (timeStamp - scoreTimeStamp) / 1000;
       if (deltaTime > 5) {
         oldTimeStamp = timeStamp;
         if (isStarted.current) {
@@ -94,12 +94,16 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
         }
       }
 
+      if (scoreDeltaTime > scoreUpdateInterval && isStarted.current) {
+        setScore((prev) => prev + speed);
+        scoreTimeStamp = timeStamp;
+      }
+
       update();
       draw();
       animationID.current = requestAnimationFrame(gameLoop);
     };
   })();
-
   const handleKeydown = (event: KeyboardEvent) => {
     if (event.shiftKey && event.key === 'F11') {
       return;
