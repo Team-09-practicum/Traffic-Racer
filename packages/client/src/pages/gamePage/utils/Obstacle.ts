@@ -4,8 +4,9 @@ import { CollisionArea } from './Car';
 import puddleImg1 from '../assets/obstacle/puddle1.png';
 import puddleImg2 from '../assets/obstacle/puddle2.png';
 import puddleImg3 from '../assets/obstacle/puddle3.png';
+import puddleImg4 from '../assets/obstacle/puddle4.png';
 
-const puddleImgArr = [puddleImg1, puddleImg2, puddleImg3];
+const puddleImgArr = [puddleImg1, puddleImg2, puddleImg3, puddleImg4];
 
 /**
  * Класс препятствий
