@@ -236,14 +236,13 @@ export class Traffic {
   verifyCollisionWithObstacles() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const player = this.carPlayer!;
-    if (this.scenario && player) {
-      if (this.scenario.oil && isCollide(player.collisionArea, this.scenario.oil.collisionArea)) {
-        player.isSliding = true;
-      }
+    if (!this.scenario && !player) return;
+    if (this.scenario?.oil && isCollide(player.collisionArea, this.scenario.oil.collisionArea)) {
+      player.isSliding = true;
+    }
 
-      if (this.scenario.puddle && isCollide(player.collisionArea, this.scenario.puddle.collisionArea)) {
-        player.passedOnPuddle = true;
-      }
+    if (this.scenario?.puddle && isCollide(player.collisionArea, this.scenario.puddle.collisionArea)) {
+      player.passedOnPuddle = true;
     }
   }
 

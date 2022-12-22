@@ -26,7 +26,7 @@ export class Obstacle {
 
   lane!: number;
 
-  type: number;
+  type: 'puddle' | 'oil';
 
   collisionArea: CollisionArea;
 
@@ -39,7 +39,7 @@ export class Obstacle {
    * @param {number} emptyLane - Расположение.
    * @param {number} type - Вид препятствия.
    */
-  constructor(emptyLane: number, type: number) {
+  constructor(emptyLane: number, type: 'puddle' | 'oil') {
     this.type = type;
     const i = getRandomIntBetweenInterval(0, puddleImgArr.length - 1);
     if (this.type === GameConfig.obstacle.oil) {
@@ -83,11 +83,7 @@ export class Obstacle {
 
   update(maxY: number, speed: number) {
     this.y += speed;
-    if (this.y >= maxY) {
-      this.isOnRoad = false;
-    } else {
-      this.isOnRoad = true;
-    }
+    this.isOnRoad = this.y < maxY;
     this.collisionArea.x = this.x;
     this.collisionArea.y = this.y;
   }

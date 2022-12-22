@@ -33,7 +33,7 @@ export const GameConfig = {
   },
   obstacle: {
     pointsLossOnPuddle: 100,
-    puddle: 1,
-    oil: 2,
+    oil: 'oil',
+    puddle: 'puddle',
   },
 };
