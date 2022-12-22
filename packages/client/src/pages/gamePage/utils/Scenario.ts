@@ -177,7 +177,7 @@ export class Scenario {
 
   createPuddle(emptyLane: number) {
     if (!this.puddle || !this.puddle.isOnRoad) {
-      this.puddle = new Obstacle(emptyLane, GameConfig.obstacle.puddle);
+      this.puddle = new Obstacle(emptyLane, 'puddle');
     }
   }
 
@@ -187,7 +187,7 @@ export class Scenario {
 
   createOil(emptyLane: number) {
     if (!this.oil || !this.oil.isOnRoad) {
-      this.oil = new Obstacle(emptyLane, GameConfig.obstacle.oil);
+      this.oil = new Obstacle(emptyLane, 'oil');
     }
   }
 
