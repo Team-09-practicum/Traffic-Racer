@@ -213,15 +213,6 @@ export class Car implements ICar {
         this.collisionArea.height
       );
     }
-    if (this.isSliding) {
-      const slideSide = Math.random();
-      if (slideSide < 0.5) {
-        this.moveToLeft(true);
-      } else {
-        this.moveToRight(true);
-      }
-      this.isSliding = false;
-    }
   }
 
   /**

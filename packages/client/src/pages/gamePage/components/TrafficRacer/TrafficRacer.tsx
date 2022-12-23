@@ -63,6 +63,16 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     } else if (isStarted.current && player) {
       player.current?.drawCar(canvasCtxRef.current);
     }
+
+    if (player.current?.isSliding) {
+      const slideSide = Math.random();
+      if (slideSide < 0.5) {
+        player.current?.moveToLeft(isSoundOn.current);
+      } else {
+        player.current?.moveToLeft(isSoundOn.current);
+      }
+      player.current.isSliding = false;
+    }
   };
 
   const update = () => {
