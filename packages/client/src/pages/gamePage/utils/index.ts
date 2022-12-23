@@ -4,6 +4,8 @@ export { Traffic } from './Traffic';
 export { Tree } from './roadside';
 export { crashSound } from './crashSound';
 export { GameConfig } from './game.config';
+export { Obstacle } from './Obstacle';
+
 export {
   isCloseToX,
   isCloseToY,

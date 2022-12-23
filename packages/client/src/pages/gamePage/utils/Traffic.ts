@@ -2,6 +2,7 @@ import { MutableRefObject } from 'react';
 import { getRandomIntBetweenInterval, isCollide, isCloseTo } from './helpers';
 import { GameConfig } from './game.config';
 import { Car } from './Car';
+import { Scenario } from './Scenario';
 
 /**
  * Класс управляющий трафиком
@@ -25,13 +26,20 @@ export class Traffic {
 
   gameOverRef: MutableRefObject<boolean>;
 
+  scenario?: Scenario;
+
   /**
    * Конструктор класса сценария.
    * @param {HTMLCanvasElement} canvas - Элемент Canvas.
    * @param {Car | null} carPlayer - Класс Car игрока.
    * @param {MutableRefObject} gameOverRef - Ref для передачи состояния завершения игры.
    */
-  constructor(canvas: HTMLCanvasElement, carPlayer: Car | null, gameOverRef: MutableRefObject<boolean>) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    carPlayer: Car | null,
+    gameOverRef: MutableRefObject<boolean>,
+    scenario: Scenario
+  ) {
     this.canvas = canvas;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.context = canvas.getContext('2d')!;
@@ -39,6 +47,7 @@ export class Traffic {
     this.carPlayer = carPlayer;
     this.nextEmptyLane = getRandomIntBetweenInterval(0, GameConfig.scenario.numberOfLanes - 1);
     this.emptyLane = this.nextEmptyLane;
+    this.scenario = scenario;
     this.createCars();
   }
 
@@ -151,7 +160,10 @@ export class Traffic {
       this.preventCollisionInLane(carsInCurrentLane);
     }
 
-    if (this.carPlayer) this.verifyPlayerCollision();
+    if (this.carPlayer) {
+      this.verifyPlayerCollision();
+      this.verifyCollisionWithObstacles();
+    }
 
     this.changeEmptyLane();
     this.tryChangeEmptyLane();
@@ -200,7 +212,7 @@ export class Traffic {
    * Смена свободной полосы (если следующая пустая свободна от машин)
    */
   tryChangeEmptyLane() {
-    if (this.nextEmptyLane !== this.emptyLane && !this.carsInLane(this.nextEmptyLane).length) {
+    if (this.nextEmptyLane !== this.emptyLane && !this.hasSomethingOnLane(this.nextEmptyLane)) {
       this.emptyLane = this.nextEmptyLane;
     }
   }
@@ -215,5 +227,50 @@ export class Traffic {
     this.cars.forEach((car) => {
       if (car && isCollide(player.collisionArea, car.collisionArea)) this.gameOverRef.current = true;
     });
+  }
+
+  /**
+   * Проверка наезда на препятствие
+   */
+
+  verifyCollisionWithObstacles() {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const player = this.carPlayer!;
+    if (!this.scenario && !player) return;
+    if (this.scenario?.oil && isCollide(player.collisionArea, this.scenario.oil.collisionArea)) {
+      player.isSliding = true;
+    }
+
+    if (this.scenario?.puddle && isCollide(player.collisionArea, this.scenario.puddle.collisionArea)) {
+      player.passedOnPuddle = true;
+    }
+  }
+
+  /**
+   * Проверка наличия препятствия в полосе
+   * * @param {number} laneNum - Индекс полосы.
+   */
+
+  hasObstaclesInLane(laneNum: number) {
+    if (!this.scenario) {
+      return false;
+    }
+    return (
+      (this.scenario.oil && this.scenario.oil.lane === laneNum) ||
+      (this.scenario.puddle && this.scenario.puddle.lane === laneNum)
+    );
+  }
+
+  /**
+   * Проверка наличия препятствия или автомобиля в полосе
+   * * @param {number} laneNum - Индекс полосы.
+   */
+
+  hasSomethingOnLane(laneNum: number) {
+    const hasObjs = this.hasObstaclesInLane(laneNum);
+    const carsInlaneTemp = this.carsInLane(laneNum);
+    const hasCars = carsInlaneTemp.length > 0;
+
+    return hasObjs || hasCars;
   }
 }

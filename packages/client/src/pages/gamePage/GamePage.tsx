@@ -25,6 +25,10 @@ export const GamePage = () => {
     if (gamePageRef.current) setPageTopOffset(gamePageRef.current.getBoundingClientRect().top);
   }, []);
 
+  useEffect(() => {
+    if (score < 0) setScore(0);
+  }, [score]);
+
   const toggleFullscreen = useCallback(() => {
     const game = gamePageRef.current;
 

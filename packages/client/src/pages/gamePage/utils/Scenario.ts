@@ -1,6 +1,7 @@
 import roadImg from '../assets/scenario/road.png';
 import { Tree } from './roadside/Tree';
 import { GameConfig } from './game.config';
+import { Obstacle } from './Obstacle';
 
 /**
  * Класс определяющий сценарий игры
@@ -23,6 +24,10 @@ export class Scenario {
   y2!: number;
 
   trees: Tree[] = [];
+
+  puddle!: Obstacle;
+
+  oil!: Obstacle;
 
   /**
    * Конструктор класса сценария.
@@ -53,6 +58,14 @@ export class Scenario {
     this.context.drawImage(this.roadImage, this.x, this.y, this.roadImageWidth, this.roadImageHeight);
     this.context.drawImage(this.roadImage, this.x, this.y2, this.roadImageWidth, this.roadImageHeight);
 
+    if (this.isThereOil()) {
+      this.oil.draw(this.context);
+    }
+
+    if (this.isTherePuddle()) {
+      this.puddle.draw(this.context);
+    }
+
     this.trees.forEach((tree) => {
       tree.draw(this.context);
     });
@@ -68,6 +81,12 @@ export class Scenario {
 
     this.y2 += speed;
     if (this.y2 >= 0) this.y2 = -this.roadImageHeight;
+
+    if (this.hasObstaclesOnRoad()) {
+      this.updateObstacles(speed);
+    } else {
+      this.tryPutAnObstacleOnRoad(speed);
+    }
 
     this.updateTrees(speed);
   }
@@ -108,5 +127,84 @@ export class Scenario {
     this.trees.forEach((tree) => {
       tree.update(this.canvas.height, speed);
     });
+  }
+
+  /**
+   * Обновление препятствий
+   * @param {number} speed - Скорость смещения.
+   */
+
+  updateObstacles(speed: number) {
+    if (this.isThereOil()) {
+      this.oil.update(this.canvas.height, speed);
+    }
+
+    if (this.isTherePuddle()) {
+      this.puddle.update(this.canvas.height, speed);
+    }
+  }
+  /**
+   * Пытается установить препятствие в свободную полосу
+   * @param {number} emptyLane - свободная полоса.
+   */
+
+  tryPutAnObstacleOnRoad(emptyLane: number) {
+    const newObstacleProbability = Math.random();
+
+    if (newObstacleProbability < 0.02) {
+      this.putAnObstacleOnRoad(emptyLane);
+    }
+  }
+
+  /**
+   *  Устанавливает препятствие в свободную полосу
+   * @param {number} emptyLane - свободная полоса.
+   */
+
+  putAnObstacleOnRoad(emptyLane: number) {
+    const typeObstacleProbability = Math.random();
+
+    if (typeObstacleProbability < 0.7) {
+      this.createPuddle(emptyLane);
+    } else {
+      this.createOil(emptyLane);
+    }
+  }
+
+  /**
+   * Создание лужи
+   */
+
+  createPuddle(emptyLane: number) {
+    if (!this.puddle || !this.puddle.isOnRoad) {
+      this.puddle = new Obstacle(emptyLane, 'puddle');
+    }
+  }
+
+  /**
+   * Создание масляной лужи
+   */
+
+  createOil(emptyLane: number) {
+    if (!this.oil || !this.oil.isOnRoad) {
+      this.oil = new Obstacle(emptyLane, 'oil');
+    }
+  }
+
+  /**
+   * Проверка, что препятстиве есть на дороге
+   * @return {boolean} .
+   */
+
+  hasObstaclesOnRoad(): boolean {
+    return this.isThereOil() || this.isTherePuddle();
+  }
+
+  isThereOil() {
+    return this.oil && this.oil.isOnRoad;
+  }
+
+  isTherePuddle() {
+    return this.puddle && this.puddle.isOnRoad;
   }
 }
