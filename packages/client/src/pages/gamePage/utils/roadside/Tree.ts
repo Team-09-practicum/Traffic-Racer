@@ -6,10 +6,13 @@ import treeImg1 from './assets/tree/tree1.png';
 import treeImg2 from './assets/tree/tree2.png';
 import treeImg3 from './assets/tree/tree3.png';
 import treeImg4 from './assets/tree/tree4.png';
+import treeImg5 from './assets/tree/tree5.png';
+import treeImg6 from './assets/tree/tree6.png';
+
 import { getRandomIntBetweenInterval } from '../helpers';
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 
-const treeImgArr = [treeImg1, treeImg2, treeImg3, treeImg4];
+const treeImgArr = [treeImg1, treeImg2, treeImg3, treeImg4, treeImg5, treeImg6];
 
 /**
  * Класс дерева
@@ -72,6 +75,6 @@ export class Tree {
    */
   newXPosition() {
     const newX = Math.random() * this.width;
-    return this.side === 0 ? newX : 650 + newX;
+    return this.side === 0 ? 400 + newX : 1050 + newX;
   }
 }
