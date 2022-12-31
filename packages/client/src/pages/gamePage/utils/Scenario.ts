@@ -2,6 +2,7 @@ import roadImg from '../assets/scenario/road.png';
 import { Tree } from './roadside/Tree';
 import { GameConfig } from './game.config';
 import { Obstacle } from './Obstacle';
+import { Light } from './roadside/Light';
 
 /**
  * Класс определяющий сценарий игры
@@ -24,6 +25,8 @@ export class Scenario {
   y2!: number;
 
   trees: Tree[] = [];
+
+  lights: Light[] = [];
 
   puddle!: Obstacle;
 
@@ -49,6 +52,7 @@ export class Scenario {
     this.roadImage.src = roadImg;
 
     this.createTrees();
+    this.createLights();
   }
 
   /**
@@ -68,6 +72,10 @@ export class Scenario {
 
     this.trees.forEach((tree) => {
       tree.draw(this.context);
+    });
+
+    this.lights.forEach((light) => {
+      light.draw(this.context);
     });
   }
 
@@ -89,6 +97,7 @@ export class Scenario {
     }
 
     this.updateTrees(speed);
+    this.updateLights(speed);
   }
 
   /**
@@ -120,12 +129,41 @@ export class Scenario {
   }
 
   /**
+   * Создание освещения
+   */
+  createLights() {
+    const sideBreakPoint = Math.floor((GameConfig.roadside.lights - 1) / 2);
+    let lightPositionIndex = 0;
+    let lightSide = 0;
+
+    for (let i = 0; i < GameConfig.roadside.lights; i++) {
+      this.lights[i] = new Light(lightPositionIndex, lightSide);
+
+      if (lightPositionIndex >= sideBreakPoint) {
+        lightPositionIndex = 0;
+        lightSide = 1;
+      } else lightPositionIndex++;
+    }
+  }
+
+  /**
    * Обновление деревьев
    * @param {number} speed - Скорость смещения.
    */
   updateTrees(speed: number) {
     this.trees.forEach((tree) => {
       tree.update(this.canvas.height, speed);
+    });
+  }
+
+  /**
+   * Обновление освещения
+   * @param {number} speed - Скорость смещения.
+   */
+
+  updateLights(speed: number) {
+    this.lights.forEach((light) => {
+      light.update(this.canvas.height, speed);
     });
   }
 

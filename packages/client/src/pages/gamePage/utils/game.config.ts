@@ -13,6 +13,8 @@ export const GameConfig = {
     width: 570,
     buildings: 10,
     buildingsDistance: 60,
+    lights: 8,
+    lightDistance: 190,
   },
   collision: {
     nearDistanceX: 20,
