@@ -3,6 +3,7 @@ import { Tree } from './roadside/Tree';
 import { GameConfig } from './game.config';
 import { Obstacle } from './Obstacle';
 import { Light } from './roadside/Light';
+import { RoadSign } from './roadside/RoadSign';
 
 /**
  * Класс определяющий сценарий игры
@@ -27,6 +28,8 @@ export class Scenario {
   trees: Tree[] = [];
 
   lights: Light[] = [];
+
+  roadSigns: RoadSign[] = [];
 
   puddle!: Obstacle;
 
@@ -53,6 +56,7 @@ export class Scenario {
 
     this.createTrees();
     this.createLights();
+    this.createRoadSigns();
   }
 
   /**
@@ -77,6 +81,9 @@ export class Scenario {
     this.lights.forEach((light) => {
       light.draw(this.context);
     });
+    this.roadSigns.forEach((roadSign) => {
+      roadSign.draw(this.context);
+    });
   }
 
   /**
@@ -98,6 +105,7 @@ export class Scenario {
 
     this.updateTrees(speed);
     this.updateLights(speed);
+    this.updateRoadSigns(speed);
   }
 
   /**
@@ -147,6 +155,23 @@ export class Scenario {
   }
 
   /**
+   * Создание дорожных знаков
+   */
+  createRoadSigns() {
+    const sideBreakPoint = Math.floor((GameConfig.roadside.roadSigns - 1) / 2);
+    let roadSignPositionIndex = 0;
+    let roadSignSide = 1;
+
+    for (let i = 0; i < GameConfig.roadside.roadSigns; i++) {
+      this.roadSigns[i] = new RoadSign(roadSignPositionIndex, roadSignSide);
+
+      if (roadSignPositionIndex >= sideBreakPoint) {
+        roadSignSide = 1;
+      } else roadSignPositionIndex++;
+    }
+  }
+
+  /**
    * Обновление деревьев
    * @param {number} speed - Скорость смещения.
    */
@@ -164,6 +189,17 @@ export class Scenario {
   updateLights(speed: number) {
     this.lights.forEach((light) => {
       light.update(this.canvas.height, speed);
+    });
+  }
+
+  /**
+   * Обновление дорожных знаков
+   * @param {number} speed - Скорость смещения.
+   */
+
+  updateRoadSigns(speed: number) {
+    this.roadSigns.forEach((roadSign) => {
+      roadSign.update(this.canvas.height, speed);
     });
   }
 
