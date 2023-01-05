@@ -1,36 +1,36 @@
-import buildingImg1 from './assets/buildings/building1.png';
-import buildingImg2 from './assets/buildings/building2.png';
-import buildingImg3 from './assets/buildings/building3.png';
-import buildingImg4 from './assets/buildings/building4.png';
-import buildingImg5 from './assets/buildings/building5.png';
-import buildingImg6 from './assets/buildings/building6.png';
-import buildingImg7 from './assets/buildings/building7.png';
-import buildingImg8 from './assets/buildings/building8.png';
-import buildingImg9 from './assets/buildings/building9.png';
-import buildingImg10 from './assets/buildings/building10.png';
+import objectImg1 from './assets/objects/object1.png';
+import objectImg2 from './assets/objects/object2.png';
+import objectImg3 from './assets/objects/object3.png';
+import objectImg4 from './assets/objects/object4.png';
+import objectImg5 from './assets/objects/object5.png';
+import objectImg6 from './assets/objects/object6.png';
+import objectImg7 from './assets/objects/object7.png';
+import objectImg8 from './assets/objects/object8.png';
+import objectImg9 from './assets/objects/object9.png';
+import objectImg10 from './assets/objects/object10.png';
 import { getRandomIntBetweenInterval } from '../helpers';
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 
-const buildingImgArr = [
-  buildingImg1,
-  buildingImg2,
-  buildingImg3,
-  buildingImg4,
-  buildingImg5,
-  buildingImg6,
-  buildingImg7,
-  buildingImg8,
-  buildingImg9,
-  buildingImg10,
+const objectsImgArr = [
+  objectImg1,
+  objectImg2,
+  objectImg3,
+  objectImg4,
+  objectImg5,
+  objectImg6,
+  objectImg7,
+  objectImg8,
+  objectImg9,
+  objectImg10,
 ];
 
 /**
- * Класс сооружений
+ * Класс дорожных объектов
  */
-export class Building {
-  width = 150;
+export class RoadObject {
+  width = 200;
 
-  height = 150;
+  height = 200;
 
   x: number;
 
@@ -49,16 +49,16 @@ export class Building {
    */
   constructor(initialPosition: number, side: number) {
     this.side = side;
-    const i = getRandomIntBetweenInterval(0, buildingImgArr.length - 1);
-    this.image.src = buildingImgArr[i];
+    const i = getRandomIntBetweenInterval(0, objectsImgArr.length - 1);
+    this.image.src = objectsImgArr[i];
 
     this.x = this.newXPosition();
-    this.y = (-GameConfig.roadside.buildingsDistance - this.height) * initialPosition;
+    this.y = (-GameConfig.roadside.objectsDistance + this.height) * initialPosition;
     this.isOnScreen = true;
   }
 
   /**
-   * Отрисовка сооружений
+   * Отрисовка дорожных объектов
    * @param {CanvasRenderingContext2D} context - Контекст Canvas.
    */
   draw(context: CanvasRenderingContext2D) {
@@ -66,7 +66,7 @@ export class Building {
   }
 
   /**
-   * Обновление сооружений
+   * Обновление дорожных объектов
    * @param {number} maxY - Максимально допустимое значение Y (высота Canvas)
    * @param {number} speed - Скорость смещения.
    */
@@ -74,7 +74,7 @@ export class Building {
     this.y += speed;
     if (this.y >= maxY) {
       this.isOnScreen = false;
-      this.y = -this.height;
+      this.y = -this.height - 2000;
       this.x = this.newXPosition();
     } else this.isOnScreen = true;
   }
@@ -85,6 +85,6 @@ export class Building {
    */
   newXPosition() {
     const newX = Math.random() * this.width;
-    return this.side === 0 ? newX : 1350 + newX;
+    return this.side === 0 ? newX : 1250 + newX;
   }
 }

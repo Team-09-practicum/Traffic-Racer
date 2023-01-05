@@ -4,6 +4,7 @@ import { GameConfig } from './game.config';
 import { Obstacle } from './Obstacle';
 import { Light } from './roadside/Light';
 import { RoadSign } from './roadside/RoadSign';
+import { RoadObject } from './roadside/RoadObject';
 
 /**
  * Класс определяющий сценарий игры
@@ -31,6 +32,8 @@ export class Scenario {
 
   roadSigns: RoadSign[] = [];
 
+  roadObjects: RoadObject[] = [];
+
   puddle!: Obstacle;
 
   oil!: Obstacle;
@@ -57,6 +60,7 @@ export class Scenario {
     this.createTrees();
     this.createLights();
     this.createRoadSigns();
+    this.createRoadObjects();
   }
 
   /**
@@ -84,6 +88,10 @@ export class Scenario {
     this.roadSigns.forEach((roadSign) => {
       roadSign.draw(this.context);
     });
+
+    this.roadObjects.forEach((roadObject) => {
+      roadObject.draw(this.context);
+    });
   }
 
   /**
@@ -106,6 +114,7 @@ export class Scenario {
     this.updateTrees(speed);
     this.updateLights(speed);
     this.updateRoadSigns(speed);
+    this.updateRoadObjects(speed);
   }
 
   /**
@@ -172,6 +181,24 @@ export class Scenario {
   }
 
   /**
+   * Создание дорожных объектов
+   */
+  createRoadObjects() {
+    const sideBreakPoint = Math.floor((GameConfig.roadside.objects - 1) / 2);
+    let roadObjectPositionIndex = 0;
+    let roadObjectSide = 0;
+
+    for (let i = 0; i < GameConfig.roadside.objects; i++) {
+      this.roadObjects[i] = new RoadObject(roadObjectPositionIndex, roadObjectSide);
+
+      if (roadObjectPositionIndex >= sideBreakPoint) {
+        roadObjectPositionIndex = 0;
+        roadObjectSide = 1;
+      } else roadObjectPositionIndex++;
+    }
+  }
+
+  /**
    * Обновление деревьев
    * @param {number} speed - Скорость смещения.
    */
@@ -200,6 +227,17 @@ export class Scenario {
   updateRoadSigns(speed: number) {
     this.roadSigns.forEach((roadSign) => {
       roadSign.update(this.canvas.height, speed);
+    });
+  }
+
+  /**
+   * Обновление дорожных объектов
+   * @param {number} speed - Скорость смещения.
+   */
+
+  updateRoadObjects(speed: number) {
+    this.roadObjects.forEach((roadObject) => {
+      roadObject.update(this.canvas.height, speed);
     });
   }
 
