@@ -85,12 +85,12 @@ export class Scenario {
     this.lights.forEach((light) => {
       light.draw(this.context);
     });
-    this.roadSigns.forEach((roadSign) => {
-      roadSign.draw(this.context);
-    });
 
     this.roadObjects.forEach((roadObject) => {
       roadObject.draw(this.context);
+    });
+    this.roadSigns.forEach((roadSign) => {
+      roadSign.draw(this.context);
     });
   }
 
@@ -167,16 +167,12 @@ export class Scenario {
    * Создание дорожных знаков
    */
   createRoadSigns() {
-    const sideBreakPoint = Math.floor((GameConfig.roadside.roadSigns - 1) / 2);
-    let roadSignPositionIndex = 0;
-    let roadSignSide = 1;
-
     for (let i = 0; i < GameConfig.roadside.roadSigns; i++) {
+      let roadSignPositionIndex = 0;
+      const roadSignSide = 1;
       this.roadSigns[i] = new RoadSign(roadSignPositionIndex, roadSignSide);
 
-      if (roadSignPositionIndex >= sideBreakPoint) {
-        roadSignSide = 1;
-      } else roadSignPositionIndex++;
+      roadSignPositionIndex++;
     }
   }
 

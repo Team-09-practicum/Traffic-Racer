@@ -1,32 +1,32 @@
-// import roadSignImg1 from './assets/roadSign/roadSign1.png';
-import roadSignImg2 from './assets/roadSign/roadSign2.png';
-import roadSignImg3 from './assets/roadSign/roadSign3.png';
-import roadSignImg4 from './assets/roadSign/roadSign4.png';
-import roadSignImg5 from './assets/roadSign/roadSign5.png';
-import roadSignImg6 from './assets/roadSign/roadSign6.png';
-import roadSignImg7 from './assets/roadSign/roadSign7.png';
-import roadSignImg8 from './assets/roadSign/roadSign8.png';
+import roadSignImg1 from './assets/roadSign/roadSign1.png';
+// import roadSignImg2 from './assets/roadSign/roadSign2.png';
+// import roadSignImg3 from './assets/roadSign/roadSign3.png';
+// import roadSignImg4 from './assets/roadSign/roadSign4.png';
+// import roadSignImg5 from './assets/roadSign/roadSign5.png';
+// import roadSignImg6 from './assets/roadSign/roadSign6.png';
+// import roadSignImg7 from './assets/roadSign/roadSign7.png';
+// import roadSignImg8 from './assets/roadSign/roadSign8.png';
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 import { getRandomIntBetweenInterval } from '../helpers';
 
 const roadSignImgArr = [
-  // roadSignImg1,
-  roadSignImg2,
-  roadSignImg3,
-  roadSignImg4,
-  roadSignImg5,
-  roadSignImg6,
-  roadSignImg7,
-  roadSignImg8,
+  roadSignImg1,
+  // roadSignImg2,
+  // roadSignImg3,
+  // roadSignImg4,
+  // roadSignImg5,
+  // roadSignImg6,
+  // roadSignImg7,
+  // roadSignImg8,
 ];
 
 /**
  * Класс дорожных знаков.
  */
 export class RoadSign {
-  width = 40;
+  width = 560;
 
-  height = 100;
+  height = 300;
 
   x: number;
 
@@ -71,7 +71,7 @@ export class RoadSign {
     this.y += speed;
     if (this.y >= maxY) {
       this.isOnScreen = false;
-      this.y = -this.height - 5000;
+      this.y = -this.height;
       this.x = this.newXPosition();
     } else this.isOnScreen = true;
   }
@@ -81,7 +81,7 @@ export class RoadSign {
    * @return {number} Значение x.
    */
   newXPosition() {
-    const newX = this.width;
-    return 990 + newX;
+    const newX = -this.width;
+    return 1080 + newX;
   }
 }
