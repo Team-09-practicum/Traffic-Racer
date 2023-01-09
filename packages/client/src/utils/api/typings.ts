@@ -5,6 +5,7 @@ export interface IDefParams {
   url: typeof apiPaths[keyof typeof apiPaths];
   baseURL?: string;
   headers?: Record<string, string>;
+  withCredentials?: boolean;
 }
 
 export interface IErrorRes {
