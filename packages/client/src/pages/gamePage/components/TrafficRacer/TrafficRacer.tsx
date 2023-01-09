@@ -5,6 +5,7 @@ import { Scenario, Car, Traffic, GameConfig, crashSound } from '../../utils';
 import './TrafficRacer.scss';
 import { getIsSoundOn } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import gameSoundPath from '../../assets/sounds/gameSound.mp3';
+import useGeolocation from '@/pages/gamePage/hooks/useGeolocation';
 
 type TrafficRacerProps = {
   height: number;
@@ -27,6 +28,8 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
   const gameThemeSound = useRef<HTMLAudioElement | null>(null);
   let speed = GameConfig.level.initialSpeed;
   let playedCrash: boolean;
+  const { city } = useGeolocation();
+
   const setSpeed = (newSpeed: number) => {
     speed = newSpeed;
   };
@@ -178,6 +181,10 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     if (scenario.current) scenario.current.setRoadImageHeight(height);
     if (player.current) player.current.setY(height - GameConfig.traffic.carHeight - 10);
   }, [height]);
+
+  useEffect(() => {
+    if (city) GameConfig.player.city = city;
+  }, [city]);
 
   return (
     <div className="traffic-racer" style={{ backgroundColor: GameConfig.general.background }}>
