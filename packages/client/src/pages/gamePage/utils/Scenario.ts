@@ -3,7 +3,6 @@ import { Tree } from './roadside/Tree';
 import { GameConfig } from './game.config';
 import { Obstacle } from './Obstacle';
 import { Light } from './roadside/Light';
-import { RoadSign } from './roadside/RoadSign';
 import { RoadObject } from './roadside/RoadObject';
 
 /**
@@ -29,8 +28,6 @@ export class Scenario {
   trees: Tree[] = [];
 
   lights: Light[] = [];
-
-  roadSigns: RoadSign[] = [];
 
   roadObjects: RoadObject[] = [];
 
@@ -59,7 +56,6 @@ export class Scenario {
 
     this.createTrees();
     this.createLights();
-    this.createRoadSigns();
     this.createRoadObjects();
   }
 
@@ -89,9 +85,6 @@ export class Scenario {
     this.roadObjects.forEach((roadObject) => {
       roadObject.draw(this.context);
     });
-    this.roadSigns.forEach((roadSign) => {
-      roadSign.draw(this.context);
-    });
   }
 
   /**
@@ -113,7 +106,6 @@ export class Scenario {
 
     this.updateTrees(speed);
     this.updateLights(speed);
-    this.updateRoadSigns(speed);
     this.updateRoadObjects(speed);
   }
 
@@ -164,19 +156,6 @@ export class Scenario {
   }
 
   /**
-   * Создание дорожных знаков
-   */
-  createRoadSigns() {
-    for (let i = 0; i < GameConfig.roadside.roadSigns; i++) {
-      let roadSignPositionIndex = 0;
-      const roadSignSide = 1;
-      this.roadSigns[i] = new RoadSign(roadSignPositionIndex, roadSignSide);
-
-      roadSignPositionIndex++;
-    }
-  }
-
-  /**
    * Создание дорожных объектов
    */
   createRoadObjects() {
@@ -212,17 +191,6 @@ export class Scenario {
   updateLights(speed: number) {
     this.lights.forEach((light) => {
       light.update(this.canvas.height, speed);
-    });
-  }
-
-  /**
-   * Обновление дорожных знаков
-   * @param {number} speed - Скорость смещения.
-   */
-
-  updateRoadSigns(speed: number) {
-    this.roadSigns.forEach((roadSign) => {
-      roadSign.update(this.canvas.height, speed);
     });
   }
 

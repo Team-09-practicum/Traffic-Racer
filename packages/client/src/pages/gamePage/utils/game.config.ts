@@ -15,7 +15,7 @@ export const GameConfig = {
     objectsDistance: 5000,
     lights: 8,
     lightDistance: 290,
-    roadSigns: 1,
+    roadSigns: 2,
     roadSignsDistance: 5000,
   },
   collision: {

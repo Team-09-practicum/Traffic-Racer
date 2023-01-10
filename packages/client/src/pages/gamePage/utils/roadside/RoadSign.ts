@@ -1,24 +1,9 @@
 import roadSignImg1 from './assets/roadSign/roadSign1.png';
-// import roadSignImg2 from './assets/roadSign/roadSign2.png';
-// import roadSignImg3 from './assets/roadSign/roadSign3.png';
-// import roadSignImg4 from './assets/roadSign/roadSign4.png';
-// import roadSignImg5 from './assets/roadSign/roadSign5.png';
-// import roadSignImg6 from './assets/roadSign/roadSign6.png';
-// import roadSignImg7 from './assets/roadSign/roadSign7.png';
-// import roadSignImg8 from './assets/roadSign/roadSign8.png';
+import roadSignImg2 from './assets/roadSign/roadSign2.png';
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 import { getRandomIntBetweenInterval } from '../helpers';
 
-const roadSignImgArr = [
-  roadSignImg1,
-  // roadSignImg2,
-  // roadSignImg3,
-  // roadSignImg4,
-  // roadSignImg5,
-  // roadSignImg6,
-  // roadSignImg7,
-  // roadSignImg8,
-];
+const roadSignImgArr = [roadSignImg1, roadSignImg2];
 
 /**
  * Класс дорожных знаков.
@@ -71,7 +56,7 @@ export class RoadSign {
     this.y += speed;
     if (this.y >= maxY) {
       this.isOnScreen = false;
-      this.y = -this.height;
+      this.y = -this.height - 300;
       this.x = this.newXPosition();
     } else this.isOnScreen = true;
   }

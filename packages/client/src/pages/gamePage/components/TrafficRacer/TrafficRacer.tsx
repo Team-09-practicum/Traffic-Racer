@@ -47,7 +47,6 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     canvasCtxRef.current.clearRect(0, 0, GameConfig.general.width, localHeight.current);
 
     scenario.current?.drawRoad();
-    traffic.draw();
 
     if (isOver.current) {
       if (!playedCrash) {
@@ -63,7 +62,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     } else if (isStarted.current && player) {
       player.current?.drawCar(canvasCtxRef.current);
     }
-
+    traffic.draw();
     if (player.current?.isSliding) {
       const slideSide = Math.random();
       if (slideSide < 0.5) {
