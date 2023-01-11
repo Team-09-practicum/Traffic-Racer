@@ -6,7 +6,7 @@ import { StoreProvider } from '@/utils/store/StoreProvider';
 import App from './App';
 import './styles/index.scss';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const appComponents = (): React.ReactNode => (
   <React.StrictMode>
     <StoreProvider>
       <BrowserRouter>
@@ -15,5 +15,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </StoreProvider>
   </React.StrictMode>
 );
+
+if (typeof window === 'undefined') {
+  ReactDOM.hydrateRoot(document.getElementById('root') as HTMLElement, appComponents());
+} else {
+  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(appComponents());
+}
 
 registerSW();

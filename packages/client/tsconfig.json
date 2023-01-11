@@ -19,6 +19,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "./jest-setup.ts"],
+  "include": ["src", "./jest-setup.ts", "SsrRender.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

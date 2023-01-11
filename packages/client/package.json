@@ -4,14 +4,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --config vite.config.ts",
+    "build:ssr": "tsc && vite build --config vite.ssr.config.ts && yarn build",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "yarn lint --fix",
     "lint:styles": "yarn stylelint \"./src/**/*.scss\"",
     "lint:styles:fix": "yarn lint:styles --fix",
     "format": "prettier --write .",
-    "test": "jest ./"
+    "test": "jest ./",
+    "link": "yarn link"
   },
   "dependencies": {
     "@ant-design/icons": "4.8.0",
