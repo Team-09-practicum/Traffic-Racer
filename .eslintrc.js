@@ -50,6 +50,7 @@ module.exports = {
     'no-plusplus': 'off',
     'react/require-default-props': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'no-underscore-dangle': 'off',
     'max-len': ['error', { code: 120, ignoreComments: true }],
   },
   settings: {
