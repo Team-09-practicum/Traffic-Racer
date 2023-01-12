@@ -10,13 +10,8 @@ import './app.scss';
 const { Header, Content } = Layout;
 
 const App = () => {
-  if (typeof window === 'undefined') {
-    return <div>🍩Заглушка до добавления Redux и Роутинга в SSR</div>;
-  }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const dispatch = useAppDispatch();
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     dispatch(fetchUser());
   });

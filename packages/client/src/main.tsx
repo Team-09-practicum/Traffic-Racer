@@ -6,9 +6,12 @@ import { StoreProvider } from '@/utils/store/StoreProvider';
 import App from './App';
 import './styles/index.scss';
 
+const state = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
+
 const appComponents = (): React.ReactNode => (
   <React.StrictMode>
-    <StoreProvider>
+    <StoreProvider initialState={state}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
@@ -16,10 +19,6 @@ const appComponents = (): React.ReactNode => (
   </React.StrictMode>
 );
 
-if (typeof window === 'undefined') {
-  ReactDOM.hydrateRoot(document.getElementById('root') as HTMLElement, appComponents());
-} else {
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(appComponents());
-}
+ReactDOM.hydrateRoot(document.getElementById('root') as HTMLElement, appComponents());
 
 registerSW();
