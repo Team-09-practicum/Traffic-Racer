@@ -9,6 +9,7 @@ export const makeRequest = async <T>({
   data,
   baseURL,
   headers,
+  withCredentials,
   onSuccess,
   onError,
 }: IMakeRequestParams<T>) => {
@@ -17,7 +18,7 @@ export const makeRequest = async <T>({
     method: type,
     baseURL: baseURL || `${API_HOST}${API_PATH}`,
     timeout: 2000,
-    withCredentials: true,
+    withCredentials: typeof withCredentials === 'undefined' ? true : withCredentials,
     headers: { ...headers },
     data: data || null,
     params: urlParams || null,

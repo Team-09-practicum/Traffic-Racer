@@ -30,6 +30,7 @@ export const GameConfig = {
   },
   player: {
     carType: 0,
+    city: '',
   },
   obstacle: {
     pointsLossOnPuddle: 100,
