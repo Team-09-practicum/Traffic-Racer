@@ -67,6 +67,6 @@ export class RoadSign {
    */
   newXPosition() {
     const newX = -this.width;
-    return 1080 + newX;
+    return 1180 + newX;
   }
 }

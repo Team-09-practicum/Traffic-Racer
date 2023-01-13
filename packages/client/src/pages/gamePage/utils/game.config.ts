@@ -1,6 +1,6 @@
 export const GameConfig = {
   general: {
-    width: 1600,
+    width: 1800,
     background: 'green',
   },
   level: {
@@ -10,9 +10,9 @@ export const GameConfig = {
   roadside: {
     trees: 16,
     treeDistance: 90,
-    width: 570,
+    width: 670,
     objects: 8,
-    objectsDistance: 5000,
+    objectsDistance: 6000,
     lights: 8,
     lightDistance: 290,
     roadSigns: 2,

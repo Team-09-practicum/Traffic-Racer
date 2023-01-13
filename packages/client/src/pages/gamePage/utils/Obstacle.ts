@@ -98,6 +98,6 @@ export class Obstacle {
       newRandom = getRandomIntBetweenInterval(0, GameConfig.scenario.numberOfLanes - 1);
     }
     this.lane = newRandom;
-    return 580 + GameConfig.scenario.lanesSize * newRandom;
+    return 680 + GameConfig.scenario.lanesSize * newRandom;
   }
 }

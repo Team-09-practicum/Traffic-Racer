@@ -28,9 +28,13 @@ const objectsImgArr = [
  * Класс дорожных объектов
  */
 export class RoadObject {
-  width = 200;
+  maxWidth = 300;
 
-  height = 200;
+  maxHeight = 300;
+
+  width!: number;
+
+  height!: number;
 
   x: number;
 
@@ -52,6 +56,16 @@ export class RoadObject {
     const i = getRandomIntBetweenInterval(0, objectsImgArr.length - 1);
     this.image.src = objectsImgArr[i];
 
+    if (this.image.width > this.maxWidth) {
+      this.width = this.maxWidth;
+    } else {
+      this.width = this.image.width;
+    }
+    if (this.image.height > this.maxHeight) {
+      this.height = this.maxHeight;
+    } else {
+      this.height = this.image.height;
+    }
     this.x = this.newXPosition();
     this.y = (-GameConfig.roadside.objectsDistance + this.height) * initialPosition;
     this.isOnScreen = true;
@@ -74,7 +88,7 @@ export class RoadObject {
     this.y += speed;
     if (this.y >= maxY) {
       this.isOnScreen = false;
-      this.y = -this.height - 2000;
+      this.y = -this.maxHeight - 3000;
       this.x = this.newXPosition();
     } else this.isOnScreen = true;
   }
@@ -84,7 +98,7 @@ export class RoadObject {
    * @return {number} Значение x.
    */
   newXPosition() {
-    const newX = Math.random() * this.width;
-    return this.side === 0 ? newX : 1250 + newX;
+    const newX = Math.random() * this.maxWidth;
+    return this.side === 0 ? newX - 50 : 1250 + newX;
   }
 }

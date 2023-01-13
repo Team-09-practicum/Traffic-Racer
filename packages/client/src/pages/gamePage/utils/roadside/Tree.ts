@@ -74,7 +74,7 @@ export class Tree {
    * @return {number} Значение x.
    */
   newXPosition() {
-    const newX = this.width;
-    return this.side === 0 ? 350 + newX : 1000 + newX;
+    const newX = Math.random() * this.width;
+    return this.side === 0 ? 500 + newX : 1150 + newX;
   }
 }

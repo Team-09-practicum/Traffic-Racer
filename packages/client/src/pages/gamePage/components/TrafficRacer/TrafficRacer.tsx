@@ -79,10 +79,8 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     traffic.update(speed);
 
     if (player.current?.passedOnPuddle) {
-      if (!isOver.current) {
-        if (isSoundOn.current) {
-          puddleSound().play();
-        }
+      if (!isOver.current && isSoundOn.current) {
+        puddleSound().play();
       }
 
       setScore((prev) => prev - GameConfig.obstacle.pointsLossOnPuddle);
