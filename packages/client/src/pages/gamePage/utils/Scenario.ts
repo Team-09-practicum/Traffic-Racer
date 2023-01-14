@@ -1,9 +1,7 @@
 import roadImg from '../assets/scenario/road.png';
-import { Tree, CityLimitSign } from './roadside';
+import { Tree, CityLimitSign, Light, RoadObject } from './roadside';
 import { GameConfig } from './game.config';
 import { Obstacle } from './Obstacle';
-import { Light } from './roadside/Light';
-import { RoadObject } from './roadside/RoadObject';
 
 /**
  * Класс определяющий сценарий игры
