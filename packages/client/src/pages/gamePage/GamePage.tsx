@@ -5,8 +5,10 @@ import { TrafficRacer } from './components/TrafficRacer/TrafficRacer';
 import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
 import { useWindowSize } from '@/pages/gamePage/hooks/useWindowSize';
-import './GamePage.scss';
 import { SoundOffButton } from './components/soundOffButton/SoundOffButton';
+import { useAppSelector } from '@/utils/store/store';
+import { updateLeaderboard } from '@/controllers/updateLeaderboard';
+import './GamePage.scss';
 
 const { Text, Title } = Typography;
 
@@ -21,6 +23,8 @@ export const GamePage = () => {
   const [isFullscreenMode, setFullscreenMode] = useState(false);
   const isFirstStart = !isGameStarted && !isGameOver;
   const gamePageRef = useRef<HTMLDivElement>(null);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
+
   useEffect(() => {
     if (gamePageRef.current) setPageTopOffset(gamePageRef.current.getBoundingClientRect().top);
   }, []);
@@ -28,6 +32,21 @@ export const GamePage = () => {
   useEffect(() => {
     if (score < 0) setScore(0);
   }, [score]);
+
+  useEffect(() => {
+    if (userInfo && isGameOver) {
+      const updateScore = async () => {
+        await updateLeaderboard({
+          id: userInfo.id as number,
+          username: userInfo.login as string,
+          avatar: userInfo.avatar as string | null,
+          score,
+        });
+      };
+      updateScore();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isGameOver, userInfo]);
 
   const toggleFullscreen = useCallback(() => {
     const game = gamePageRef.current;

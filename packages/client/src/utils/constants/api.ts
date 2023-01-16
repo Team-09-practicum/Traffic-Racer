@@ -7,6 +7,8 @@ export const apiPaths = {
   postSignIn: '/auth/signin',
   getUser: '/auth/user',
   postLogout: '/auth/logout',
+  postLeaderboard: '/leaderboard',
+  postTeamLeaderboard: '/leaderboard/Team09',
   putPassword: '/user/password',
   putAvatar: '/user/profile/avatar',
   putProfile: '/user/profile',

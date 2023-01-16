@@ -1,12 +1,12 @@
-import { Typography } from 'antd';
 import React from 'react';
-import { IStatsItem } from '../../typings';
+import { Typography } from 'antd';
+import { ILeaderboardItem } from '../../typings';
 import { StatsPagePlayerInfo } from '../playerInfo/StatsPagePlayerInfo';
 
 import './StatsPageTable.scss';
 
 interface Props {
-  scores: IStatsItem[];
+  scores: ILeaderboardItem[];
 }
 
 export const StatsPageTable = (props: Props) => {
@@ -29,16 +29,16 @@ export const StatsPageTable = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          {scores.map((scoreItem, index) => (
-            <tr key={scoreItem.name}>
+          {scores.map(({ data }, index) => (
+            <tr key={data.id}>
               <th>
                 <Typography>{index + 1}</Typography>
               </th>
               <th>
-                <StatsPagePlayerInfo avatarImgSrc={scoreItem.avatar} playerName={scoreItem.name} />
+                <StatsPagePlayerInfo avatarImgSrc={data.avatar} playerName={data.username} />
               </th>
               <th>
-                <Typography>{scoreItem.score}</Typography>
+                <Typography>{data.score}</Typography>
               </th>
             </tr>
           ))}

@@ -5,3 +5,5 @@ export { postLogout } from './postLogout';
 export { getUser } from './getUser';
 export { postSignIn } from './postSignIn';
 export { postSignUp } from './postSignUp';
+export { postLeaderboard } from './postLeaderboard';
+export { postTeamLeaderboard } from './postTeamLeaderboard';
