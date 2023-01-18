@@ -5,6 +5,7 @@ import { AppRouter } from '@/utils/router/AppRouter';
 import { Navigation } from '@/components/navigation/Navigation';
 import { useAppDispatch } from '@/utils/store/store';
 import { fetchUser } from './utils/store/reducers/thunks/fetchUserThunk';
+import { getYandexToken } from '@/utils/OAuth';
 import './app.scss';
 
 const { Header, Content } = Layout;
@@ -18,6 +19,12 @@ const App = () => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
+    const code = new URLSearchParams(window.location.search).get('code');
+
+    if (code) {
+      getYandexToken(code);
+    }
+
     dispatch(fetchUser());
   });
 
