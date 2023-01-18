@@ -64,11 +64,7 @@ export const AuthPage = () => {
             </Button>
           </Form.Item>
           <Form.Item>
-            <Button
-              onClick={OAuthHandler}
-              htmlType="submit"
-              className="auth-page__button"
-              disabled={!!Object.keys(errors).length}>
+            <Button onClick={OAuthHandler} htmlType="button" className="auth-page__button">
               Войти с Яндекс ID
             </Button>
           </Form.Item>

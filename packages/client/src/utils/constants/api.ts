@@ -4,7 +4,7 @@ export const API_PATH = '/api/v2';
 
 export const redirectURI = 'http://localhost:3000';
 
-export const yandexOAuthUrl = `https://oauth.yandex.ru/authorize?response_type=code`;
+export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize?response_type=code';
 
 export const apiPaths = {
   postSignUp: '/auth/signup',
@@ -15,6 +15,6 @@ export const apiPaths = {
   putAvatar: '/user/profile/avatar',
   putProfile: '/user/profile',
   showAvatar: `${API_HOST}${API_PATH}/resources`,
-  getServiceIdURI: '/oauth/yandex/service-id?redirect_uri=http%3A%2F%2Flocalhost%3A3000',
-  signInURI: `${API_HOST}${API_PATH}/oauth/yandex`,
+  getServiceIdURI: '/oauth/yandex/service-id?redirect_uri=http://localhost:3000',
+  signInURI: '/oauth/yandex',
 };

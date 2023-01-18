@@ -4,7 +4,7 @@ import { signInWithOAuth } from '@/controllers/signInWithOAuth';
 import { showNetworkError } from '@/utils/showNetworkError';
 import { redirectURI, yandexOAuthUrl } from '@/utils/constants';
 
-export interface GetServiceIdResponse {
+export interface IGetServiceIdResponse {
   service_id: string;
 }
 
@@ -14,7 +14,7 @@ export interface GetServiceIdResponse {
 
 export const signinWithYandex = async () => {
   try {
-    const { service_id } = (await getServiceId()) as GetServiceIdResponse;
+    const { service_id } = (await getServiceId()) as IGetServiceIdResponse;
 
     const url = new URL(yandexOAuthUrl);
 
@@ -30,10 +30,10 @@ export const signinWithYandex = async () => {
  * Отправляем код авторизации на сервер и получаем токен
  */
 
-export const getYandexToken = async (oauthCode: string) => {
+export const getYandexToken = async (OAuthCode: string) => {
   try {
     await signInWithOAuth({
-      code: oauthCode,
+      code: OAuthCode,
       redirect_uri: redirectURI,
     });
 
