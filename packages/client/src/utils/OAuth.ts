@@ -7,6 +7,7 @@ export interface IGetServiceIdResponse {
   service_id: string;
 }
 
+const redirectMain = window.location.origin;
 /**
  * Получаем id и делаем редирект на яндекс, а с яндекса на главную, с кодом авторизации.
  */
@@ -31,12 +32,14 @@ export const signinWithYandex = async () => {
 
 export const getYandexToken = async (OAuthCode: string) => {
   try {
-    await signInWithOAuth({
-      code: OAuthCode,
-      redirect_uri: redirectURI,
-    });
+    if (OAuthCode) {
+      await signInWithOAuth({
+        code: OAuthCode,
+        redirect_uri: redirectURI,
+      });
+    }
 
-    window.location.href = '/';
+    window.location.href = redirectMain;
   } catch (error) {
     showNetworkError();
   }
