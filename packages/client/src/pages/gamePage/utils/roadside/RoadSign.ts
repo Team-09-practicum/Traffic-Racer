@@ -1,5 +1,5 @@
-import roadSignImg1 from './assets/roadSign/roadSign1.png';
-import roadSignImg2 from './assets/roadSign/roadSign2.png';
+import roadSignImg1 from '../../assets/roadSign/roadSign1.png';
+import roadSignImg2 from '../../assets/roadSign/roadSign2.png';
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 import { getRandomIntBetweenInterval } from '../helpers';
 
@@ -67,6 +67,6 @@ export class RoadSign {
    */
   newXPosition() {
     const newX = -this.width;
-    return 1180 + newX;
+    return 1080 + newX;
   }
 }

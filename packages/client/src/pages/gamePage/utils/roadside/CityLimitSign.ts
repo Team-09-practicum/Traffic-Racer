@@ -21,7 +21,7 @@ export class CityLimitSign {
    * @param {number} initialPosition - Начальная позиция.
    */
   constructor(initialPosition: number) {
-    this.x = 1160;
+    this.x = 1060;
     this.y = initialPosition + 120;
     this.isOnScreen = true;
   }

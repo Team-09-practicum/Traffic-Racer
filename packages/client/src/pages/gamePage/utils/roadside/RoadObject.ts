@@ -1,13 +1,13 @@
-import objectImg1 from './assets/objects/object1.png';
-import objectImg2 from './assets/objects/object2.png';
-import objectImg3 from './assets/objects/object3.png';
-import objectImg4 from './assets/objects/object4.png';
-import objectImg5 from './assets/objects/object5.png';
-import objectImg6 from './assets/objects/object6.png';
-import objectImg7 from './assets/objects/object7.png';
-import objectImg8 from './assets/objects/object8.png';
-import objectImg9 from './assets/objects/object9.png';
-import objectImg10 from './assets/objects/object10.png';
+import objectImg1 from '../../assets/objects/object1.png';
+import objectImg2 from '../../assets/objects/object2.png';
+import objectImg3 from '../../assets/objects/object3.png';
+import objectImg4 from '../../assets/objects/object4.png';
+import objectImg5 from '../../assets/objects/object5.png';
+import objectImg6 from '../../assets/objects/object6.png';
+import objectImg7 from '../../assets/objects/object7.png';
+import objectImg8 from '../../assets/objects/object8.png';
+import objectImg9 from '../../assets/objects/object9.png';
+import objectImg10 from '../../assets/objects/object10.png';
 import { getRandomIntBetweenInterval } from '../helpers';
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 
@@ -88,7 +88,7 @@ export class RoadObject {
     this.y += speed;
     if (this.y >= maxY) {
       this.isOnScreen = false;
-      this.y = -this.maxHeight - 3000;
+      this.y = -this.maxHeight - 5000;
       this.x = this.newXPosition();
     } else this.isOnScreen = true;
   }
@@ -99,6 +99,6 @@ export class RoadObject {
    */
   newXPosition() {
     const newX = Math.random() * this.maxWidth;
-    return this.side === 0 ? newX - 50 : 1250 + newX;
+    return this.side === 0 ? newX - 150 : 1150 + newX;
   }
 }

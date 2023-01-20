@@ -1,5 +1,5 @@
-import lightLeft from './assets/light/lightLeft.png';
-import lightRight from './assets/light/ligthRight.png';
+import lightLeft from '../../assets/light/lightLeft.png';
+import lightRight from '../../assets/light/ligthRight.png';
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 
 /**
@@ -66,6 +66,6 @@ export class Light {
    */
   newXPosition() {
     const newX = this.width;
-    return this.side === 0 ? 430 + newX : 920 + newX;
+    return this.side === 0 ? 330 + newX : 820 + newX;
   }
 }
