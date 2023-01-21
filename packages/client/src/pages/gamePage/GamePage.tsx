@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Space, Typography, Row } from 'antd';
 import { ShrinkOutlined, ArrowsAltOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 import { TrafficRacer } from './components/TrafficRacer/TrafficRacer';
 import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
 import { useWindowSize } from '@/pages/gamePage/hooks/useWindowSize';
 import { SoundOffButton } from './components/soundOffButton/SoundOffButton';
-import { useAppSelector } from '@/utils/store/store';
 import { updateLeaderboard } from '@/controllers/updateLeaderboard';
+import { getUserIdLoginAvatar } from '@/utils/store/selectors/getUserFieldSelectors/getUserFieldSelectors';
 import './GamePage.scss';
 
 const { Text, Title } = Typography;
@@ -23,7 +24,7 @@ export const GamePage = () => {
   const [isFullscreenMode, setFullscreenMode] = useState(false);
   const isFirstStart = !isGameStarted && !isGameOver;
   const gamePageRef = useRef<HTMLDivElement>(null);
-  const userInfo = useAppSelector((state) => state.user.userInfo);
+  const user = useSelector(getUserIdLoginAvatar);
 
   useEffect(() => {
     if (gamePageRef.current) setPageTopOffset(gamePageRef.current.getBoundingClientRect().top);
@@ -34,19 +35,19 @@ export const GamePage = () => {
   }, [score]);
 
   useEffect(() => {
-    if (userInfo && isGameOver) {
+    if (user && isGameOver) {
       const updateScore = async () => {
         await updateLeaderboard({
-          id: userInfo.id as number,
-          username: userInfo.login as string,
-          avatar: userInfo.avatar as string | null,
+          id: user.id as number,
+          username: user.login as string,
+          avatar: user.avatar as string | null,
           score,
         });
       };
       updateScore();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isGameOver, userInfo]);
+  }, [isGameOver, user]);
 
   const toggleFullscreen = useCallback(() => {
     const game = gamePageRef.current;

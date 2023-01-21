@@ -6,6 +6,7 @@ import {
   getUserEmail,
   getUserFirstName,
   getUserId,
+  getUserIdLoginAvatar,
   getUserLogin,
   getUserPhone,
   getUserSecondName,
@@ -91,5 +92,21 @@ describe('getFieldSelectors', () => {
       },
     };
     expect(getUserAvatar(state as IStateSchema)).toEqual('path to avatar');
+  });
+  test('should return user id, login and avatar path', () => {
+    const state: DeepPartial<IStateSchema> = {
+      user: {
+        userInfo: {
+          id: 11,
+          login: 'Winner',
+          avatar: 'path to avatar',
+        },
+      },
+    };
+    expect(getUserIdLoginAvatar(state as IStateSchema)).toEqual({
+      id: 11,
+      login: 'Winner',
+      avatar: 'path to avatar',
+    });
   });
 });
