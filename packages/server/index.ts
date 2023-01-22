@@ -78,7 +78,7 @@ async function startServer() {
   });
 
   app.listen(port, () => {
-    console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
+    console.log('\x1b[32m', `  ➜ 🎸 Server is listening on port: ${port}`, '\x1b[0m');
   });
 }
 

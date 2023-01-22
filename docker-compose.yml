@@ -38,19 +38,6 @@ services:
       networks:
         - postgres
 
-    pgadmin:
-      container_name: pgadmin
-      image: dpage/pgadmin4:5.7
-      environment:
-        PGADMIN_DEFAULT_EMAIL: "pguser@test.com"
-        PGADMIN_DEFAULT_PASSWORD: "pgadminuser"
-        PGADMIN_CONFIG_SERVER_MODE: "False"
-      ports:
-        - "5050:80"
-      restart: always
-      networks:
-        - postgres
-
 networks:
     postgres:
       driver: bridge
