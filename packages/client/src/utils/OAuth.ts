@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { getServiceId } from '@/controllers/getServiceId';
 import { signInWithOAuth } from '@/controllers/signInWithOAuth';
 import { showNetworkError } from '@/utils/showNetworkError';
 import { redirectURI, yandexOAuthUrl } from '@/utils/constants';
@@ -14,7 +13,7 @@ export interface IGetServiceIdResponse {
 
 export const signinWithYandex = async () => {
   try {
-    const { service_id } = (await getServiceId()) as IGetServiceIdResponse;
+    const service_id = 'f87b01be2bb74c66a7dbc553dc5910d2';
 
     const url = new URL(yandexOAuthUrl);
 

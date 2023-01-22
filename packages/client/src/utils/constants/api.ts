@@ -2,7 +2,7 @@ export const API_HOST = 'https://ya-praktikum.tech';
 
 export const API_PATH = '/api/v2';
 
-export const redirectURI = 'http://localhost:3000';
+export const redirectURI = window.location.origin;
 
 export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize?response_type=code';
 
@@ -15,6 +15,6 @@ export const apiPaths = {
   putAvatar: '/user/profile/avatar',
   putProfile: '/user/profile',
   showAvatar: `${API_HOST}${API_PATH}/resources`,
-  getServiceIdURI: '/oauth/yandex/service-id?redirect_uri=http://localhost:3000',
+  getServiceIdURI: '/oauth/yandex/service-id',
   signInURI: '/oauth/yandex',
 };
