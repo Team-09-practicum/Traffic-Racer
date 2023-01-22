@@ -1,5 +1,5 @@
-export interface IStatsItem {
-  name: string;
-  avatar: string | null;
-  score: number;
+import { ILeaderboardData } from '@/controllers/updateLeaderboard';
+
+export interface ILeaderboardItem {
+  data: ILeaderboardData;
 }
