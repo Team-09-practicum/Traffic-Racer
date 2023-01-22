@@ -1,11 +1,14 @@
 /* eslint-disable camelcase */
 import { signInWithOAuth } from '@/controllers/signInWithOAuth';
 import { showNetworkError } from '@/utils/showNetworkError';
-import { redirectURI, yandexOAuthUrl } from '@/utils/constants';
+import { yandexOAuthUrl } from '@/utils/constants';
+import { getServiceId } from '@/controllers/getServiceId';
 
 export interface IGetServiceIdResponse {
   service_id: string;
 }
+
+export const redirectURI = window.location.origin;
 
 /**
  * Получаем id и делаем редирект на яндекс, а с яндекса на главную, с кодом авторизации.
@@ -13,7 +16,7 @@ export interface IGetServiceIdResponse {
 
 export const signinWithYandex = async () => {
   try {
-    const service_id = 'f87b01be2bb74c66a7dbc553dc5910d2';
+    const { service_id } = (await getServiceId()) as IGetServiceIdResponse;
 
     const url = new URL(yandexOAuthUrl);
 

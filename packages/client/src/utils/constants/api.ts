@@ -2,8 +2,6 @@ export const API_HOST = 'https://ya-praktikum.tech';
 
 export const API_PATH = '/api/v2';
 
-export const redirectURI = window.location.origin;
-
 export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize?response_type=code';
 
 export const apiPaths = {
