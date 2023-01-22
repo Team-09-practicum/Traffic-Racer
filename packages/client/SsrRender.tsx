@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
-import { StoreProvider } from '@/utils/store/StoreProvider';
+import { StoreProvider } from './src/utils/store/StoreProvider';
 import App from './src/App';
 
 export function render(url: string) {
