@@ -1,26 +1,14 @@
-/**
- * Не забыть указать авторство
- * <a href="https://ru.freepik.com/free-vector/_13683715.htm#query=top%20down%20tree&position=0&from_view=search&track=sph">Изображение от pch.vector</a> на Freepik
- */
-import treeImg1 from '../../assets/tree/tree1.png';
-import treeImg2 from '../../assets/tree/tree2.png';
-import treeImg3 from '../../assets/tree/tree3.png';
-import treeImg4 from '../../assets/tree/tree4.png';
-import treeImg5 from '../../assets/tree/tree5.png';
-import treeImg6 from '../../assets/tree/tree6.png';
-
-import { getRandomIntBetweenInterval } from '../helpers';
+import lightLeft from '../../assets/light/lightLeft.png';
+import lightRight from '../../assets/light/ligthRight.png';
 import { GameConfig } from '@/pages/gamePage/utils/game.config';
 
-const treeImgArr = [treeImg1, treeImg2, treeImg3, treeImg4, treeImg5, treeImg6];
-
 /**
- * Класс дерева
+ * Класс освещения
  */
-export class Tree {
-  width = 80;
+export class Light {
+  width = 150;
 
-  height = 80;
+  height = 190;
 
   x: number;
 
@@ -33,22 +21,25 @@ export class Tree {
   image = new Image();
 
   /**
-   * Конструктор класса дерева.
+   * Конструктор класса освещения.
    * @param {number} initialPosition - Начальная позиция.
    * @param {number} side - Сторона.
    */
   constructor(initialPosition: number, side: number) {
     this.side = side;
-    const i = getRandomIntBetweenInterval(0, treeImgArr.length - 1);
-    this.image.src = treeImgArr[i];
+    if (side === 0) {
+      this.image.src = lightLeft;
+    } else {
+      this.image.src = lightRight;
+    }
 
     this.x = this.newXPosition();
-    this.y = (-GameConfig.roadside.treeDistance - this.height) * initialPosition;
+    this.y = (-GameConfig.roadside.lightDistance - this.height) * initialPosition;
     this.isOnScreen = true;
   }
 
   /**
-   * Отрисовка дерева
+   * Отрисовка освещения
    * @param {CanvasRenderingContext2D} context - Контекст Canvas.
    */
   draw(context: CanvasRenderingContext2D) {
@@ -56,7 +47,7 @@ export class Tree {
   }
 
   /**
-   * Обновление дерева
+   * Обновление освещения
    * @param {number} maxY - Максимально допустимое значение Y (высота Canvas)
    * @param {number} speed - Скорость смещения.
    */
@@ -64,7 +55,7 @@ export class Tree {
     this.y += speed;
     if (this.y >= maxY) {
       this.isOnScreen = false;
-      this.y = -this.height - 90;
+      this.y = -this.height - 400;
       this.x = this.newXPosition();
     } else this.isOnScreen = true;
   }
@@ -74,7 +65,7 @@ export class Tree {
    * @return {number} Значение x.
    */
   newXPosition() {
-    const newX = Math.random() * this.width;
-    return this.side === 0 ? 400 + newX : 1050 + newX;
+    const newX = this.width;
+    return this.side === 0 ? 330 + newX : 820 + newX;
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Dispatch, FC, SetStateAction, useEffect, useRef, memo } from 'react';
 import { useSelector } from 'react-redux';
-import { Scenario, Car, Traffic, GameConfig, crashSound } from '../../utils';
+import { Scenario, Car, Traffic, GameConfig, crashSound, puddleSound } from '../../utils';
 import './TrafficRacer.scss';
 import { getIsSoundOn } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import gameSoundPath from '../../assets/sounds/gameSound.mp3';
@@ -50,7 +50,6 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     canvasCtxRef.current.clearRect(0, 0, GameConfig.general.width, localHeight.current);
 
     scenario.current?.drawRoad();
-    traffic.draw();
 
     if (isOver.current) {
       if (!playedCrash) {
@@ -66,7 +65,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     } else if (isStarted.current && player) {
       player.current?.drawCar(canvasCtxRef.current);
     }
-
+    traffic.draw();
     if (player.current?.isSliding) {
       const slideSide = Math.random();
       if (slideSide < 0.5) {
@@ -83,6 +82,10 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     traffic.update(speed);
 
     if (player.current?.passedOnPuddle) {
+      if (!isOver.current && isSoundOn.current) {
+        puddleSound().play();
+      }
+
       setScore((prev) => prev - GameConfig.obstacle.pointsLossOnPuddle);
       player.current.passedOnPuddle = false;
     }

@@ -1,5 +1,5 @@
 import roadImg from '../assets/scenario/road.png';
-import { Tree, CityLimitSign } from './roadside';
+import { Tree, CityLimitSign, Light, RoadObject } from './roadside';
 import { GameConfig } from './game.config';
 import { Obstacle } from './Obstacle';
 
@@ -24,6 +24,10 @@ export class Scenario {
   y2!: number;
 
   trees: Tree[] = [];
+
+  lights: Light[] = [];
+
+  roadObjects: RoadObject[] = [];
 
   puddle!: Obstacle;
 
@@ -51,6 +55,8 @@ export class Scenario {
     this.roadImage.src = roadImg;
 
     this.createTrees();
+    this.createLights();
+    this.createRoadObjects();
     this.createCityLimitSign();
   }
 
@@ -73,6 +79,13 @@ export class Scenario {
       tree.draw(this.context);
     });
 
+    this.lights.forEach((light) => {
+      light.draw(this.context);
+    });
+
+    this.roadObjects.forEach((roadObject) => {
+      roadObject.draw(this.context);
+    });
     if (this.isThereCityLimitSign()) {
       this.cityLimitSign?.draw(this.context);
     }
@@ -96,6 +109,8 @@ export class Scenario {
     }
 
     this.updateTrees(speed);
+    this.updateLights(speed);
+    this.updateRoadObjects(speed);
 
     if (this.isThereCityLimitSign()) {
       this.cityLimitSign?.update(this.canvas.height, speed);
@@ -131,12 +146,70 @@ export class Scenario {
   }
 
   /**
+   * Создание освещения
+   */
+  createLights() {
+    const sideBreakPoint = Math.floor((GameConfig.roadside.lights - 1) / 2);
+    let lightPositionIndex = 0;
+    let lightSide = 0;
+
+    for (let i = 0; i < GameConfig.roadside.lights; i++) {
+      this.lights[i] = new Light(lightPositionIndex, lightSide);
+
+      if (lightPositionIndex >= sideBreakPoint) {
+        lightPositionIndex = 0;
+        lightSide = 1;
+      } else lightPositionIndex++;
+    }
+  }
+
+  /**
+   * Создание дорожных объектов
+   */
+  createRoadObjects() {
+    const sideBreakPoint = Math.floor((GameConfig.roadside.objects - 1) / 2);
+    let roadObjectPositionIndex = 0;
+    let roadObjectSide = 0;
+
+    for (let i = 0; i < GameConfig.roadside.objects; i++) {
+      this.roadObjects[i] = new RoadObject(roadObjectPositionIndex, roadObjectSide);
+
+      if (roadObjectPositionIndex >= sideBreakPoint) {
+        roadObjectPositionIndex = 0;
+        roadObjectSide = 1;
+      } else roadObjectPositionIndex++;
+    }
+  }
+
+  /**
    * Обновление деревьев
    * @param {number} speed - Скорость смещения.
    */
   updateTrees(speed: number) {
     this.trees.forEach((tree) => {
       tree.update(this.canvas.height, speed);
+    });
+  }
+
+  /**
+   * Обновление освещения
+   * @param {number} speed - Скорость смещения.
+   */
+
+  updateLights(speed: number) {
+    this.lights.forEach((light) => {
+      light.update(this.canvas.height, speed);
+    });
+  }
+
+  /**
+   * Обновление дорожных объектов
+   * @param {number} speed - Скорость смещения.
+   */
+
+  updateRoadObjects(speed: number) {
+    this.roadObjects.forEach((roadObject) => {
+      roadObject.update(this.canvas.height, speed);
     });
   }
 
