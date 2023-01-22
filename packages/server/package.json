@@ -19,6 +19,9 @@
     "express": "4.18.1",
     "pg": "8.8.0",
     "prettier": "2.7.1",
+    "reflect-metadata": "0.1.13",
+    "sequelize": "6.28.0",
+    "sequelize-typescript": "2.1.5",
     "vite": "4.0.3"
   },
   "devDependencies": {
