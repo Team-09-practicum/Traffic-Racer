@@ -1,5 +1,5 @@
 import roadImg from '../assets/scenario/road.png';
-import { Tree } from './roadside/Tree';
+import { Tree, CityLimitSign, Light, RoadObject } from './roadside';
 import { GameConfig } from './game.config';
 import { Obstacle } from './Obstacle';
 
@@ -25,9 +25,15 @@ export class Scenario {
 
   trees: Tree[] = [];
 
+  lights: Light[] = [];
+
+  roadObjects: RoadObject[] = [];
+
   puddle!: Obstacle;
 
   oil!: Obstacle;
+
+  cityLimitSign?: CityLimitSign;
 
   /**
    * Конструктор класса сценария.
@@ -49,6 +55,9 @@ export class Scenario {
     this.roadImage.src = roadImg;
 
     this.createTrees();
+    this.createLights();
+    this.createRoadObjects();
+    this.createCityLimitSign();
   }
 
   /**
@@ -69,6 +78,17 @@ export class Scenario {
     this.trees.forEach((tree) => {
       tree.draw(this.context);
     });
+
+    this.lights.forEach((light) => {
+      light.draw(this.context);
+    });
+
+    this.roadObjects.forEach((roadObject) => {
+      roadObject.draw(this.context);
+    });
+    if (this.isThereCityLimitSign()) {
+      this.cityLimitSign?.draw(this.context);
+    }
   }
 
   /**
@@ -89,6 +109,12 @@ export class Scenario {
     }
 
     this.updateTrees(speed);
+    this.updateLights(speed);
+    this.updateRoadObjects(speed);
+
+    if (this.isThereCityLimitSign()) {
+      this.cityLimitSign?.update(this.canvas.height, speed);
+    }
   }
 
   /**
@@ -120,6 +146,42 @@ export class Scenario {
   }
 
   /**
+   * Создание освещения
+   */
+  createLights() {
+    const sideBreakPoint = Math.floor((GameConfig.roadside.lights - 1) / 2);
+    let lightPositionIndex = 0;
+    let lightSide = 0;
+
+    for (let i = 0; i < GameConfig.roadside.lights; i++) {
+      this.lights[i] = new Light(lightPositionIndex, lightSide);
+
+      if (lightPositionIndex >= sideBreakPoint) {
+        lightPositionIndex = 0;
+        lightSide = 1;
+      } else lightPositionIndex++;
+    }
+  }
+
+  /**
+   * Создание дорожных объектов
+   */
+  createRoadObjects() {
+    const sideBreakPoint = Math.floor((GameConfig.roadside.objects - 1) / 2);
+    let roadObjectPositionIndex = 0;
+    let roadObjectSide = 0;
+
+    for (let i = 0; i < GameConfig.roadside.objects; i++) {
+      this.roadObjects[i] = new RoadObject(roadObjectPositionIndex, roadObjectSide);
+
+      if (roadObjectPositionIndex >= sideBreakPoint) {
+        roadObjectPositionIndex = 0;
+        roadObjectSide = 1;
+      } else roadObjectPositionIndex++;
+    }
+  }
+
+  /**
    * Обновление деревьев
    * @param {number} speed - Скорость смещения.
    */
@@ -130,10 +192,31 @@ export class Scenario {
   }
 
   /**
-   * Обновление препятствий
+   * Обновление освещения
    * @param {number} speed - Скорость смещения.
    */
 
+  updateLights(speed: number) {
+    this.lights.forEach((light) => {
+      light.update(this.canvas.height, speed);
+    });
+  }
+
+  /**
+   * Обновление дорожных объектов
+   * @param {number} speed - Скорость смещения.
+   */
+
+  updateRoadObjects(speed: number) {
+    this.roadObjects.forEach((roadObject) => {
+      roadObject.update(this.canvas.height, speed);
+    });
+  }
+
+  /**
+   * Обновление препятствий
+   * @param {number} speed - Скорость смещения.
+   */
   updateObstacles(speed: number) {
     if (this.isThereOil()) {
       this.oil.update(this.canvas.height, speed);
@@ -143,11 +226,11 @@ export class Scenario {
       this.puddle.update(this.canvas.height, speed);
     }
   }
+
   /**
    * Пытается установить препятствие в свободную полосу
    * @param {number} emptyLane - свободная полоса.
    */
-
   tryPutAnObstacleOnRoad(emptyLane: number) {
     const newObstacleProbability = Math.random();
 
@@ -160,7 +243,6 @@ export class Scenario {
    *  Устанавливает препятствие в свободную полосу
    * @param {number} emptyLane - свободная полоса.
    */
-
   putAnObstacleOnRoad(emptyLane: number) {
     const typeObstacleProbability = Math.random();
 
@@ -174,7 +256,6 @@ export class Scenario {
   /**
    * Создание лужи
    */
-
   createPuddle(emptyLane: number) {
     if (!this.puddle || !this.puddle.isOnRoad) {
       this.puddle = new Obstacle(emptyLane, 'puddle');
@@ -184,7 +265,6 @@ export class Scenario {
   /**
    * Создание масляной лужи
    */
-
   createOil(emptyLane: number) {
     if (!this.oil || !this.oil.isOnRoad) {
       this.oil = new Obstacle(emptyLane, 'oil');
@@ -195,7 +275,6 @@ export class Scenario {
    * Проверка, что препятстиве есть на дороге
    * @return {boolean} .
    */
-
   hasObstaclesOnRoad(): boolean {
     return this.isThereOil() || this.isTherePuddle();
   }
@@ -206,5 +285,21 @@ export class Scenario {
 
   isTherePuddle() {
     return this.puddle && this.puddle.isOnRoad;
+  }
+
+  /**
+   * Создание дорожного знака с наименованием города игрока
+   */
+  createCityLimitSign() {
+    if (!GameConfig.player.city) return;
+    this.cityLimitSign = new CityLimitSign(100);
+  }
+
+  /**
+   * Проверка, что дорожный знаа с наименованием города есть на дороге
+   * @return {boolean} .
+   */
+  isThereCityLimitSign() {
+    return this.cityLimitSign && this.cityLimitSign.isOnScreen;
   }
 }

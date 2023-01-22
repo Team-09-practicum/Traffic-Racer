@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Space, Typography, Row } from 'antd';
 import { ShrinkOutlined, ArrowsAltOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 import { TrafficRacer } from './components/TrafficRacer/TrafficRacer';
 import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
 import { useWindowSize } from '@/pages/gamePage/hooks/useWindowSize';
-import './GamePage.scss';
 import { SoundOffButton } from './components/soundOffButton/SoundOffButton';
+import { updateLeaderboard } from '@/controllers/updateLeaderboard';
+import { getUserIdLoginAvatar } from '@/utils/store/selectors/getUserFieldSelectors/getUserFieldSelectors';
+import './GamePage.scss';
 
 const { Text, Title } = Typography;
 
@@ -21,6 +24,8 @@ export const GamePage = () => {
   const [isFullscreenMode, setFullscreenMode] = useState(false);
   const isFirstStart = !isGameStarted && !isGameOver;
   const gamePageRef = useRef<HTMLDivElement>(null);
+  const user = useSelector(getUserIdLoginAvatar);
+
   useEffect(() => {
     if (gamePageRef.current) setPageTopOffset(gamePageRef.current.getBoundingClientRect().top);
   }, []);
@@ -28,6 +33,21 @@ export const GamePage = () => {
   useEffect(() => {
     if (score < 0) setScore(0);
   }, [score]);
+
+  useEffect(() => {
+    if (user && isGameOver) {
+      const updateScore = async () => {
+        await updateLeaderboard({
+          id: user.id as number,
+          username: user.login as string,
+          avatar: user.avatar as string | null,
+          score,
+        });
+      };
+      updateScore();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isGameOver, user]);
 
   const toggleFullscreen = useCallback(() => {
     const game = gamePageRef.current;

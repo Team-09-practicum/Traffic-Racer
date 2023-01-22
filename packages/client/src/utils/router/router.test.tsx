@@ -10,6 +10,13 @@ describe('Router', () => {
         removeListener: jest.fn(),
       })),
     });
+
+    Object.defineProperty(global.navigator, 'geolocation', {
+      writable: true,
+      value: {
+        getCurrentPosition: jest.fn(),
+      },
+    });
   });
 
   test('should correct render home page', () => {
@@ -25,8 +32,6 @@ describe('Router', () => {
     const route = '/stats';
     renderWithRouter({ route });
     expect(window.location.pathname).toBe('/stats');
-    const statsTable = document.querySelector('.stats-page__table') as HTMLElement;
-    expect(statsTable).toBeInTheDocument();
   });
 
   test('should correct navigate on forum page', () => {

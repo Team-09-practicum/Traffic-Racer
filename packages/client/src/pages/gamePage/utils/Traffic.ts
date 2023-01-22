@@ -3,6 +3,7 @@ import { getRandomIntBetweenInterval, isCollide, isCloseTo } from './helpers';
 import { GameConfig } from './game.config';
 import { Car } from './Car';
 import { Scenario } from './Scenario';
+import { RoadSign } from './roadside/RoadSign';
 
 /**
  * Класс управляющий трафиком
@@ -28,6 +29,8 @@ export class Traffic {
 
   scenario?: Scenario;
 
+  roadSigns: RoadSign[] = [];
+
   /**
    * Конструктор класса сценария.
    * @param {HTMLCanvasElement} canvas - Элемент Canvas.
@@ -49,6 +52,7 @@ export class Traffic {
     this.emptyLane = this.nextEmptyLane;
     this.scenario = scenario;
     this.createCars();
+    this.createRoadSigns();
   }
 
   /**
@@ -124,6 +128,22 @@ export class Traffic {
 
     return c;
   }
+  /**
+   * Создание дорожных знаков
+   */
+
+  createRoadSigns() {
+    const sideBreakPoint = Math.floor((GameConfig.roadside.roadSigns - 1) / 2);
+    let roadSignPositionIndex = 0;
+    let roadSignSide = 1;
+    for (let i = 0; i < GameConfig.roadside.roadSigns; i++) {
+      this.roadSigns[i] = new RoadSign(roadSignPositionIndex, roadSignSide);
+      if (roadSignPositionIndex >= sideBreakPoint) {
+        roadSignPositionIndex++;
+        roadSignSide = 0;
+      }
+    }
+  }
 
   /**
    * Отрисовка трафика
@@ -131,6 +151,9 @@ export class Traffic {
   draw() {
     this.cars.forEach((car) => {
       if (car) car.drawCar(this.context);
+    });
+    this.roadSigns.forEach((roadSign) => {
+      roadSign.draw(this.context);
     });
   }
 
@@ -164,9 +187,19 @@ export class Traffic {
       this.verifyPlayerCollision();
       this.verifyCollisionWithObstacles();
     }
-
+    this.updateRoadSigns(speed);
     this.changeEmptyLane();
     this.tryChangeEmptyLane();
+  }
+  /**
+   * Обновление дорожных знаков
+   * @param {number} speed - Скорость смещения.
+   */
+
+  updateRoadSigns(speed: number) {
+    this.roadSigns.forEach((roadSign) => {
+      roadSign.update(this.canvas.height, speed);
+    });
   }
 
   /**
