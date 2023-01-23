@@ -7,6 +7,8 @@
     "dev:client": "lerna run dev  --scope=client",
     "dev:server": "lerna run dev --scope=server",
     "dev": "lerna run dev",
+    "dev:sql": "docker-compose -f docker-compose.dev.yml up",
+    "prod": "docker compose up",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",

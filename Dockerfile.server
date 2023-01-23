@@ -3,6 +3,8 @@ ARG SERVER_PORT=3001
 
 FROM node:$NODE_VERSION-buster as base
 
+RUN apt update && apt install -y nodejs && apt install -y npm && apt install -y netcat
+
 WORKDIR /app
 
 FROM base as builder
@@ -12,16 +14,8 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
+RUN chmod +x /app/packages/server/utils/waitForDataBaseConnect/wait-for.sh
 RUN yarn lerna bootstrap
-RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
-
-
-FROM node:$NODE_VERSION-buster-slim as production
-WORKDIR /app
-
-COPY --from=builder /app/packages/server/dist/ /app/
-COPY --from=builder /app/packages/server/package.json /app/package.json
-RUN yarn install --production=true
+RUN rm -rf /app/packages/server/dist/ && yarn build
 
 EXPOSE $SERVER_PORT
-CMD [ "node", "/app/index.js" ]
