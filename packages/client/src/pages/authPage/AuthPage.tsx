@@ -8,6 +8,7 @@ import { authSchema } from '@/utils/validation/validationSchema';
 import { signIn } from '@/controllers/signIn';
 import { useAppDispatch } from '@/utils/store/store';
 import { fetchUser } from '@/utils/store/reducers/thunks/fetchUserThunk';
+import { signinWithYandex } from '@/utils/OAuth';
 import './AuthPage.scss';
 
 const { Title } = Typography;
@@ -34,6 +35,10 @@ export const AuthPage = () => {
     dispatch(fetchUser());
   };
 
+  const OAuthHandler = async () => {
+    await signinWithYandex();
+  };
+
   return (
     <Row justify="center" align="middle" className="auth-page">
       <Col className="auth-page__col">
@@ -56,6 +61,11 @@ export const AuthPage = () => {
           <Form.Item>
             <Button htmlType="submit" className="auth-page__button" disabled={!!Object.keys(errors).length}>
               Авторизация
+            </Button>
+          </Form.Item>
+          <Form.Item>
+            <Button onClick={OAuthHandler} htmlType="button" className="auth-page__button">
+              Войти с Яндекс ID
             </Button>
           </Form.Item>
         </Form>

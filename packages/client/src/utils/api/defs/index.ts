@@ -7,3 +7,5 @@ export { postSignIn } from './postSignIn';
 export { postSignUp } from './postSignUp';
 export { postLeaderboard } from './postLeaderboard';
 export { postTeamLeaderboard } from './postTeamLeaderboard';
+export { getOAuthServiceId } from './getOAuthServiceId';
+export { postSignInOAuth } from './postSignInOAuth';

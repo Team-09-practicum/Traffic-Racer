@@ -19,6 +19,8 @@ export interface IErrorRes {
 export interface IRequestParams<E> {
   urlParams?: object | URLSearchParams;
   data?: string | object | ArrayBuffer;
+  code?: string;
+  redirect_uri?: string;
   onSuccess?: (response: E) => void;
   onError?: (err: IErrorRes) => void;
 }
