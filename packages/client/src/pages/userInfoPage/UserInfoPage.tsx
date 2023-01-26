@@ -133,7 +133,7 @@ export const UserInfoPage = () => {
         <Link to={appRoutes.game}> Главное меню </Link>
         <Modal
           centered
-          title="Изменение пароля"
+          title="Изменение аватарки"
           open={isModalOpen}
           onCancel={handleCancel}
           footer={[

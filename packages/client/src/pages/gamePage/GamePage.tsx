@@ -7,6 +7,7 @@ import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
 import { useWindowSize } from '@/pages/gamePage/hooks/useWindowSize';
 import { SoundOffButton } from './components/soundOffButton/SoundOffButton';
+import { Feedback } from './components/feedback/Feedback';
 import { updateLeaderboard } from '@/controllers/updateLeaderboard';
 import { getUserIdLoginAvatar } from '@/utils/store/selectors/getUserFieldSelectors/getUserFieldSelectors';
 import './GamePage.scss';
@@ -114,6 +115,9 @@ export const GamePage = () => {
           <ArrowsAltOutlined className={fullscreenIconClassName} />
         )}
       </button>
+      <div className="game-page__feedback-button">
+        <Feedback />
+      </div>
     </div>
   );
 };
