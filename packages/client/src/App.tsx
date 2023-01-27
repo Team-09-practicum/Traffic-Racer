@@ -14,10 +14,12 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const code = new URLSearchParams(window.location.search).get('code');
+    if (typeof window !== 'undefined') {
+      const code = new URLSearchParams(window.location.search).get('code');
 
-    if (code) {
-      getYandexToken(code);
+      if (code) {
+        getYandexToken(code);
+      }
     }
 
     dispatch(fetchUser());
