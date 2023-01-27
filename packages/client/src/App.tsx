@@ -17,8 +17,9 @@ const App = () => {
     if (typeof window === 'undefined') return;
     const code = new URLSearchParams(window.location.search).get('code');
 
-    if (code) {
-      getYandexToken(code);
+      if (code) {
+        getYandexToken(code);
+      }
     }
 
     dispatch(fetchUser());
