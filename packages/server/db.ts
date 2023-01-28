@@ -14,12 +14,10 @@ const sequelizeOptions: SequelizeOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   dialect: 'postgres',
+  models: [path.join(__dirname, '/models')],
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);
-
-// Инициализируем модели
-// export const User = sequelize.define('User', userModel, {});
 
 export async function dbConnect() {
   try {
