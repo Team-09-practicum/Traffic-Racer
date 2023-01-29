@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Form, Space } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import { RichTextEditor } from '@/components/RichTextEditor';
 import { replyInTopicSchema } from '@/utils/validation/validationSchema';
