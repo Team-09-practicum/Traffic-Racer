@@ -5,13 +5,12 @@ class ThemeService {
   public get = (userId: number) => Theme.findOne({ where: { userId } });
 
   // eslint-disable-next-line class-methods-use-this
-  public create = async (data: ThemeAttributes) => {
-    const { userId, theme } = data;
+  public create = async ({ userId, theme }: ThemeAttributes) => {
     const obj = await Theme.findOne({ where: { userId } });
     if (obj) {
       return obj.update({ theme });
     }
-    return Theme.create({ theme });
+    return Theme.create({ userId, theme });
   };
 }
 
