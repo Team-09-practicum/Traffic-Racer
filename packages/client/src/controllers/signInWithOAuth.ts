@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios';
 import { api } from '@/utils/api';
 import { showNetworkError } from '@/utils/showNetworkError';
 
@@ -9,7 +10,12 @@ export interface IOAuthSigninData {
 export const signInWithOAuth = async (data: IOAuthSigninData) => {
   const response = await api.postSignInOAuth({
     data,
-    onError: (err) => showNetworkError(err.response.data.reason),
+    onError: (err) => {
+      if (isAxiosError(err) && err.response) {
+        showNetworkError(err.response.data.reason);
+      }
+      throw Error(err.message);
+    },
   });
   return response;
 };
