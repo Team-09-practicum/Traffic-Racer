@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Space, Typography, Row } from 'antd';
 import { ShrinkOutlined, ArrowsAltOutlined, FormOutlined } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { TrafficRacer } from './components/TrafficRacer/TrafficRacer';
 import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
@@ -10,6 +10,8 @@ import { SoundOffButton } from './components/soundOffButton/SoundOffButton';
 import { Feedback } from './components/feedback/Feedback';
 import { updateLeaderboard } from '@/controllers/updateLeaderboard';
 import { getUserIdLoginAvatar } from '@/utils/store/selectors/getUserFieldSelectors/getUserFieldSelectors';
+import { appStatusActions } from '@/utils/store/reducers/appStatusSlice/appStatusSlice';
+import { getIsFeedbackOpen } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import './GamePage.scss';
 
 const { Text, Title } = Typography;
@@ -23,10 +25,11 @@ export const GamePage = () => {
   const [isGameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [isFullscreenMode, setFullscreenMode] = useState(false);
-  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const isFirstStart = !isGameStarted && !isGameOver;
   const gamePageRef = useRef<HTMLDivElement>(null);
   const user = useSelector(getUserIdLoginAvatar);
+  const isFeedbackOpen = useSelector(getIsFeedbackOpen);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (gamePageRef.current) setPageTopOffset(gamePageRef.current.getBoundingClientRect().top);
@@ -52,11 +55,7 @@ export const GamePage = () => {
   }, [isGameOver, user]);
 
   const toggleFeedbackForm = () => {
-    setIsFeedbackOpen(true);
-  };
-
-  const cancelFeedbackForm = () => {
-    setIsFeedbackOpen(false);
+    dispatch(appStatusActions.setIsFeedbackOpen(!isFeedbackOpen));
   };
 
   const toggleFullscreen = useCallback(() => {
@@ -126,7 +125,7 @@ export const GamePage = () => {
       </button>
       <button type="button" className="game-page__feedback-button">
         <FormOutlined className="feedback-button" onClick={toggleFeedbackForm} />
-        <Feedback isFeedbackOpen={isFeedbackOpen} cancelFeedback={cancelFeedbackForm} />
+        <Feedback />
       </button>
     </div>
   );

@@ -9,4 +9,5 @@ export interface IAppStatusState {
   loading: LoadingStatus;
   isAuth: boolean;
   isSoundOn: boolean;
+  isFeedbackOpen: boolean;
 }

@@ -41,4 +41,10 @@ describe('appStatusSlice.test', () => {
       isSoundOn: false,
     });
   });
+  test('should change isFeedbackOpen to true ', () => {
+    const state: DeepPartial<IAppStatusState> = { isFeedbackOpen: false };
+    expect(appStatusReducer(state as IAppStatusState, appStatusActions.setIsFeedbackOpen(true))).toEqual({
+      isFeedbackOpen: true,
+    });
+  });
 });

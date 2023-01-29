@@ -3,7 +3,7 @@ import React, { Dispatch, FC, SetStateAction, useEffect, useRef, memo } from 're
 import { useSelector } from 'react-redux';
 import { Scenario, Car, Traffic, GameConfig, crashSound, puddleSound } from '../../utils';
 import './TrafficRacer.scss';
-import { getIsSoundOn } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
+import { getIsSoundOn, getIsFeedbackOpen } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import gameSoundPath from '../../assets/sounds/gameSound.mp3';
 import useGeolocation from '@/pages/gamePage/hooks/useGeolocation';
 
@@ -19,6 +19,8 @@ type Props = FC<TrafficRacerProps>;
 export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, setScore }) => {
   const isSoundOn = useRef<boolean>();
   isSoundOn.current = useSelector(getIsSoundOn);
+  const isFeedbackOpen = useRef<boolean>();
+  isFeedbackOpen.current = useSelector(getIsFeedbackOpen);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const canvasCtxRef = useRef<CanvasRenderingContext2D | null>(null);
   const animationID = useRef<number>();
@@ -95,6 +97,7 @@ export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, 
     if (!canvasRef.current) return;
     playedCrash = false;
     if (!gameThemeSound.current) return;
+    if (isFeedbackOpen.current) return;
     gameThemeSound.current.currentTime = 0;
     gameThemeSound.current.play();
     gameThemeSound.current.volume = 0.3;

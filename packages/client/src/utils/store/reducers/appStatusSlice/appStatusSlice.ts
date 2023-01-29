@@ -6,6 +6,7 @@ const initialState: IAppStatusState = {
   isAuth: false,
   loading: LoadingStatus.Unsent,
   isSoundOn: true,
+  isFeedbackOpen: false,
 };
 
 export const appStatusSlice = createSlice({
@@ -20,6 +21,9 @@ export const appStatusSlice = createSlice({
     },
     setIsSoundOn: (state: IAppStatusState, action: PayloadAction<boolean>) => {
       state.isSoundOn = action.payload;
+    },
+    setIsFeedbackOpen: (state: IAppStatusState, action: PayloadAction<boolean>) => {
+      state.isFeedbackOpen = action.payload;
     },
   },
   extraReducers: (builder) => {

@@ -1,23 +1,23 @@
 /* eslint-disable max-len */
 import React from 'react';
-// import { FormOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button, Form, Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { profileSchema, messageSchema } from '@/utils/validation/validationSchema';
+import { getIsFeedbackOpen } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
+import { appStatusActions } from '@/utils/store/reducers/appStatusSlice/appStatusSlice';
 import './Feedback.scss';
 
 interface IFeeedbackForm {
   first_name?: string;
   email?: string;
   message?: string;
-  isFeedbackOpen?: boolean;
-  cancelFeedback: () => void;
 }
 
-export const Feedback = (props: IFeeedbackForm) => {
-  const { isFeedbackOpen } = props;
-  const { cancelFeedback } = props;
+export const Feedback = () => {
+  const isFeedbackOpen = useSelector(getIsFeedbackOpen);
+  const dispatch = useDispatch();
   const {
     control,
     formState: { errors },
@@ -25,6 +25,10 @@ export const Feedback = (props: IFeeedbackForm) => {
     mode: 'onChange',
     resolver: yupResolver(profileSchema, messageSchema),
   });
+
+  const cancelFeedback = () => {
+    dispatch(appStatusActions.setIsFeedbackOpen(!isFeedbackOpen));
+  };
 
   return (
     <div>
