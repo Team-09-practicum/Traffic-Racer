@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Space, Typography, Row } from 'antd';
-import { ShrinkOutlined, ArrowsAltOutlined } from '@ant-design/icons';
+import { ShrinkOutlined, ArrowsAltOutlined, FormOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { TrafficRacer } from './components/TrafficRacer/TrafficRacer';
 import { GameStart } from './components/startGame/GameStart';
@@ -23,6 +23,7 @@ export const GamePage = () => {
   const [isGameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [isFullscreenMode, setFullscreenMode] = useState(false);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const isFirstStart = !isGameStarted && !isGameOver;
   const gamePageRef = useRef<HTMLDivElement>(null);
   const user = useSelector(getUserIdLoginAvatar);
@@ -49,6 +50,14 @@ export const GamePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameOver, user]);
+
+  const toggleFeedbackForm = () => {
+    setIsFeedbackOpen(true);
+  };
+
+  const cancelFeedbackForm = () => {
+    setIsFeedbackOpen(false);
+  };
 
   const toggleFullscreen = useCallback(() => {
     const game = gamePageRef.current;
@@ -115,9 +124,10 @@ export const GamePage = () => {
           <ArrowsAltOutlined className={fullscreenIconClassName} />
         )}
       </button>
-      <div className="game-page__feedback-button">
-        <Feedback />
-      </div>
+      <button type="button" className="game-page__feedback-button">
+        <FormOutlined className="feedback-button" onClick={toggleFeedbackForm} />
+        <Feedback isFeedbackOpen={isFeedbackOpen} cancelFeedback={cancelFeedbackForm} />
+      </button>
     </div>
   );
 };
