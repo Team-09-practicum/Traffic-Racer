@@ -22,7 +22,7 @@ export const sequelize = new Sequelize(sequelizeOptions);
 export async function dbConnect() {
   try {
     await sequelize.authenticate();
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
     console.log('\x1b[32m', `✨Connection to DB on ${POSTGRES_PORT} has been established successfully✨`, '\x1b[0m');
   } catch (error) {
     console.error('Unable sequelize to connect to the database:', error);
