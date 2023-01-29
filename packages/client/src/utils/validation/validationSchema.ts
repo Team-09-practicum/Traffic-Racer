@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import 'yup-phone';
+import wordsCounter from 'word-counting';
 
 export const authSchema = yup.object().shape({
   login: yup
@@ -72,3 +73,28 @@ export const profileSchema = registrationSchema.omit(['password', 'confirm_passw
     [['display_name', 'display_name']]
   )
 );
+
+export const createTopicSchema = yup.object().shape({
+  topic_name: yup
+    .string()
+    .required('Пожалуйста, введите название темы')
+    .min(5, 'Название темы не должно быть короче 5 символов')
+    .max(100, 'Название темы не должно превышать 100 символов'),
+  rich_text: yup
+    .string()
+    .test(
+      'Минимум одно слово',
+      'Пожалуйста, введите текст сообщения',
+      (value) => wordsCounter(value || '', { isHtml: true }).wordsCount > 0
+    ),
+});
+
+export const replyInTopicSchema = yup.object().shape({
+  rich_text: yup
+    .string()
+    .test(
+      'Минимум одно слово',
+      'Пожалуйста, введите текст сообщения',
+      (value) => wordsCounter(value || '', { isHtml: true }).wordsCount > 0
+    ),
+});

@@ -1,3 +1,4 @@
+import type { AxiosError } from 'axios';
 import { apiPaths } from '../constants';
 
 export interface IDefParams {
@@ -8,13 +9,11 @@ export interface IDefParams {
   withCredentials?: boolean;
 }
 
-export interface IErrorRes {
-  response: {
-    data: {
-      reason: string;
-    };
-  };
+export interface IApiError {
+  reason: string;
 }
+
+export type IErrorReq = AxiosError<IApiError>;
 
 export interface IRequestParams<E> {
   urlParams?: object | URLSearchParams;
@@ -22,7 +21,7 @@ export interface IRequestParams<E> {
   code?: string;
   redirect_uri?: string;
   onSuccess?: (response: E) => void;
-  onError?: (err: IErrorRes) => void;
+  onError?: (err: IErrorReq) => void;
 }
 
 export type IMakeRequestParams<T> = IDefParams & IRequestParams<T>;

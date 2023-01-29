@@ -1,19 +1,11 @@
 import { isAxiosError } from 'axios';
 import { api } from '@/utils/api';
 import { showNetworkError } from '@/utils/showNetworkError';
+import { ITopicDTO } from '@/typings/ITopicDTO';
 
-export interface ISignUp {
-  first_name: 'string';
-  second_name: 'string';
-  login: 'string';
-  email: 'string';
-  password: 'string';
-  phone: 'string';
-}
-
-export const signUp = async (userInfo: ISignUp) => {
-  await api.postSignUp({
-    data: userInfo,
+export const getForumTopic = async (topicId: number): Promise<ITopicDTO> => {
+  const forumTopic = await api.getForumTopic({
+    urlParams: { id: topicId },
     onError: (err) => {
       if (isAxiosError(err) && err.response) {
         showNetworkError(err.response.data.reason);
@@ -21,4 +13,5 @@ export const signUp = async (userInfo: ISignUp) => {
       throw Error(err.message);
     },
   });
+  return forumTopic as ITopicDTO;
 };

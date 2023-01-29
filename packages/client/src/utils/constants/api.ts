@@ -17,4 +17,8 @@ export const apiPaths = {
   showAvatar: `${API_HOST}${API_PATH}/resources`,
   getServiceIdURI: '/oauth/yandex/service-id',
   signInURI: '/oauth/yandex',
+  getForumIndex: '/api/forum',
+  getForumTopic: '/api/forum/topic',
+  postForumTopic: '/api/forum/topic',
+  postTopicReply: '/api/forum/topic/comment',
 };

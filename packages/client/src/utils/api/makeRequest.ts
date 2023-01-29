@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_HOST, API_PATH } from '../constants';
-import { IErrorRes, IMakeRequestParams } from './typings';
+import { IErrorReq, IMakeRequestParams } from './typings';
 
 export const makeRequest = async <T>({
   type,
@@ -32,7 +32,7 @@ export const makeRequest = async <T>({
     return response.data;
   } catch (err) {
     if (onError) {
-      onError(err as IErrorRes);
+      onError(err as IErrorReq);
     }
     return undefined;
   }
