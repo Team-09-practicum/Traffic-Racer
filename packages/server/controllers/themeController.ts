@@ -6,7 +6,7 @@ export class ThemeAPI {
   public static saveTheme = async (req: Request, res: Response) => {
     try {
       const { theme, userId } = req.body;
-      if (!theme || theme === '' || !userId || userId === 0) {
+      if (!theme || !userId) {
         res.status(400).json('empty field in message body');
       } else if (!Object.values(ThemeColor).includes(theme) || typeof userId !== 'number') {
         res.status(400).json('uncorrect type in value');
