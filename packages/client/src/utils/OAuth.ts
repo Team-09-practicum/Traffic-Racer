@@ -1,14 +1,12 @@
 /* eslint-disable camelcase */
 import { signInWithOAuth } from '@/controllers/signInWithOAuth';
 import { showNetworkError } from '@/utils/showNetworkError';
-import { yandexOAuthUrl } from '@/utils/constants';
+import { yandexOAuthUrl, redirectURI } from '@/utils/constants';
 import { getServiceId } from '@/controllers/getServiceId';
 
 export interface IGetServiceIdResponse {
   service_id: string;
 }
-
-export const redirectURI = window.location.origin;
 
 /**
  * Получаем id и делаем редирект на яндекс, а с яндекса на главную, с кодом авторизации.
