@@ -1,3 +1,5 @@
+export type Theme = 'light' | 'dark';
+
 export interface IUser {
   id?: number;
   email?: string;
@@ -7,4 +9,5 @@ export interface IUser {
   display_name?: string;
   phone?: string;
   avatar?: string;
+  theme?: Theme | null;
 }
