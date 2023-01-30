@@ -26,8 +26,7 @@ export class ThemeAPI {
         res.status(400).json({ reason: 'empty message body' });
       }
       const userIdNumber = Number(userId);
-      // eslint-disable-next-line no-restricted-globals
-      if (isNaN(userIdNumber) || userIdNumber === 0) {
+      if (Number.isNaN(userIdNumber) || userIdNumber === 0) {
         res.status(400).json({ reason: 'uncorrect type in userId value' });
       } else {
         const getTheme = await themeService.get(userIdNumber);
