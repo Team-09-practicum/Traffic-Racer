@@ -4,6 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import { createServer as createViteServer, ViteDevServer } from 'vite';
 import express from 'express';
+import bodyParser from 'body-parser';
+import { themeRouter } from './routes/themeRoutes';
 import { isDev } from './utils/constants';
 import { dbConnect } from './db';
 
@@ -12,6 +14,7 @@ dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
 async function startServer() {
   const app = express();
   app.use(cors());
+  app.use(bodyParser.json());
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   dbConnect();
@@ -19,6 +22,9 @@ async function startServer() {
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
   });
+
+  app.use('/api/theme', themeRouter);
+
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));
 
