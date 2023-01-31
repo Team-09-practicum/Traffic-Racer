@@ -7,14 +7,12 @@ interface IRichTextEditorProps {
   value?: string;
 }
 
-const apiKey = 'c99vtrloji8vaofwut81vcv3n65q2hppntgd08vjq70ymn0o';
-
 export const RichTextEditor = ({ onChange, value }: IRichTextEditorProps) => {
   const editorRef = useRef<TinyMCEEditor>();
 
   return (
     <Editor
-      apiKey={apiKey}
+      apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
       onEditorChange={onChange}
       onInit={(evt, editor) => {
         editorRef.current = editor;

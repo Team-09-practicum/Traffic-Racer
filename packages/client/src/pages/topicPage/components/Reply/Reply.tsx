@@ -42,20 +42,23 @@ export const Reply = ({ topicId, parentId = null, lvl, onReply }: IReplyProps) =
 
     setLoading(true);
     try {
-      await createForumComment({
-        topicId,
-        parentId,
-        body: data.rich_text,
-        userId: userInfo.id,
-        userName: userInfo.login,
-      });
-
-      setLoading(false);
-      handleCancel();
-      onReply();
+      await createForumComment(
+        {
+          topicId,
+          parentId,
+          body: data.rich_text,
+          userId: userInfo.id,
+          userName: userInfo.login,
+        },
+        () => {
+          handleCancel();
+          onReply();
+        }
+      );
     } catch (e) {
-      setLoading(false);
       toast.error('Ошибка создания комментария, попробуйте снова');
+    } finally {
+      setLoading(false);
     }
   };
 

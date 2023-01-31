@@ -7,10 +7,12 @@ type ICreateForumComment = Omit<ICommentDTO, 'id' | 'lvl' | 'createdAt' | 'comme
 type ICreateForumCommentResponse = Omit<ICommentDTO, 'lvl' | 'comments'>;
 
 export const createForumComment = async (
-  createTopicData: ICreateForumComment
+  createTopicData: ICreateForumComment,
+  onSuccess: () => void
 ): Promise<ICreateForumCommentResponse> => {
   const comment = await api.postTopicReply({
     data: createTopicData,
+    onSuccess,
     onError: (err) => {
       if (isAxiosError(err) && err.response) {
         showNetworkError(err.response.data.reason);
