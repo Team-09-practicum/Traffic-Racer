@@ -9,7 +9,7 @@ import { queryParser } from 'express-query-parser';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
 import { isDev } from './utils/constants';
-import { dbConnect } from './db';
+import { dbConnect, mongoConnect } from './db';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
 
@@ -31,6 +31,7 @@ async function startServer() {
   const port = Number(process.env.SERVER_PORT) || 5000;
 
   dbConnect();
+  mongoConnect();
 
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
