@@ -29,11 +29,10 @@ export const TopicPage = () => {
 
   const fetchForumTopic = useCallback(async () => {
     try {
-      if (topicId) {
-        const topic = await getForumTopic(+topicId);
-        setTopicData(topic);
-        setLoading(false);
-      }
+      if (!topicId) return;
+      const topic = await getForumTopic(+topicId);
+      setTopicData(topic);
+      setLoading(false);
     } catch (e) {
       setLoading(false);
       toast.error('Ошибка при загрузке данных темы, попробуйте обновить старницу');

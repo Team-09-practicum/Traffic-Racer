@@ -15,7 +15,7 @@ const columns = [
     dataIndex: 'name',
     key: 'name',
     render: (topicName: string, topic: ITopic) => {
-      const path = new URLSearchParams({ id: `${topic.id}` });
+      const path = new URLSearchParams({ id: topic.id.toString() });
 
       return <Link to={`${appRoutes.topic}?${path.toString()}`}>{topicName}</Link>;
     },
