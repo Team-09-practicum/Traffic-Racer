@@ -1,6 +1,6 @@
 export interface ITopic {
   name: string;
-  themeCount: number;
-  lastMessageDate: string;
+  commentsCount: number;
+  lastCommentDate: string;
   id: number;
 }

@@ -1,19 +1,10 @@
 import { isAxiosError } from 'axios';
 import { api } from '@/utils/api';
 import { showNetworkError } from '@/utils/showNetworkError';
+import { ITopic } from '@/typings/ITopic';
 
-export interface ISignUp {
-  first_name: 'string';
-  second_name: 'string';
-  login: 'string';
-  email: 'string';
-  password: 'string';
-  phone: 'string';
-}
-
-export const signUp = async (userInfo: ISignUp) => {
-  await api.postSignUp({
-    data: userInfo,
+export const getForumIndex = async (): Promise<ITopic[]> => {
+  const forumIndex = await api.getForumIndex({
     onError: (err) => {
       if (isAxiosError(err) && err.response) {
         showNetworkError(err.response.data.reason);
@@ -21,4 +12,5 @@ export const signUp = async (userInfo: ISignUp) => {
       throw Error(err.message);
     },
   });
+  return forumIndex as ITopic[];
 };

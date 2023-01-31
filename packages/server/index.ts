@@ -5,7 +5,9 @@ import fs from 'fs';
 import { createServer as createViteServer, ViteDevServer } from 'vite';
 import express from 'express';
 import bodyParser from 'body-parser';
+import { queryParser } from 'express-query-parser';
 import { themeRouter } from './routes/themeRoutes';
+import { forumRouter } from './routes/forumRoutes';
 import { isDev } from './utils/constants';
 import { dbConnect } from './db';
 
@@ -13,8 +15,19 @@ dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
 
 async function startServer() {
   const app = express();
-  app.use(cors());
-  app.use(bodyParser.json());
+  app
+    .disable('x-powered-by')
+    .use(cors())
+    .use(bodyParser.json())
+    .use(
+      queryParser({
+        parseNull: true,
+        parseUndefined: true,
+        parseBoolean: true,
+        parseNumber: true,
+      })
+    );
+
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   dbConnect();
@@ -24,6 +37,7 @@ async function startServer() {
   });
 
   app.use('/api/theme', themeRouter);
+  app.use('/api/forum', forumRouter);
 
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));

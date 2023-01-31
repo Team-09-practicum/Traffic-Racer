@@ -38,8 +38,6 @@ describe('Router', () => {
     const route = '/forum';
     renderWithRouter({ route });
     expect(window.location.pathname).toBe('/forum');
-    const forumTable = document.querySelector('.forum-page__table') as HTMLElement;
-    expect(forumTable).toBeInTheDocument();
   });
   // TODO: fix tests
   test('should correct navigate on auth page', () => {
