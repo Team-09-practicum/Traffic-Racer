@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import type { Editor as TinyMCEEditor } from 'tinymce';
+import { tinyMceApiKey } from '@/utils/constants';
 
 interface IRichTextEditorProps {
   onChange?: (a: string, editor: TinyMCEEditor) => void;
@@ -12,7 +13,7 @@ export const RichTextEditor = ({ onChange, value }: IRichTextEditorProps) => {
 
   return (
     <Editor
-      apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
+      apiKey={tinyMceApiKey}
       onEditorChange={onChange}
       onInit={(evt, editor) => {
         editorRef.current = editor;
