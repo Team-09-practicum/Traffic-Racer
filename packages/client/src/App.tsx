@@ -14,6 +14,7 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const code = new URLSearchParams(window.location.search).get('code');
 
     if (code) {

@@ -28,7 +28,7 @@ async function startServer() {
       })
     );
 
-  const port = Number(process.env.SERVER_PORT) || 3001;
+  const port = Number(process.env.SERVER_PORT) || 5000;
 
   dbConnect();
 

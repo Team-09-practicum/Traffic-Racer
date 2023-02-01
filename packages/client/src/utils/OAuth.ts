@@ -36,7 +36,6 @@ export const getYandexToken = async (OAuthCode: string) => {
       code: OAuthCode,
       redirect_uri: redirectURI,
     });
-
     window.location.href = '/';
   } catch (error) {
     showNetworkError();
