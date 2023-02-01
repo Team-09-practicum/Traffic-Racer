@@ -13,3 +13,4 @@ export { postForumTopic } from './postForumTopic';
 export { postTopicReply } from './postTopicReply';
 export { getOAuthServiceId } from './getOAuthServiceId';
 export { postSignInOAuth } from './postSignInOAuth';
+export { postFeedback } from './postFeedback';

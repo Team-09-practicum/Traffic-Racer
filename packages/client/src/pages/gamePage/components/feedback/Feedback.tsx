@@ -7,12 +7,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { profileSchema, messageSchema } from '@/utils/validation/validationSchema';
 import { getIsFeedbackOpen } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import { appStatusActions } from '@/utils/store/reducers/appStatusSlice/appStatusSlice';
+import { sendFeedback } from '@/controllers/sendFeedback';
 import './Feedback.scss';
 
 interface IFeeedbackForm {
-  first_name?: string;
-  email?: string;
-  message?: string;
+  first_name: string;
+  email: string;
+  message: string;
 }
 
 export const Feedback = () => {
@@ -20,6 +21,7 @@ export const Feedback = () => {
   const dispatch = useDispatch();
   const {
     control,
+    handleSubmit,
     formState: { errors },
   } = useForm<IFeeedbackForm>({
     mode: 'onChange',
@@ -30,6 +32,10 @@ export const Feedback = () => {
     dispatch(appStatusActions.setIsFeedbackOpen(!isFeedbackOpen));
   };
 
+  const onSubmit = async (data: IFeeedbackForm) => {
+    await sendFeedback(data);
+  };
+
   return (
     <div>
       <Modal
@@ -38,11 +44,11 @@ export const Feedback = () => {
         open={isFeedbackOpen}
         onCancel={cancelFeedback}
         footer={[
-          <Button key="back" type="primary">
+          <Button htmlType="submit" key="back" type="primary">
             Отправить
           </Button>,
         ]}>
-        <Form name="basic" layout="vertical">
+        <Form name="basic" layout="vertical" onFinish={handleSubmit(onSubmit)}>
           <Form.Item label="Имя" validateStatus={errors.first_name ? 'error' : ''} help={errors.first_name?.message}>
             <Controller name="first_name" control={control} render={({ field }) => <Input {...field} />} />
           </Form.Item>

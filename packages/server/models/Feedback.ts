@@ -1,14 +1,14 @@
 import { model, Schema } from 'mongoose';
 
 interface IFeedbackModel {
-  name: string;
+  first_name: string;
   email: string;
   message: string;
 }
 
 const feedbackSchema = new Schema<IFeedbackModel>(
   {
-    name: { type: String, required: true },
+    first_name: { type: String, required: true },
     email: { type: String, required: true },
     message: { type: String, required: true },
   },

@@ -25,4 +25,5 @@ export const apiPaths = {
   getForumTopic: '/api/forum/topic',
   postForumTopic: '/api/forum/topic',
   postTopicReply: '/api/forum/topic/comment',
+  postFeedback: '/api/feedback/send',
 };
