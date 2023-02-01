@@ -2,8 +2,9 @@ export const API_HOST = 'https://ya-praktikum.tech';
 
 export const API_PATH = '/api/v2';
 
-// eslint-disable-next-line no-undef
-export const redirectURI = `http://localhost:${__SERVER_PORT__}/`;
+export const LOCAL_SERVER_PORT = 5000;
+
+export const redirectURI = `http://localhost:${LOCAL_SERVER_PORT}/`;
 
 export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize?response_type=code';
 
