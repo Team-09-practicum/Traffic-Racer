@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from '@/typings/IUser';
+import { IUser, Theme } from '@/typings/IUser';
 import { IUserState } from '@/typings/IUserState';
 import { fetchUser } from '../thunks/fetchUserThunk';
 import { fetchChangeAvatar } from '../thunks/fetchChangeAvatarThunk';
@@ -15,6 +15,13 @@ export const userSlice = createSlice({
   reducers: {
     changeUserFullInfo: (state, action: PayloadAction<IUser>) => {
       state.userInfo = action.payload ? action.payload : null;
+    },
+    setUserTheme: (state, action: PayloadAction<Theme>) => {
+      if (state.userInfo) {
+        state.userInfo.theme = action.payload;
+      } else {
+        state.userInfo = { theme: action.payload };
+      }
     },
   },
   extraReducers: (builder) => {

@@ -1,23 +1,24 @@
-import { IStateSchema } from '@/typings/IStateSchema';
+import { createSelector } from '@reduxjs/toolkit';
+import { getUserFull } from '../getUserFullSelector/getUserFullSelector';
 
-export const getUserId = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo.id : undefined);
+export const getUserId = createSelector(getUserFull, (user) => user?.id);
 
-export const getUserEmail = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo.email : undefined);
+export const getUserEmail = createSelector(getUserFull, (user) => user?.email);
 
-export const getUserLogin = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo.login : undefined);
+export const getUserLogin = createSelector(getUserFull, (user) => user?.login);
 
-export const getUserFirstName = (state: IStateSchema) =>
-  state.user.userInfo ? state.user.userInfo.first_name : undefined;
+export const getUserFirstName = createSelector(getUserFull, (user) => user?.first_name);
 
-export const getUserSecondName = (state: IStateSchema) =>
-  state.user.userInfo ? state.user.userInfo.second_name : undefined;
+export const getUserSecondName = createSelector(getUserFull, (user) => user?.second_name);
 
-export const getUserDisplayName = (state: IStateSchema) =>
-  state.user.userInfo ? state.user.userInfo.display_name : undefined;
+export const getUserDisplayName = createSelector(getUserFull, (user) => user?.display_name);
 
-export const getUserPhone = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo.phone : undefined);
+export const getUserPhone = createSelector(getUserFull, (user) => user?.phone);
 
-export const getUserAvatar = (state: IStateSchema) => (state.user.userInfo ? state.user.userInfo.avatar : undefined);
+export const getUserAvatar = createSelector(getUserFull, (user) => user?.avatar);
 
-export const getUserIdLoginAvatar = (state: IStateSchema) =>
-  state.user.userInfo ? (({ id, login, avatar }) => ({ id, login, avatar }))(state.user.userInfo) : undefined;
+export const getUserIdLoginAvatar = createSelector([getUserId, getUserLogin, getUserAvatar], (id, login, avatar) => ({
+  id,
+  login,
+  avatar,
+}));
