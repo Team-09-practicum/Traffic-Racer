@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Dispatch, FC, SetStateAction, useEffect, useRef, memo } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@/utils/store/store';
 import { Scenario, Car, Traffic, GameConfig, crashSound, puddleSound } from '../../utils';
 import './TrafficRacer.scss';
 import { getIsSoundOn } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
@@ -18,7 +18,7 @@ type Props = FC<TrafficRacerProps>;
 
 export const TrafficRacer: Props = memo(({ height, setGameStarted, setGameOver, setScore }) => {
   const isSoundOn = useRef<boolean>();
-  isSoundOn.current = useSelector(getIsSoundOn);
+  isSoundOn.current = useAppSelector(getIsSoundOn);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const canvasCtxRef = useRef<CanvasRenderingContext2D | null>(null);
   const animationID = useRef<number>();
