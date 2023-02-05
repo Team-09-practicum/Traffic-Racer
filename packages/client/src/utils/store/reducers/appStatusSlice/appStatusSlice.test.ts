@@ -3,14 +3,6 @@ import { IAppStatusState, LoadingStatus } from '@/typings/IAppStatusState';
 import { appStatusReducer, appStatusActions } from './appStatusSlice';
 
 describe('appStatusSlice.test', () => {
-  test('should change isAuth to true ', () => {
-    const state: DeepPartial<IAppStatusState> = { isAuth: false };
-    expect(appStatusReducer(state as IAppStatusState, appStatusActions.setIsAuth(true))).toEqual({ isAuth: true });
-  });
-  test('should change isAuth to false ', () => {
-    const state: DeepPartial<IAppStatusState> = { isAuth: true };
-    expect(appStatusReducer(state as IAppStatusState, appStatusActions.setIsAuth(false))).toEqual({ isAuth: false });
-  });
   test('should change loading to pending ', () => {
     const state: DeepPartial<IAppStatusState> = { loading: LoadingStatus.Unsent };
     expect(
@@ -27,7 +19,7 @@ describe('appStatusSlice.test', () => {
       loading: LoadingStatus.Success,
     });
   });
-  test('should change loading to succes ', () => {
+  test('should change loading to failure ', () => {
     const state: DeepPartial<IAppStatusState> = { loading: LoadingStatus.Success };
     expect(
       appStatusReducer(state as IAppStatusState, appStatusActions.setLoadingStatus(LoadingStatus.Failure))

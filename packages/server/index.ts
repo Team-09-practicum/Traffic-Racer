@@ -75,13 +75,7 @@ async function startServer() {
         render = (await vite.ssrLoadModule(path.resolve(srcPath, 'SsrRender.tsx'))).render;
       }
       // InitialState для примера. Заменить на стейт, прокидываемый в Redux на клиент
-      const initialState = {
-        user: {
-          userInfo: {
-            id: 1,
-          },
-        },
-      };
+      const initialState = {};
 
       const stateMarkup = `<script> window.__PRELOADED_STATE__=${JSON.stringify(initialState)}</script>`;
       const appHtml = await render(url);

@@ -8,6 +8,7 @@ import { CreateTopicModal } from '@/pages/forumPage/components/CreateTopicModal'
 import { ISODateToLocaleString } from '@/utils/ISODateToLocaleString';
 import { useAppSelector } from '@/utils/store/store';
 import './ForumPage.scss';
+import { getIsAuth } from '@/utils/store/selectors/getIsAuthSelector/getIsAuthSelector';
 
 const columns = [
   {
@@ -45,7 +46,7 @@ export const ForumPage = () => {
   const [loading, setLoading] = useState(true);
   const [topics, setTopics] = useState<ITopic[]>();
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
-  const isAuth = useAppSelector((state) => state.appStatus.isAuth);
+  const isAuth = useAppSelector(getIsAuth);
 
   const fetchForumTopics = async () => {
     const topicsData = await getForumIndex();
