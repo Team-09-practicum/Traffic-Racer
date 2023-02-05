@@ -14,8 +14,6 @@ import { ChangePasswordPage } from '@/pages/changePasswordPage/ChangePasswordPag
 import { RequireAuth } from './RequireAuth';
 import { WithoutAuth } from './WithoutAuth';
 
-// const NoMatch = () => <Navigate to={appRoutes.error404} replace />;
-
 export const AppRouter = () => (
   <Routes>
     <Route path={appRoutes.game} element={<GamePage />} />

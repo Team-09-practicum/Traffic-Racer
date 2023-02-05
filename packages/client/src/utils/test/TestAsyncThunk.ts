@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import { AsyncThunkAction } from '@reduxjs/toolkit';
+import { AsyncThunkAction, DeepPartial } from '@reduxjs/toolkit';
 import { IStateSchema } from '@/typings/IStateSchema';
 
 type ActionCreatorType<Return, Arg, RejectedValue> = (
@@ -8,6 +8,7 @@ type ActionCreatorType<Return, Arg, RejectedValue> = (
 ) => AsyncThunkAction<Return, Arg, { rejectValue: RejectedValue }>;
 
 export class TestAsyncThunk<Return, Arg, RejectedValue> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispath: jest.MockedFn<any>;
 
   getState: () => IStateSchema;
