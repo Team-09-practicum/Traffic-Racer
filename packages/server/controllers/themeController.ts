@@ -15,7 +15,7 @@ export class ThemeAPI {
         return;
       }
       await themeService.create({ userId, theme });
-      res.status(200).json('Ok');
+      res.status(200).json({ status: 'Ok' });
     } catch (err) {
       res.status(500).json({ reason: `ThemeAPI save theme error: ${err}` });
     }

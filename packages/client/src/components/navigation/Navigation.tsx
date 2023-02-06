@@ -40,6 +40,7 @@ export const Navigation = () => {
       items={isAuth ? authMenuItems : nonAuthMenuItems}
       mode="horizontal"
       className="navigation"
+      data-testid="navigation"
     />
   );
 };

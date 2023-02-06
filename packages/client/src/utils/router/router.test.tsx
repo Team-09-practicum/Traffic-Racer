@@ -28,7 +28,7 @@ describe('Router', () => {
       const route = '/';
       renderWithRouter({ route });
     });
-    const main = document.querySelector('.game-page');
+    const main = screen.getByTestId('game-page');
     expect(main).toBeInTheDocument();
   });
 
@@ -47,7 +47,7 @@ describe('Router', () => {
     const route = '/auth';
     renderWithRouter({ route });
     expect(window.location.pathname).toBe('/auth');
-    const auth = document.querySelector('.auth-page') as HTMLElement;
+    const auth = screen.getByRole('heading');
     const title = screen.getByText(/вход/i);
     expect(auth).toBeInTheDocument();
     expect(title).toBeInTheDocument();
@@ -64,9 +64,9 @@ describe('Router', () => {
     };
     renderWithRouter({ route }, store as IStateSchema);
     expect(window.location.pathname).toBe('/userinfo');
-    const profile = document.querySelector('.profile-page') as HTMLElement;
+    const profile = screen.getAllByRole('textbox');
     const title = screen.getByText(/профиль/i);
-    expect(profile).toBeInTheDocument();
+    expect(profile.length).toBe(6);
     expect(title).toBeInTheDocument();
   });
 
@@ -75,8 +75,8 @@ describe('Router', () => {
     renderWithRouter({ route });
     expect(window.location.pathname).toBe('/test');
     const title = screen.getByText(/404/i);
-    const error = document.querySelector('.error-page') as HTMLElement;
-    expect(error).toBeInTheDocument();
+    const error = screen.getByRole('link');
+    expect(error.textContent).toBe('На главную');
     expect(title).toBeInTheDocument();
   });
 });

@@ -45,11 +45,11 @@ const App = () => {
       theme={{
         algorithm: userTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}>
-      <Layout className="layout">
+      <Layout className="layout" data-testid="layoutAntDesign">
         <Header>
           <Navigation />
         </Header>
-        <Content className="layout__content">
+        <Content className="layout__content" data-testid="content">
           <Toaster />
           <AppRouter />
           <Switch
@@ -57,6 +57,7 @@ const App = () => {
             unCheckedChildren="Dark Mode"
             checked={userTheme === 'dark'}
             onClick={handleThemeSwitchClick}
+            data-testid="switch"
           />
         </Content>
       </Layout>

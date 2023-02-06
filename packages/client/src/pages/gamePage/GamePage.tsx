@@ -85,7 +85,7 @@ export const GamePage = () => {
   }, [toggleFullscreen]);
 
   return (
-    <div ref={gamePageRef} className="game-page">
+    <div ref={gamePageRef} className="game-page" data-testid="game-page">
       {isFirstStart && <GameStart />}
       {isGameOver && <GameEnd score={score} />}
       {isGameStarted && (
