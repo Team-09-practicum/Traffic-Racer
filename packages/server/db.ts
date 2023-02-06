@@ -30,7 +30,7 @@ const sequelizeOptions: SequelizeOptions = {
 
 export const sequelize = new Sequelize(sequelizeOptions);
 
-export async function dbConnect() {
+export async function postgresConnect() {
   try {
     await sequelize.authenticate();
     await sequelize.sync({ alter: true });
@@ -39,6 +39,7 @@ export async function dbConnect() {
     console.error('Unable sequelize to connect to the database:', error);
   }
 }
+
 export const mongoConnect = async (): Promise<void> => {
   try {
     mongoose.set('strictQuery', false);

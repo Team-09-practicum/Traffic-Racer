@@ -8,8 +8,9 @@ import bodyParser from 'body-parser';
 import { queryParser } from 'express-query-parser';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
+import { feedbackRouter } from './routes/feedbackRoutes';
 import { isDev } from './utils/constants';
-import { dbConnect, mongoConnect } from './db';
+import { postgresConnect, mongoConnect } from './db';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
 
@@ -30,7 +31,7 @@ async function startServer() {
 
   const port = Number(process.env.SERVER_PORT) || 5000;
 
-  dbConnect();
+  postgresConnect();
   mongoConnect();
 
   app.get('/api', (_, res) => {
@@ -39,6 +40,7 @@ async function startServer() {
 
   app.use('/api/theme', themeRouter);
   app.use('/api/forum', forumRouter);
+  app.use('/api', feedbackRouter);
 
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));

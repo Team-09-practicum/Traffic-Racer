@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button, Form, Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { profileSchema, messageSchema } from '@/utils/validation/validationSchema';
+import { feedbackFormSchema } from '@/utils/validation/validationSchema';
 import { getIsFeedbackOpen } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import { appStatusActions } from '@/utils/store/reducers/appStatusSlice/appStatusSlice';
 import { sendFeedback } from '@/controllers/sendFeedback';
 import './Feedback.scss';
 
-interface IFeeedbackForm {
+export interface IFeedbackForm {
   first_name: string;
   email: string;
   message: string;
@@ -23,52 +23,52 @@ export const Feedback = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFeeedbackForm>({
+  } = useForm<IFeedbackForm>({
     mode: 'onChange',
-    resolver: yupResolver(profileSchema, messageSchema),
+    resolver: yupResolver(feedbackFormSchema),
   });
 
   const cancelFeedback = () => {
     dispatch(appStatusActions.setIsFeedbackOpen(!isFeedbackOpen));
   };
 
-  const onSubmit = async (data: IFeeedbackForm) => {
+  const onSubmit = async (data: IFeedbackForm) => {
     await sendFeedback(data);
+    cancelFeedback();
   };
 
   return (
-    <div>
-      <Modal
-        centered
-        title="Обратная связь c разработчиками"
-        open={isFeedbackOpen}
-        onCancel={cancelFeedback}
-        footer={[
-          <Button htmlType="submit" key="back" type="primary">
+    <Modal
+      centered
+      title="Обратная связь c разработчиками"
+      open={isFeedbackOpen}
+      onCancel={cancelFeedback}
+      footer={null}>
+      <Form name="basic" layout="vertical" onFinish={handleSubmit(onSubmit)}>
+        <Form.Item label="Имя" validateStatus={errors.first_name ? 'error' : ''} help={errors.first_name?.message}>
+          <Controller name="first_name" control={control} render={({ field }) => <Input {...field} />} />
+        </Form.Item>
+        <Form.Item label="Почта" validateStatus={errors.email ? 'error' : ''} help={errors.email?.message}>
+          <Controller name="email" control={control} render={({ field }) => <Input {...field} />} />
+        </Form.Item>
+        <Form.Item label="Сообщение" validateStatus={errors.message ? 'error' : ''} help={errors.message?.message}>
+          <Controller
+            name="message"
+            control={control}
+            render={({ field }) => (
+              <Input.TextArea
+                placeholder="Напишите нам, если у Вас есть предложения по улучшению и доработке игры или Вы просто хотите поделиться впечатлением. "
+                {...field}
+              />
+            )}
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button key="submit" htmlType="submit" type="primary" disabled={!!Object.keys(errors).length}>
             Отправить
-          </Button>,
-        ]}>
-        <Form name="basic" layout="vertical" onFinish={handleSubmit(onSubmit)}>
-          <Form.Item label="Имя" validateStatus={errors.first_name ? 'error' : ''} help={errors.first_name?.message}>
-            <Controller name="first_name" control={control} render={({ field }) => <Input {...field} />} />
-          </Form.Item>
-          <Form.Item label="Почта" validateStatus={errors.email ? 'error' : ''} help={errors.email?.message}>
-            <Controller name="email" control={control} render={({ field }) => <Input {...field} />} />
-          </Form.Item>
-          <Form.Item label="Сообщение" validateStatus={errors.message ? 'error' : ''} help={errors.message?.message}>
-            <Controller
-              name="message"
-              control={control}
-              render={({ field }) => (
-                <Input.TextArea
-                  placeholder="Напишите нам, если у Вас есть предложения по улучшению и доработке игры или Вы просто хотите поделиться впечатлением. "
-                  {...field}
-                />
-              )}
-            />
-          </Form.Item>
-        </Form>
-      </Modal>
-    </div>
+          </Button>
+        </Form.Item>
+      </Form>
+    </Modal>
   );
 };

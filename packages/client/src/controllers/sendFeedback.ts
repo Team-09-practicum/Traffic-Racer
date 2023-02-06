@@ -15,7 +15,7 @@ export const sendFeedback = async (data: SendRequestData) => {
       if (isAxiosError(err) && err.response) {
         showNetworkError(err.response.data.reason);
       }
-      // throw Error(err.message);
+      throw Error(err.message);
     },
   });
   return feedbackMessage as SendRequestData;
