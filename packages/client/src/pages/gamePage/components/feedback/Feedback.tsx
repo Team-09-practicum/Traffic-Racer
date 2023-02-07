@@ -41,10 +41,11 @@ export const Feedback = () => {
     <Modal
       centered
       title="Обратная связь c разработчиками"
+      className="feedback-modal"
       open={isFeedbackOpen}
       onCancel={cancelFeedback}
       footer={null}>
-      <Form name="basic" layout="vertical" onFinish={handleSubmit(onSubmit)}>
+      <Form name="basic" className="feedback-modal__form" layout="vertical" onFinish={handleSubmit(onSubmit)}>
         <Form.Item label="Имя" validateStatus={errors.first_name ? 'error' : ''} help={errors.first_name?.message}>
           <Controller name="first_name" control={control} render={({ field }) => <Input {...field} />} />
         </Form.Item>
@@ -63,7 +64,7 @@ export const Feedback = () => {
             )}
           />
         </Form.Item>
-        <Form.Item>
+        <Form.Item className="feedback-modal__form-button">
           <Button key="submit" htmlType="submit" type="primary" disabled={!!Object.keys(errors).length}>
             Отправить
           </Button>
