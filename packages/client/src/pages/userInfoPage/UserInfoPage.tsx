@@ -1,14 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { Typography, Form, Input, Button, Avatar, Modal, Row, Col } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from '@/components';
 import { appRoutes } from '@/utils/router/appRoutes';
 import { profileSchema } from '@/utils/validation/validationSchema';
 import { getUserFull } from '@/utils/store/selectors/getUserFullSelector/getUserFullSelector';
 import { apiPaths } from '@/utils/constants';
-import { useAppDispatch } from '@/utils/store/store';
+import { useAppDispatch, useAppSelector } from '@/utils/store/store';
 import { IUser } from '@/typings/IUser';
 import './UserInfoPage.scss';
 import { fetchChangeAvatar } from '@/utils/store/reducers/thunks/fetchChangeAvatarThunk';
@@ -18,7 +17,7 @@ const { Title } = Typography;
 
 export const UserInfoPage = () => {
   const dispatch = useAppDispatch();
-  const user = useSelector(getUserFull);
+  const user = useAppSelector(getUserFull);
   const avatarPath = `${apiPaths.showAvatar}/${user?.avatar}`;
   const {
     control,

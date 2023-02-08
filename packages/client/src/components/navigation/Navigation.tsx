@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/utils/store/store';
 import { logout } from '@/controllers/logout';
 import { fetchUser } from '@/utils/store/reducers/thunks/fetchUserThunk';
 import './Navigation.scss';
+import { getIsAuth } from '@/utils/store/selectors/getIsAuthSelector/getIsAuthSelector';
 
 const baseMenuItems = [
   { key: '/', label: 'Главная' },
@@ -23,7 +24,7 @@ export const Navigation = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector((state) => state.appStatus.isAuth);
+  const isAuth = useAppSelector(getIsAuth);
 
   return (
     <Menu
@@ -39,6 +40,7 @@ export const Navigation = () => {
       items={isAuth ? authMenuItems : nonAuthMenuItems}
       mode="horizontal"
       className="navigation"
+      data-testid="navigation"
     />
   );
 };

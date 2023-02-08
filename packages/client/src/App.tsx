@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Layout, ConfigProvider, theme, Switch } from 'antd';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/utils/store/store';
 import { AppRouter } from '@/utils/router/AppRouter';
 import { Navigation } from '@/components/navigation/Navigation';
-import { useAppDispatch } from '@/utils/store/store';
 import { fetchUser } from './utils/store/reducers/thunks/fetchUserThunk';
 import { getYandexToken } from '@/utils/OAuth';
 import { getUserTheme } from './utils/store/selectors/getUserTheme/getUserTheme';
@@ -30,8 +29,8 @@ const App = () => {
     dispatch(fetchUser());
   }, [dispatch]);
 
-  const userId = useSelector(getUserId);
-  const userTheme = useSelector(getUserTheme);
+  const userId = useAppSelector(getUserId);
+  const userTheme = useAppSelector(getUserTheme);
 
   const handleThemeSwitchClick = (checked: boolean) => {
     const newTheme = checked ? 'dark' : 'light';
@@ -46,11 +45,11 @@ const App = () => {
       theme={{
         algorithm: userTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}>
-      <Layout className="layout">
+      <Layout className="layout" data-testid="layoutAntDesign">
         <Header>
           <Navigation />
         </Header>
-        <Content className="layout__content">
+        <Content className="layout__content" data-testid="content">
           <Toaster />
           <AppRouter />
           <Switch
@@ -58,6 +57,7 @@ const App = () => {
             unCheckedChildren="Dark Mode"
             checked={userTheme === 'dark'}
             onClick={handleThemeSwitchClick}
+            data-testid="switch"
           />
         </Content>
       </Layout>

@@ -26,13 +26,13 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<IUser>) => {
-      state.userInfo = action.payload ? action.payload : null;
+      state.userInfo = action.payload ?? null;
     });
     builder.addCase(fetchChangeAvatar.fulfilled, (state, action: PayloadAction<IUser>) => {
-      state.userInfo = action.payload ? action.payload : null;
+      state.userInfo = action.payload ?? null;
     });
     builder.addCase(fetchChangeProfile.fulfilled, (state, action: PayloadAction<IUser>) => {
-      state.userInfo = action.payload ? action.payload : null;
+      state.userInfo = action.payload ?? null;
     });
   },
 });

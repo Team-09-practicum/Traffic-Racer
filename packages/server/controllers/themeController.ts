@@ -8,12 +8,14 @@ export class ThemeAPI {
       const { theme, userId } = req.body;
       if (!theme || !userId) {
         res.status(400).json({ reason: 'empty field in message body' });
-      } else if (!Object.values(ThemeColor).includes(theme) || typeof userId !== 'number') {
-        res.status(400).json({ reason: 'uncorrect type in value' });
-      } else {
-        await themeService.create({ userId, theme });
-        res.status(200).json('Ok');
+        return;
       }
+      if (!Object.values(ThemeColor).includes(theme) || typeof userId !== 'number') {
+        res.status(400).json({ reason: 'uncorrect type in value' });
+        return;
+      }
+      await themeService.create({ userId, theme });
+      res.status(200).json({ status: 'Ok' });
     } catch (err) {
       res.status(500).json({ reason: `ThemeAPI save theme error: ${err}` });
     }
@@ -24,14 +26,15 @@ export class ThemeAPI {
       const { userId } = req.query;
       if (!userId) {
         res.status(400).json({ reason: 'empty message body' });
+        return;
       }
       const userIdNumber = Number(userId);
       if (Number.isNaN(userIdNumber) || userIdNumber === 0) {
         res.status(400).json({ reason: 'uncorrect type in userId value' });
-      } else {
-        const getTheme = await themeService.get(userIdNumber);
-        res.json(getTheme);
+        return;
       }
+      const getTheme = await themeService.get(userIdNumber);
+      res.json(getTheme);
     } catch (err) {
       res.status(500).json({ reason: `ThemeAPI get theme error: ${err}` });
     }

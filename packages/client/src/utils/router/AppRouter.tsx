@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import React from 'react';
 import { appRoutes } from './appRoutes';
 
@@ -13,8 +13,6 @@ import { UserInfoPage } from '@/pages/userInfoPage/UserInfoPage';
 import { ChangePasswordPage } from '@/pages/changePasswordPage/ChangePasswordPage';
 import { RequireAuth } from './RequireAuth';
 import { WithoutAuth } from './WithoutAuth';
-
-const NoMatch = () => <Navigate to={appRoutes.error404} replace />;
 
 export const AppRouter = () => (
   <Routes>
@@ -63,6 +61,6 @@ export const AppRouter = () => (
     />
     <Route path={appRoutes.error404} element={<ErrorPage nameError="404" textError="Страница не существует" />} />
     <Route path={appRoutes.error500} element={<ErrorPage nameError="500" textError="Мы уже фиксим" />} />
-    <Route path="*" element={NoMatch()} />
+    <Route path="*" element={<ErrorPage nameError="404" textError="Страница не существует" />} />
   </Routes>
 );

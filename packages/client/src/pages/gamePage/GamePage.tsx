@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Space, Typography, Row } from 'antd';
 import { ShrinkOutlined, ArrowsAltOutlined } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@/utils/store/store';
 import { TrafficRacer } from './components/TrafficRacer/TrafficRacer';
 import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
@@ -24,7 +24,7 @@ export const GamePage = () => {
   const [isFullscreenMode, setFullscreenMode] = useState(false);
   const isFirstStart = !isGameStarted && !isGameOver;
   const gamePageRef = useRef<HTMLDivElement>(null);
-  const user = useSelector(getUserIdLoginAvatar);
+  const user = useAppSelector(getUserIdLoginAvatar);
 
   useEffect(() => {
     if (gamePageRef.current) setPageTopOffset(gamePageRef.current.getBoundingClientRect().top);
@@ -85,7 +85,7 @@ export const GamePage = () => {
   }, [toggleFullscreen]);
 
   return (
-    <div ref={gamePageRef} className="game-page">
+    <div ref={gamePageRef} className="game-page" data-testid="game-page">
       {isFirstStart && <GameStart />}
       {isGameOver && <GameEnd score={score} />}
       {isGameStarted && (

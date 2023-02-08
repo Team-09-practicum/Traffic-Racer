@@ -78,6 +78,7 @@ const useGeolocation = (): IGeolocationState => {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('Reverse geocoding failed');
+      city = 'Mocква';
     } finally {
       setState({
         latitude: event.coords.latitude,

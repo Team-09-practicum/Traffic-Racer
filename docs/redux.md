@@ -9,8 +9,8 @@
 
 Использование в компанентах:
 
-1. `import { useDispatch, useSelector } from 'react-redux'`
-2. Получить данные `const value = useSelector(getUserFull)`
+1. `import { useAppDispatch, useAppSelector } from '@/utils/store/store'`;
+2. Получить данные `const value = useAppSelector(getUserFull)`
 3. Сохранить данные:
-   `const dispatch = useDispatch();`
+   `const dispatch = useAppDispatch();`
    `dispatch(userActions.changeUserFullInfo(data))`

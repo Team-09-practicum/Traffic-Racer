@@ -7,10 +7,11 @@ import { StatsPageTable } from './components/table/StatsPageTable';
 import { ILeaderboardItem } from './typings';
 import { useAppSelector } from '@/utils/store/store';
 import './StatsPage.scss';
+import { getIsAuth } from '@/utils/store/selectors/getIsAuthSelector/getIsAuthSelector';
 
 export const StatsPage = () => {
   const [leaderboard, setLeaderboard] = useState<ILeaderboardItem[] | null>(null);
-  const isAuth = useAppSelector((state) => state.appStatus.isAuth);
+  const isAuth = useAppSelector(getIsAuth);
 
   useEffect(() => {
     if (isAuth) {
