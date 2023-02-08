@@ -6,10 +6,12 @@ import { createServer as createViteServer, ViteDevServer } from 'vite';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { queryParser } from 'express-query-parser';
+import { expressCspHeader } from 'express-csp-header';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
 import { isDev } from './utils/constants';
 import { dbConnect } from './db';
+import { getCspDirectives } from './utils/CspDirectives';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
 
@@ -27,6 +29,12 @@ async function startServer() {
         parseNumber: true,
       })
     );
+
+  app.use(
+    expressCspHeader({
+      directives: getCspDirectives(),
+    })
+  );
 
   const port = Number(process.env.SERVER_PORT) || 5000;
 
@@ -77,7 +85,10 @@ async function startServer() {
       // InitialState для примера. Заменить на стейт, прокидываемый в Redux на клиент
       const initialState = {};
 
-      const stateMarkup = `<script> window.__PRELOADED_STATE__=${JSON.stringify(initialState)}</script>`;
+      // @ts-expect-error Property 'nonce' does not exist on type 'Request'
+      const stateMarkup = `<script nonce='${req.nonce}'>window.__PRELOADED_STATE__=${JSON.stringify(
+        initialState
+      )}</script>`;
       const appHtml = await render(url);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--store-outlet-->`, stateMarkup);
