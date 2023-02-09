@@ -6,6 +6,7 @@ import { createServer as createViteServer, ViteDevServer } from 'vite';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { queryParser } from 'express-query-parser';
+import serialize from 'serialize-javascript';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
 import { isDev } from './utils/constants';
@@ -77,7 +78,7 @@ async function startServer() {
       // InitialState для примера. Заменить на стейт, прокидываемый в Redux на клиент
       const initialState = {};
 
-      const stateMarkup = `<script> window.__PRELOADED_STATE__=${JSON.stringify(initialState)}</script>`;
+      const stateMarkup = `<script> window.__PRELOADED_STATE__=${serialize(initialState)}</script>`;
       const appHtml = await render(url);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--store-outlet-->`, stateMarkup);
