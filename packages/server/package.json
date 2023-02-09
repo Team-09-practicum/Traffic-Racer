@@ -25,6 +25,7 @@
     "reflect-metadata": "0.1.13",
     "sequelize": "6.28.0",
     "sequelize-typescript": "2.1.5",
+    "serialize-javascript": "6.0.1",
     "vite": "4.0.3"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@types/express": "4.17.13",
     "@types/jest": "28.1.8",
     "@types/pg": "8.6.5",
+    "@types/serialize-javascript": "5.0.2",
     "@typescript-eslint/eslint-plugin": "5.35.1",
     "@typescript-eslint/parser": "5.35.1",
     "babel-jest": "29.0.1",
