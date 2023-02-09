@@ -52,11 +52,6 @@ async function startServer() {
       appType: 'custom',
     });
     app.use(vite.middlewares);
-  } else {
-    const options = {
-      index: false,
-    };
-    app.use(express.static(path.resolve(distPath), options));
   }
 
   app.use('*', async (req, res, next) => {
