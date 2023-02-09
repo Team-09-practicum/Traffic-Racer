@@ -3,11 +3,12 @@ import type { CSPDirectives } from 'csp-header';
 
 const directives: Partial<CSPDirectives> = {
   'default-src': [SELF],
-  'connect-src': [SELF, 'ya-praktikum.tech', 'cdn.tiny.cloud', 'sp.tinymce.com'],
-  'script-src': [SELF, 'cdn.tiny.cloud'],
-  'style-src': [SELF, INLINE, 'cdn.tiny.cloud'],
-  'img-src': [SELF, 'data:', 'ya-praktikum.tech', 'cdn.tiny.cloud', 'sp.tinymce.com'],
+  'connect-src': [SELF, 'ya-praktikum.tech', '*.tinymce.com', '*.tiny.cloud'],
+  'script-src': [SELF, '*.tinymce.com', '*.tiny.cloud'],
+  'style-src': [SELF, INLINE, '*.tinymce.com', '*.tiny.cloud'],
+  'img-src': [SELF, 'data:', 'blob:', 'ya-praktikum.tech', '*.tinymce.com', '*.tiny.cloud'],
   'media-src': [SELF, 'data:'],
+  'font-src': [SELF, '*.tinymce.com', '*.tiny.cloud'],
   'worker-src': [SELF],
   'block-all-mixed-content': true,
 };
