@@ -1,0 +1,14 @@
+name: Deploy
+on: 
+  push:
+    branches: [ TM09-105-deploy-to-yandex-cloud ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Deploy to Ubuntu
+      run: yarn prod
