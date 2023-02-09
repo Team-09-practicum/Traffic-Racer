@@ -3,6 +3,7 @@ import { topicService } from '../services/TopicService';
 import type { ITopicCreationAttributes, ITopicModel } from '../models/Topic';
 import type { ICommentCreationAttributes } from '../models/Comment';
 import { commentService } from '../services/CommentService';
+import { sanitizeRichText } from '../utils/sanitizeRichText';
 
 export class ForumAPI {
   public static listTopics = async (_: Request, res: Response, next: NextFunction) => {
@@ -46,6 +47,9 @@ export class ForumAPI {
     next: NextFunction
   ) => {
     try {
+      req.body.name = sanitizeRichText(req.body.name);
+      req.body.body = sanitizeRichText(req.body.body);
+
       const topic = await topicService.create(req.body);
       res.status(201).json({ topic });
     } catch (err) {
@@ -60,6 +64,8 @@ export class ForumAPI {
     next: NextFunction
   ) => {
     try {
+      req.body.body = sanitizeRichText(req.body.body);
+
       const comment = await commentService.create(req.body);
       res.status(201).json({ comment });
     } catch (err) {
