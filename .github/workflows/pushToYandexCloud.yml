@@ -34,8 +34,17 @@ jobs:
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
           CR_REGISTRY: crpjtg1eocevrotq2577
-          CR_REPOSITORY: yc-cr-github-action
+          CR_REPOSITORY: traffic-racer
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker-compose build
-          docker compose tag --template "cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/{{ .ServiceName }}:v1" --push 
+
+      - name: Rename and Push Docker Containers
+        run: |
+          for id in $(docker ps -q); do
+          name=$(docker inspect --format='{{.Name}}' $id | sed 's/\///g')
+          new_name=cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/$id:$IMAGE_TAG
+          docker tag $id $new_name
+          docker push $new_name
+        done
+
