@@ -13,6 +13,8 @@ export default defineConfig({
   },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
+    __TELEGRAM_FEEDBACK_TOKEN__: `'${process.env.TELEGRAM_FEEDBACK_TOKEN}'`,
+    __TELEGRAM_CHAT_ID__: `'${process.env.TELEGRAM_CHAT_ID}'`,
   },
   plugins: [react(), CompileTsServiceWorker()],
   resolve: {

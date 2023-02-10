@@ -9,9 +9,26 @@ export interface SendRequestData {
   message: string;
 }
 
+export interface SendToTelegramRequestData {
+  text: string;
+}
+
 export const sendFeedback = async (data: SendRequestData) => {
   const feedbackMessage = await api.postFeedback({
     data,
+    onError: (err) => {
+      if (isAxiosError(err) && err.response) {
+        showNetworkError(err.response.data.reason);
+      }
+      throw Error(err.message);
+    },
+  });
+  return feedbackMessage as SendRequestData;
+};
+
+export const sentFeedbackToTelegram = async (text: SendToTelegramRequestData) => {
+  const feedbackToTelegram = await api.postFeedbackToTelegram({
+    data: text,
     onSuccess: () => {
       toast('Ваше сообщение успешно отправлено', {
         position: 'top-center',
@@ -25,5 +42,5 @@ export const sendFeedback = async (data: SendRequestData) => {
       throw Error(err.message);
     },
   });
-  return feedbackMessage as SendRequestData;
+  return feedbackToTelegram as SendToTelegramRequestData;
 };

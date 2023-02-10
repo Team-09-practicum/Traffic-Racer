@@ -7,6 +7,7 @@ export interface IDefParams {
   baseURL?: string;
   headers?: Record<string, string>;
   withCredentials?: boolean;
+  parse_mode?: string;
 }
 
 export interface IApiError {

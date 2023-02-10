@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { feedbackFormSchema } from '@/utils/validation/validationSchema';
 import { getIsFeedbackOpen } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import { appStatusActions } from '@/utils/store/reducers/appStatusSlice/appStatusSlice';
-import { sendFeedback } from '@/controllers/sendFeedback';
+import { sendFeedback, sentFeedbackToTelegram } from '@/controllers/sendFeedback';
 import './Feedback.scss';
 
 export interface IFeedbackForm {
@@ -33,8 +33,10 @@ export const Feedback = () => {
   };
 
   const onSubmit = async (data: IFeedbackForm) => {
+    const message = `<b>Имя:</b> ${data.first_name}<b>Email:</b> ${data.email}<b>Сообщение:</b> ${data.message}`;
     await sendFeedback(data);
-    cancelFeedback();
+    await sentFeedbackToTelegram({ text: message });
+    await cancelFeedback();
   };
 
   return (
