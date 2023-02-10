@@ -68,5 +68,5 @@ jobs:
           vm-disk-type: SSD
           vm-zone-id: ru-central1-b
           vm-core-fraction: 20
-          user-data-path: '.user-data.yaml'
+          user-data-path: './user-data.yaml'
           docker-compose-path: './docker-compose.yaml'
