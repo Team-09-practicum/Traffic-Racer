@@ -27,7 +27,7 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
-       - name: 'Create env file'
+      - name: 'Create env file'
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
 
