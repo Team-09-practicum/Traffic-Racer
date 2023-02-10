@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
 import path from 'path';
-import copy from 'vite-plugin-copy';
+import { copy } from 'vite-plugin-copy';
 import { CompileTsServiceWorker } from './src/utils/serviceWorker/compileTsServiceWorker';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
@@ -21,8 +21,8 @@ export default defineConfig({
     copy({
       files: [
         {
-          from: 'public',
-          to: 'assets',
+          from: './public',
+          to: './dist/assets',
           filter: /\.svg$/,
         },
       ],
