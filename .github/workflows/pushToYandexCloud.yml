@@ -38,7 +38,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker-compose build
-          docker tag cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          docker tag prackicum-server:latest cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
 
       
