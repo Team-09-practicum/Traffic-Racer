@@ -53,9 +53,7 @@ jobs:
         id: deploy-coi
         uses: yc-actions/yc-coi-deploy@v1
         env:
-          IMAGE_URL0: CONTAINER_0
-          IMAGE_URL1: CONTAINER_1
-          IMAGE_URL2: CONTAINER_2
+          IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
           SSH_KEY: ${{ secrets.SSH_KEY }}
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
