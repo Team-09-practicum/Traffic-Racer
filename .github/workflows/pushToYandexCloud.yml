@@ -31,15 +31,6 @@ jobs:
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
 
-      - name: Install apt-utils
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y apt-utils
-
-      - name: Install Lerna
-        run:
-          npm install -g lerna
-
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
           CR_REGISTRY: crpjtg1eocevrotq2577

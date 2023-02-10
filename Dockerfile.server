@@ -3,7 +3,12 @@ ARG SERVER_PORT=5000
 
 FROM node:$NODE_VERSION-buster as base
 
-RUN apt update && apt install -y nodejs && apt install -y npm && apt install -y netcat
+RUN apt update \
+    && apt install -y nodejs \
+    && apt install -y npm \
+    && apt install -y netcat \ 
+    && apt install -y apt-utils \
+    && apt install -y lerna
 
 WORKDIR /app
 
