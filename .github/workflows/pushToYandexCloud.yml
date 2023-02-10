@@ -57,7 +57,7 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          folder-id: epds52uasl0n2cuqsv83
+          folder-id:  b1ghihe4oa1rf8hfesg1
           vm-name: traffic-racer
           vm-service-account-id: aje96se4bs2r51hcjnlu
           vm-cores: 2
