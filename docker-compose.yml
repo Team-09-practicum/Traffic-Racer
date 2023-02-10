@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-    webserver:
+    nginx:
       image: nginx:alpine
-      container_name: webserver
+      container_name: nginx
       restart: unless-stopped
       tty: true
       volumes:
