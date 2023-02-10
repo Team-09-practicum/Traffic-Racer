@@ -8,7 +8,7 @@ RUN apt update \
     && apt install -y npm \
     && apt install -y netcat \ 
     && apt install -y apt-utils \
-    && apt install -y lerna
+    && npm install -g lerna
 
 WORKDIR /app
 
