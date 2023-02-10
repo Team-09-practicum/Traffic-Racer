@@ -37,5 +37,5 @@ jobs:
           CR_REPOSITORY: yc-cr-github-action
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker-compose build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG nginx server postgres
-          docker-compose push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG nginx server postgres
+          docker-compose build
+          docker-compose push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
