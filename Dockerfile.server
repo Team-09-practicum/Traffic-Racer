@@ -3,19 +3,14 @@ ARG SERVER_PORT=5000
 
 FROM node:$NODE_VERSION-buster as base
 
-RUN apt update \
-    && apt install -y nodejs \
-    && apt install -y npm \
-    && apt install -y netcat \ 
-    && apt install -y apt-utils \
-    && npm install -g lerna
+RUN apt update && apt install -y nodejs && apt install -y npm && apt install -y netcat 
 
 WORKDIR /app
 
 FROM base as builder
 
 COPY package.json yarn.lock
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile && npm install -g lerna
 
 COPY . .
 
