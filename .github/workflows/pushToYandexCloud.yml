@@ -42,9 +42,9 @@ jobs:
       - name: Rename and Push Docker Containers
         run: |
           for id in $(docker ps -q); do
-          name=$(docker inspect --format='{{.Name}}' $id | sed 's/\///g')
-          new_name=cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/$id:$IMAGE_TAG
-          docker tag $id $new_name
-          docker push $new_name
-        done
+            name=$(docker inspect --format='{{.Name}}' $id | sed 's/\///g')
+            new_name=cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/$id:$IMAGE_TAG
+            docker tag $id $new_name
+            docker push $new_name
+          done
 
