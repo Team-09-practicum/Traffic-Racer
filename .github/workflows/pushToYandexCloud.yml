@@ -38,4 +38,4 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker-compose build
-          docker-compose push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          docker compose tag --template "cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/{{ .ServiceName }}:v1" --push 
