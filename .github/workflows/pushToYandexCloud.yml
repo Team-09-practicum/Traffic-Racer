@@ -50,13 +50,6 @@ jobs:
             ((counter++))
           done
           
-
-      
-  deploy:
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Deploy COI VM
@@ -74,5 +67,9 @@ jobs:
           vm-service-account-id: aje96se4bs2r51hcjnlu
           vm-cores: 2
           vm-memory: 2 GB
-          user-data-path: '.github/workflows/user-data.yaml'
+          vm-disk-size: 8GB
+          vm-disk-type: SSD
+          vm-zone-id: ru-central1-b
+          vm-core-fraction: 20
+          user-data-path: './user-data.yaml'
           docker-compose-path: './docker-compose.yaml'
