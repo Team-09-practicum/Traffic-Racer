@@ -34,17 +34,45 @@ jobs:
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
           CR_REGISTRY: crpjtg1eocevrotq2577
-          CR_REPOSITORY: traffic-racer
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker-compose build
 
       - name: Rename and Push Docker Containers
         run: |
+          counter=0
           for id in $(docker ps -q); do
             name=$(docker inspect --format='{{.Name}}' $id | sed 's/\///g')
-            new_name=cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/$id:$IMAGE_TAG
+            new_name=cr.yandex/$CR_REGISTRY/$id:$IMAGE_TAG
             docker tag $id $new_name
             docker push $new_name
+            echo "::set-env name=CONTAINER_$counter::$new_name"
+            ((counter++))
           done
+          
 
+      
+  deploy:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Deploy COI VM
+        id: deploy-coi
+        uses: yc-actions/yc-coi-deploy@v1
+        env:
+          IMAGE_URL0: CONTAINER_0
+          IMAGE_URL1: CONTAINER_1
+          IMAGE_URL2: CONTAINER_2
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          folder-id: epds52uasl0n2cuqsv83
+          vm-name: traffic-racer
+          vm-service-account-id: aje96se4bs2r51hcjnlu
+          vm-cores: 2
+          vm-memory: 2 GB
+          # user-data-path: '.github/workflows/user-data.yaml'
+          docker-compose-path: './docker-compose.yaml'
