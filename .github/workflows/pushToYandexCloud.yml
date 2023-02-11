@@ -9,37 +9,57 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+
   build:
-    # The type of runner that the job will run on
+
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
+        - name: 'Create env file'
+          run: |
+            echo "${{ secrets.ENV_FILE }}" > .env
+
+        env:
+          CR_REPOSITORY: traffic-racer
+          CR_REGISTRY: ${{env.CR_REGISTRY}}
+          IMAGE_TAG: ${{ github.sha }}
+          NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
+          SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
+          DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }
+
       - name: Yandex Cloud CR "Login" Action for GitHub Actions
         uses: yc-actions/yc-cr-login@v0.1-alpha
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
-      - name: 'Create env file'
-        run: |
-          echo "${{ secrets.ENV_FILE }}" > .env
+      - name: Build server
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile.server
+          push: true
+          tags: $SERVER_IMAGE
 
-      - name: Build, tag, and push image to Yandex Cloud Container Registry
-        env:
-          CR_REPOSITORY: traffic-racer
-          CR_REGISTRY: crpjtg1eocevrotq2577
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker-compose build
-          docker tag prackicum-server:latest cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
-          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+      - name: Build db
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile.db
+          push: true
+          tags: $DB_IMAGE
+
+      - name: Build nginx
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile.server
+          push: true
+          tags: $NGINX_IMAGE
+      
 
       
   deploy:
@@ -52,19 +72,29 @@ jobs:
       - name: Deploy COI VM
         id: deploy-coi
         uses: yc-actions/yc-coi-deploy@v1
+        
         env:
-          IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          NGINX_IMAGE: $NGINX_IMAGE
+          SERVER_IMAGE: $SERVER_IMAGE
+          DB_IMAGE: $DB_IMAGE
+
           SSH_KEY: ${{ secrets.SSH_KEY }}
+          YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          FOLDER_ID: ${{ env.FOLDER_ID }}
+          VM_NAME: ${{env.VM_NAME}}
+          VM_SERVICE_ACCOUNT_ID: ${{env.VM_SERVICE_ACCOUNT_ID}}
+          VM_SUNNET_ID: ${{env.VM_SUNNET_ID}}
+        
         with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          folder-id:  b1ghihe4oa1rf8hfesg1
-          vm-name: traffic-racer
-          vm-service-account-id: ajefof66oiennib4cuv2
+          yc-sa-json-credentials: $YC_SA_JSON_CREDENTIALS
+          folder-id: $FOLDER_ID
+          vm-name: $VM_NAME
+          vm-service-account-id: $VM_SERVICE_ACCOUNT_ID
           vm-cores: 2
           vm-memory: 2 GB
           vm-disk-size: 8GB
           vm-disk-type: SSD
-          vm-subnet-id: e2l3tothaaa19jmtfv1g
+          vm-subnet-id: $VM_SUNNET_ID
           vm-zone-id: ru-central1-b
           vm-core-fraction: 20
           user-data-path: './user-data.yaml'
