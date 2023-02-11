@@ -36,13 +36,21 @@ jobs:
           with:
             yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
+        - name: Build nginx
+          uses: docker/build-push-action@v3
+          with:
+            context: .
+            file: ./Dockerfile.server
+            push: true
+            tags: ${{env.NGINX_IMAGE}}
+
         - name: Build server
           uses: docker/build-push-action@v3
           with:
             context: .
             file: ./Dockerfile.server
             push: true
-            tags: $SERVER_IMAGE
+            tags: ${{env.SERVER_IMAGE}}
 
         - name: Build db
           uses: docker/build-push-action@v3
@@ -50,18 +58,8 @@ jobs:
             context: .
             file: ./Dockerfile.db
             push: true
-            tags: $DB_IMAGE
+            tags: ${{env.DB_IMAGE}}
 
-        - name: Build nginx
-          uses: docker/build-push-action@v3
-          with:
-            context: .
-            file: ./Dockerfile.server
-            push: true
-            tags: $NGINX_IMAGE
-      
-
-      
   deploy:
     needs:
       - build
@@ -74,9 +72,9 @@ jobs:
         uses: yc-actions/yc-coi-deploy@v1
         
         env:
-          NGINX_IMAGE: $NGINX_IMAGE
-          SERVER_IMAGE: $SERVER_IMAGE
-          DB_IMAGE: $DB_IMAGE
+          NGINX_IMAGE: ${{env.NGINX_IMAGE}}
+          SERVER_IMAGE: ${{env.SERVER_IMAGE}}
+          DB_IMAGE: ${{env.DB_IMAGE}}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           FOLDER_ID: ${{ env.FOLDER_ID }}
