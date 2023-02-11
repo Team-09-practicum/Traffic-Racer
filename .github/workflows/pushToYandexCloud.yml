@@ -28,35 +28,20 @@ jobs:
           with:
             yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
         
-        - name: Login to Dockerhub
-          uses: docker/login-action@v2
-          with:
-            username: ${{ secrets.DOCKER_HUB_USERNAME }}
-            password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
         - name: Build nginx
-          uses: docker/build-push-action@v3
-          with:
-            context: ./
-            file: ./Dockerfile.nginx
-            push: true
-            tags: ${{env.CR_REGISTRY}}/traffic-racer:nginx${{ github.sha }}
+          run: |
+            docker build -f Dockerfile.nginx -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer/nginx:${{ github.sha }} .
+            docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer/nginx:${{ github.sha }}
 
         - name: Build server
-          uses: docker/build-push-action@v3
-          with:
-            context: ./
-            file: ./Dockerfile.server
-            push: true
-            tags: ${{env.CR_REGISTRY}}/traffic-racer:server${{ github.sha }}
+          run: |
+            docker build -f Dockerfile.nginx -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer/server:${{ github.sha }} .
+            docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer/server:${{ github.sha }}
       
         - name: Build db
-          uses: docker/build-push-action@v3
-          with:
-            context: ./
-            file: ./Dockerfile.db
-            push: true
-            tags: ${{env.CR_REGISTRY}}/traffic-racer:db${{ github.sha }}
+          run: |
+            docker build -f Dockerfile.nginx -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer/db:${{ github.sha }} .
+            docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer/db:${{ github.sha }}
 
   deploy:
     needs:
@@ -70,9 +55,9 @@ jobs:
         uses: yc-actions/yc-coi-deploy@v1
         
         env:
-          NGINX_IMAGE: ${{env.CR_REGISTRY}}/traffic-racer:nginx${{ github.sha }}
-          SERVER_IMAGE: ${{env.CR_REGISTRY}}/traffic-racer:server${{ github.sha }}
-          DB_IMAGE: ${{env.CR_REGISTRY}}/traffic-racer:db${{ github.sha }}
+          NGINX_IMAGE: cr.yandex/crpjtg1eocevrotq2577/traffic-racer/nginx:${{ github.sha }}
+          SERVER_IMAGE: cr.yandex/crpjtg1eocevrotq2577/traffic-racer/server:${{ github.sha }}
+          DB_IMAGE: cr.yandex/crpjtg1eocevrotq2577/traffic-racer/db:${{ github.sha }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           FOLDER_ID: ${{ env.FOLDER_ID }}
