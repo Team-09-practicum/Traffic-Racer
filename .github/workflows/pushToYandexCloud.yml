@@ -43,7 +43,7 @@ jobs:
             file: ./Dockerfile.server
             
         - name: Push nginx
-          uses: docker push ${{env.NGINX_IMAGE}}
+          run: docker push ${{env.NGINX_IMAGE}}
 
         - name: Build server
           uses: docker/build-push-action@v3
@@ -52,7 +52,7 @@ jobs:
             file: ./Dockerfile.server
         
         - name: Push server
-          uses: docker push ${{env.SERVER_IMAGE}}
+          run: docker push ${{env.SERVER_IMAGE}}
 
         - name: Build db
           uses: docker/build-push-action@v3
@@ -61,7 +61,7 @@ jobs:
             file: ./Dockerfile.db
             
         - name: Push db
-          uses: docker push ${{env.DB_IMAGE}}
+          run: docker push ${{env.DB_IMAGE}}
 
   deploy:
     needs:
