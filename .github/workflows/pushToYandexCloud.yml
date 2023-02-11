@@ -26,8 +26,6 @@ jobs:
           env:
             CR_REPOSITORY: traffic-racer
             CR_REGISTRY: ${{env.CR_REGISTRY}}
-            NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx
-            SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server
             DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db
 
         - name: Yandex Cloud CR "Login" Action for GitHub Actions
@@ -50,7 +48,7 @@ jobs:
             context: ./
             file: ./Dockerfile.nginx
             push: true
-            tags: $NGINX_IMAGE:${{ github.sha }}
+            tags: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
 
         - name: Build server
           uses: docker/build-push-action@v3
@@ -58,7 +56,7 @@ jobs:
             context: ./
             file: ./Dockerfile.server
             push: true
-            tags: $SERVER_IMAGE:${{ github.sha }}
+            tags: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
       
         - name: Build db
           uses: docker/build-push-action@v3
@@ -66,7 +64,7 @@ jobs:
             context: ./
             file: ./Dockerfile.db
             push: true
-            tags: $DB_IMAGE:${{ github.sha }}
+            tags: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }}
 
   deploy:
     needs:
@@ -80,9 +78,9 @@ jobs:
         uses: yc-actions/yc-coi-deploy@v1
         
         env:
-          NGINX_IMAGE: $NGINX_IMAGE:${{ github.sha }}
-          SERVER_IMAGE: $SERVER_IMAGE:${{ github.sha }}
-          DB_IMAGE: $DB_IMAGE:${{ github.sha }}
+          NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
+          SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
+          DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           FOLDER_ID: ${{ env.FOLDER_ID }}
