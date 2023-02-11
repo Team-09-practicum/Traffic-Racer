@@ -59,7 +59,7 @@ jobs:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           folder-id:  b1ghihe4oa1rf8hfesg1
           vm-name: traffic-racer
-          vm-service-account-id: aje96se4bs2r51hcjnlu
+          vm-service-account-id: ajefof66oiennib4cuv2
           vm-cores: 2
           vm-memory: 2 GB
           vm-disk-size: 8GB
