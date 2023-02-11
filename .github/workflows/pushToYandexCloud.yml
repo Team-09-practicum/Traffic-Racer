@@ -17,19 +17,19 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v2
+        - uses: actions/checkout@v2
 
         - name: 'Create env file'
           run: |
             echo "${{ secrets.ENV_FILE }}" > .env
 
-        env:
-          CR_REPOSITORY: traffic-racer
-          CR_REGISTRY: ${{env.CR_REGISTRY}}
-          IMAGE_TAG: ${{ github.sha }}
-          NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
-          SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
-          DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }
+          env:
+            CR_REPOSITORY: traffic-racer
+            CR_REGISTRY: ${{env.CR_REGISTRY}}
+            IMAGE_TAG: ${{ github.sha }}
+            NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
+            SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
+            DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }
 
         - name: Yandex Cloud CR "Login" Action for GitHub Actions
           uses: yc-actions/yc-cr-login@v0.1-alpha
