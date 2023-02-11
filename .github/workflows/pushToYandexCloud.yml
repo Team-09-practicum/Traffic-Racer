@@ -41,24 +41,27 @@ jobs:
           with:
             context: .
             file: ./Dockerfile.server
-            push: true
-            tags: ${{env.NGINX_IMAGE}}
+            
+        - name: Push nginx
+          uses: docker push ${{env.NGINX_IMAGE}}
 
         - name: Build server
           uses: docker/build-push-action@v3
           with:
             context: .
             file: ./Dockerfile.server
-            push: true
-            tags: ${{env.SERVER_IMAGE}}
+        
+        - name: Push server
+          uses: docker push ${{env.SERVER_IMAGE}}
 
         - name: Build db
           uses: docker/build-push-action@v3
           with:
             context: .
             file: ./Dockerfile.db
-            push: true
-            tags: ${{env.DB_IMAGE}}
+            
+        - name: Push db
+          uses: docker push ${{env.DB_IMAGE}}
 
   deploy:
     needs:
