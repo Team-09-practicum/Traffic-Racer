@@ -40,7 +40,7 @@ jobs:
             context: ./
             file: ./Dockerfile.nginx
             push: true
-            tags: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/nginx:${{ github.sha }}
+            tags: ${{env.CR_REGISTRY}}/traffic-racer:nginx${{ github.sha }}
 
         - name: Build server
           uses: docker/build-push-action@v3
@@ -48,7 +48,7 @@ jobs:
             context: ./
             file: ./Dockerfile.server
             push: true
-            tags: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/server:${{ github.sha }}
+            tags: ${{env.CR_REGISTRY}}/traffic-racer:server${{ github.sha }}
       
         - name: Build db
           uses: docker/build-push-action@v3
@@ -56,7 +56,7 @@ jobs:
             context: ./
             file: ./Dockerfile.db
             push: true
-            tags: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/db:${{ github.sha }}
+            tags: ${{env.CR_REGISTRY}}/traffic-racer:db${{ github.sha }}
 
   deploy:
     needs:
@@ -70,9 +70,9 @@ jobs:
         uses: yc-actions/yc-coi-deploy@v1
         
         env:
-          NGINX_IMAGE: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/nginx:${{ github.sha }}
-          SERVER_IMAGE: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/server:${{ github.sha }}
-          DB_IMAGE: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/db:${{ github.sha }}
+          NGINX_IMAGE: ${{env.CR_REGISTRY}}/traffic-racer:nginx${{ github.sha }}
+          SERVER_IMAGE: ${{env.CR_REGISTRY}}/traffic-racer:server${{ github.sha }}
+          DB_IMAGE: ${{env.CR_REGISTRY}}/traffic-racer:db${{ github.sha }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           FOLDER_ID: ${{ env.FOLDER_ID }}
