@@ -29,7 +29,7 @@ jobs:
             IMAGE_TAG: ${{ github.sha }}
             NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
             SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
-            DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }
+            DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }}
 
         - name: Yandex Cloud CR "Login" Action for GitHub Actions
           uses: yc-actions/yc-cr-login@v0.1-alpha
