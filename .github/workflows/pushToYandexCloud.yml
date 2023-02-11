@@ -50,6 +50,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: Deploy COI VM
         id: deploy-coi
         uses: yc-actions/yc-coi-deploy@v1
@@ -61,7 +63,6 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
         
         with:
-          persist-credentials: false
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           folder-id: ${{ secrets.FOLDER_ID }}
           vm-name: ${{ secrets.VM_NAME}}
