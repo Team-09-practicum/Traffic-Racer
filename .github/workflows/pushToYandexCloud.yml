@@ -50,7 +50,7 @@ jobs:
             context: ./
             file: ./Dockerfile.nginx
             push: true
-            tags: ${{env.NGINX_IMAGE}}:${{ github.sha }}
+            tags: $NGINX_IMAGE:${{ github.sha }}
 
         - name: Build server
           uses: docker/build-push-action@v3
@@ -58,7 +58,7 @@ jobs:
             context: ./
             file: ./Dockerfile.server
             push: true
-            tags: ${{env.SERVER_IMAGE}}:${{ github.sha }}
+            tags: $SERVER_IMAGE:${{ github.sha }}
       
         - name: Build db
           uses: docker/build-push-action@v3
@@ -66,7 +66,7 @@ jobs:
             context: ./
             file: ./Dockerfile.db
             push: true
-            tags: ${{env.DB_IMAGE}}:${{ github.sha }}
+            tags: $DB_IMAGE:${{ github.sha }}
 
   deploy:
     needs:
@@ -80,9 +80,9 @@ jobs:
         uses: yc-actions/yc-coi-deploy@v1
         
         env:
-          NGINX_IMAGE: ${{env.NGINX_IMAGE}}:${{ github.sha }}
-          SERVER_IMAGE: ${{env.SERVER_IMAGE}}:${{ github.sha }}
-          DB_IMAGE: ${{env.DB_IMAGE}}:${{ github.sha }}
+          NGINX_IMAGE: $NGINX_IMAGE:${{ github.sha }}
+          SERVER_IMAGE: $SERVER_IMAGE:${{ github.sha }}
+          DB_IMAGE: $DB_IMAGE:${{ github.sha }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           FOLDER_ID: ${{ env.FOLDER_ID }}
