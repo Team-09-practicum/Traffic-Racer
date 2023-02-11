@@ -35,12 +35,12 @@ jobs:
 
         - name: Build server
           run: |
-            docker build -f Dockerfile.nginx -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }} .
+            docker build -f Dockerfile.server -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }} .
             docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }}
       
         - name: Build db
           run: |
-            docker build -f Dockerfile.nginx -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }} .
+            docker build -f Dockerfile.db -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }} .
             docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }}
 
   deploy:
@@ -62,14 +62,14 @@ jobs:
         
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-          folder-id: ${{ env.FOLDER_ID }}
-          vm-name: ${{env.VM_NAME}}
-          vm-service-account-id: ${{env.VM_SERVICE_ACCOUNT_ID}}
+          folder-id: ${{ secrets.FOLDER_ID }}
+          vm-name: ${{ secrets.VM_NAME}}
+          vm-service-account-id: ${{ secrets.VM_SERVICE_ACCOUNT_ID }}
           vm-cores: 2
           vm-memory: 2 GB
           vm-disk-size: 8GB
           vm-disk-type: SSD
-          vm-subnet-id: ${{env.VM_SUNNET_ID}}
+          vm-subnet-id: ${{ secrets.VM_SUBNET_ID }}
           vm-zone-id: ru-central1-b
           vm-core-fraction: 20
           user-data-path: './user-data.yaml'
