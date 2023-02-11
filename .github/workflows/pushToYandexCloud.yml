@@ -26,10 +26,9 @@ jobs:
           env:
             CR_REPOSITORY: traffic-racer
             CR_REGISTRY: ${{env.CR_REGISTRY}}
-            IMAGE_TAG: ${{ github.sha }}
-            NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
-            SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
-            DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }}
+            NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx
+            SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server
+            DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db
 
         - name: Yandex Cloud CR "Login" Action for GitHub Actions
           uses: yc-actions/yc-cr-login@v0.1-alpha
@@ -48,26 +47,26 @@ jobs:
         - name: Build nginx
           uses: docker/build-push-action@v3
           with:
-            context: .
+            context: ./
             file: ./Dockerfile.nginx
             push: true
-            tags: ${{env.NGINX_IMAGE}}
+            tags: ${{env.NGINX_IMAGE}}:${{ github.sha }}
 
         - name: Build server
           uses: docker/build-push-action@v3
           with:
-            context: .
+            context: ./
             file: ./Dockerfile.server
             push: true
-            tags: ${{env.SERVER_IMAGE}}
+            tags: ${{env.SERVER_IMAGE}}:${{ github.sha }}
       
         - name: Build db
           uses: docker/build-push-action@v3
           with:
-            context: .
+            context: ./
             file: ./Dockerfile.db
             push: true
-            tags: ${{env.DB_IMAGE}}
+            tags: ${{env.DB_IMAGE}}:${{ github.sha }}
 
   deploy:
     needs:
@@ -81,9 +80,9 @@ jobs:
         uses: yc-actions/yc-coi-deploy@v1
         
         env:
-          NGINX_IMAGE: ${{env.NGINX_IMAGE}}
-          SERVER_IMAGE: ${{env.SERVER_IMAGE}}
-          DB_IMAGE: ${{env.DB_IMAGE}}
+          NGINX_IMAGE: ${{env.NGINX_IMAGE}}:${{ github.sha }}
+          SERVER_IMAGE: ${{env.SERVER_IMAGE}}:${{ github.sha }}
+          DB_IMAGE: ${{env.DB_IMAGE}}:${{ github.sha }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           FOLDER_ID: ${{ env.FOLDER_ID }}
