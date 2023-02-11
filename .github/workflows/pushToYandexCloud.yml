@@ -23,11 +23,6 @@ jobs:
           run: |
             echo "${{ secrets.ENV_FILE }}" > .env
 
-          env:
-            CR_REPOSITORY: traffic-racer
-            CR_REGISTRY: ${{env.CR_REGISTRY}}
-            DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db
-
         - name: Yandex Cloud CR "Login" Action for GitHub Actions
           uses: yc-actions/yc-cr-login@v0.1-alpha
           with:
@@ -48,7 +43,7 @@ jobs:
             context: ./
             file: ./Dockerfile.nginx
             push: true
-            tags: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
+            tags: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/nginx:${{ github.sha }}
 
         - name: Build server
           uses: docker/build-push-action@v3
@@ -56,7 +51,7 @@ jobs:
             context: ./
             file: ./Dockerfile.server
             push: true
-            tags: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
+            tags: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/server:${{ github.sha }}
       
         - name: Build db
           uses: docker/build-push-action@v3
@@ -64,7 +59,7 @@ jobs:
             context: ./
             file: ./Dockerfile.db
             push: true
-            tags: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }}
+            tags: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/db:${{ github.sha }}
 
   deploy:
     needs:
@@ -78,9 +73,9 @@ jobs:
         uses: yc-actions/yc-coi-deploy@v1
         
         env:
-          NGINX_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/nginx:${{ github.sha }}
-          SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
-          DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }}
+          NGINX_IMAGE: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/nginx:${{ github.sha }}
+          SERVER_IMAGE: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/server:${{ github.sha }}
+          DB_IMAGE: cr.yandex/${{env.CR_REGISTRY}}/traffic-racer/db:${{ github.sha }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           FOLDER_ID: ${{ env.FOLDER_ID }}
