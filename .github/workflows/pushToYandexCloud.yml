@@ -31,34 +31,34 @@ jobs:
           SERVER_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/server:${{ github.sha }}
           DB_IMAGE: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY/db:${{ github.sha }
 
-      - name: Yandex Cloud CR "Login" Action for GitHub Actions
-        uses: yc-actions/yc-cr-login@v0.1-alpha
-        with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+        - name: Yandex Cloud CR "Login" Action for GitHub Actions
+          uses: yc-actions/yc-cr-login@v0.1-alpha
+          with:
+            yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
-      - name: Build server
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile.server
-          push: true
-          tags: $SERVER_IMAGE
+        - name: Build server
+          uses: docker/build-push-action@v3
+          with:
+            context: .
+            file: ./Dockerfile.server
+            push: true
+            tags: $SERVER_IMAGE
 
-      - name: Build db
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile.db
-          push: true
-          tags: $DB_IMAGE
+        - name: Build db
+          uses: docker/build-push-action@v3
+          with:
+            context: .
+            file: ./Dockerfile.db
+            push: true
+            tags: $DB_IMAGE
 
-      - name: Build nginx
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile.server
-          push: true
-          tags: $NGINX_IMAGE
+        - name: Build nginx
+          uses: docker/build-push-action@v3
+          with:
+            context: .
+            file: ./Dockerfile.server
+            push: true
+            tags: $NGINX_IMAGE
       
 
       
@@ -77,7 +77,6 @@ jobs:
           NGINX_IMAGE: $NGINX_IMAGE
           SERVER_IMAGE: $SERVER_IMAGE
           DB_IMAGE: $DB_IMAGE
-
           SSH_KEY: ${{ secrets.SSH_KEY }}
           YC_SA_JSON_CREDENTIALS: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           FOLDER_ID: ${{ env.FOLDER_ID }}
