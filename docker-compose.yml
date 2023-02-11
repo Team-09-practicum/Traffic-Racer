@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
     nginx:
-      image: ${NGINX_IMAGE}
+      image: {{env.NGINX_IMAGE}}
       build:
             context: .
             dockerfile: Dockerfile.nginx
@@ -29,7 +29,7 @@ services:
   
     server:
         container_name: prakticum-server
-        image: ${SERVER_IMAGE}
+        image: {{env.SERVER_IMAGE }}
         env_file:
           ./.env
         build:
@@ -50,7 +50,7 @@ services:
           ./packages/server/utils/waitForDataBaseConnect/wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
 
     postgres:
-      image: ${SERVER_DB}
+      image: {{env.DB_IMAGE}}
       env_file:
         ./.env
       build:
