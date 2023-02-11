@@ -40,7 +40,7 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             context: .
-            file: ./Dockerfile.server
+            file: ./Dockerfile.nginx
             
         - name: Push nginx
           run: docker push ${{env.NGINX_IMAGE}}
