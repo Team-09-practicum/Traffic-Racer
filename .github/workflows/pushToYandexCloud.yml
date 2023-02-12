@@ -74,5 +74,5 @@ jobs:
           vm-subnet-id: ${{ secrets.VM_SUBNET_ID }}
           vm-zone-id: ru-central1-b
           vm-core-fraction: 20
-          user-data-path: './user-data.yaml'
-          docker-compose-path: './docker-compose.yaml'
+          user-data-path: './user-data.yml'
+          docker-compose-path: './docker-compose.yml'
