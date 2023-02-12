@@ -44,12 +44,14 @@ jobs:
             docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }}
 
   deploy:
+    
+    runs-on: ubuntu-latest
     needs:
       - build
-    runs-on: ubuntu-latest
     steps:
+      - name: Checkout
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Deploy COI VM
         id: deploy-coi
@@ -67,11 +69,10 @@ jobs:
           vm-name: ${{ secrets.VM_NAME}}
           vm-service-account-id: ${{ secrets.VM_SERVICE_ACCOUNT_ID }}
           vm-cores: 2
-          vm-memory: 2 GB
+          vm-platform-id: 'standard-v2'
+          vm-memory: 512Mb
           vm-disk-size: 30GB
-          vm-disk-type: HDD
           vm-subnet-id: ${{ secrets.VM_SUBNET_ID }}
-          vm-zone-id: ru-central1-b
-          vm-core-fraction: 20
-          user-data-path: './user-data.yml'
-          docker-compose-path: './docker-compose.yml'
+          vm-core-fraction: 5
+          user-data-path: './user-data.yaml'
+          docker-compose-path: './docker-compose.yaml'
