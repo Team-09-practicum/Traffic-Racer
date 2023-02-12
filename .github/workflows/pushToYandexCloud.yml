@@ -68,8 +68,8 @@ jobs:
           vm-service-account-id: ${{ secrets.VM_SERVICE_ACCOUNT_ID }}
           vm-cores: 2
           vm-memory: 2 GB
-          vm-disk-size: 8GB
-          vm-disk-type: SSD
+          vm-disk-size: 30GB
+          vm-disk-type: HDD
           vm-subnet-id: ${{ secrets.VM_SUBNET_ID }}
           vm-zone-id: ru-central1-b
           vm-core-fraction: 20
