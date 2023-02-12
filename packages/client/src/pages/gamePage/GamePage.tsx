@@ -124,7 +124,7 @@ export const GamePage = () => {
         )}
       </button>
       <button type="button" className="game-page__feedback-button">
-        <FormOutlined className="feedback-button" onClick={toggleFeedbackForm} />
+        {!isFullscreenMode && <FormOutlined className="feedback-button" onClick={toggleFeedbackForm} />}
       </button>
       <Feedback />
     </div>

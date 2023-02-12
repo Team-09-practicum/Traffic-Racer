@@ -22,7 +22,6 @@ export const makeRequest = async <T>({
     headers: { ...headers },
     data: data || null,
     params: urlParams || null,
-    parse_mode: 'HTML' || 'Markdown',
   };
 
   try {

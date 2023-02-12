@@ -33,10 +33,10 @@ export const Feedback = () => {
   };
 
   const onSubmit = async (data: IFeedbackForm) => {
-    const message = `<b>Имя:</b> ${data.first_name}<b>Email:</b> ${data.email}<b>Сообщение:</b> ${data.message}`;
+    const message = `<b>Имя:</b> ${data.first_name}\n<b>Email:</b> ${data.email}\n<b>Сообщение:</b> ${data.message}`;
     await sendFeedback(data);
     await sentFeedbackToTelegram({ text: message });
-    await cancelFeedback();
+    cancelFeedback();
   };
 
   return (

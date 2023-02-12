@@ -9,7 +9,7 @@ export const redirectURI = `http://localhost:${__SERVER_PORT__}/`;
 
 export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize?response_type=code';
 
-export const telegramFeedbackURL = `https://api.telegram.org/bot${__TELEGRAM_FEEDBACK_TOKEN__}/sendMessage?chat_id=${__TELEGRAM_CHAT_ID__}`;
+export const telegramFeedbackURL = `https://api.telegram.org/bot${__TELEGRAM_FEEDBACK_TOKEN__}/sendMessage?chat_id=${__TELEGRAM_CHAT_ID__}&parse_mode=html`;
 
 export const apiPaths = {
   postSignUp: '/auth/signup',
