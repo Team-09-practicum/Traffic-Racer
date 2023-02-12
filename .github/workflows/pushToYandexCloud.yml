@@ -33,11 +33,44 @@ jobs:
             docker build -f Dockerfile.nginx -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:nginx${{ github.sha }} .
             docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:nginx${{ github.sha }}
 
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+        - uses: actions/checkout@v3
+
+        - name: 'Create env file'
+          run: |
+            echo "${{ secrets.ENV_FILE }}" > .env
+
+        - name: Yandex Cloud CR "Login" Action for GitHub Actions
+          uses: yc-actions/yc-cr-login@v1
+          with:
+            yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
         - name: Build server
           run: |
             docker build -f Dockerfile.server -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }} .
             docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }}
       
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+        - uses: actions/checkout@v3
+
+        - name: 'Create env file'
+          run: |
+            echo "${{ secrets.ENV_FILE }}" > .env
+
+        - name: Yandex Cloud CR "Login" Action for GitHub Actions
+          uses: yc-actions/yc-cr-login@v1
+          with:
+            yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
         - name: Build db
           run: |
             docker build -f Dockerfile.db -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }} .
@@ -50,11 +83,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-        with:
-          persist-credentials: false
+
       - name: Deploy COI VM
         id: deploy-coi
-        uses: yc-actions/yc-coi-deploy@v1
+        uses: yc-actions/yc-coi-deploy@v1.0.1
         
         env:
           NGINX_IMAGE: cr.yandex/crpjtg1eocevrotq2577/traffic-racer:nginx${{ github.sha }}
