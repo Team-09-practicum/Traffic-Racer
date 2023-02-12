@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  build-nginx:
+  build:
 
     runs-on: ubuntu-latest
 
@@ -33,44 +33,11 @@ jobs:
             docker build -f Dockerfile.nginx -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:nginx${{ github.sha }} .
             docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:nginx${{ github.sha }}
 
-  build-server:
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-        - uses: actions/checkout@v3
-
-        - name: 'Create env file'
-          run: |
-            echo "${{ secrets.ENV_FILE }}" > .env
-
-        - name: Yandex Cloud CR "Login" Action for GitHub Actions
-          uses: yc-actions/yc-cr-login@v1
-          with:
-            yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-
         - name: Build server
           run: |
             docker build -f Dockerfile.server -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }} .
             docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }}
       
-  build-db:
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-        - uses: actions/checkout@v3
-
-        - name: 'Create env file'
-          run: |
-            echo "${{ secrets.ENV_FILE }}" > .env
-
-        - name: Yandex Cloud CR "Login" Action for GitHub Actions
-          uses: yc-actions/yc-cr-login@v1
-          with:
-            yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
         - name: Build db
           run: |
             docker build -f Dockerfile.db -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }} .
