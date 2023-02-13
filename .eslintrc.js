@@ -52,6 +52,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'no-underscore-dangle': 'off',
     'max-len': ['error', { code: 120, ignoreComments: true }],
+    'react/destructuring-assignment': 'off',
   },
   settings: {
     'import/resolver': {
