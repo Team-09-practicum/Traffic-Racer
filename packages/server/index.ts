@@ -87,9 +87,7 @@ async function startServer() {
       const initialState = {};
 
       // @ts-expect-error Property 'nonce' does not exist on type 'Request'
-      const stateMarkup = `<script nonce='${req.nonce}'>window.__PRELOADED_STATE__=${serialize(
-        initialState
-      )}</script>`;
+      const stateMarkup = `<script nonce='${req.nonce}'>window.__PRELOADED_STATE__=${serialize(initialState)}</script>`;
       const appHtml = await render(url);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--store-outlet-->`, stateMarkup);
