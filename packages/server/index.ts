@@ -6,6 +6,7 @@ import { createServer as createViteServer, ViteDevServer } from 'vite';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { queryParser } from 'express-query-parser';
+import serialize from 'serialize-javascript';
 import { expressCspHeader } from 'express-csp-header';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
@@ -86,9 +87,7 @@ async function startServer() {
       const initialState = {};
 
       // @ts-expect-error Property 'nonce' does not exist on type 'Request'
-      const stateMarkup = `<script nonce='${req.nonce}'>window.__PRELOADED_STATE__=${JSON.stringify(
-        initialState
-      )}</script>`;
+      const stateMarkup = `<script nonce='${req.nonce}'>window.__PRELOADED_STATE__=${serialize(initialState)}</script>`;
       const appHtml = await render(url);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--store-outlet-->`, stateMarkup);
