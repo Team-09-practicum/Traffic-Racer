@@ -28,20 +28,27 @@ jobs:
           with:
             yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
         
-        - name: Build nginx
+        - name: Build and push
+          env: 
+            CR_REGISTRY: ${{env.CR_REGISTRY}}
+            
+            SERVER_NAME: ${{ env.SERVER_NAME }}
+            SERVER_PORT: ${{ env.SERVER_PORT }}
+            POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
+            POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+            POSTGRES_USER: ${{ env.POSTGRES_USER }}
+            POSTGRES_DB: ${{ env.POSTGRES_DB }}
+            NGINX_IMAGE: cr.yandex/$CR_REGISTRY/traffic-racer/nginx:${{ github.sha }}
+            SERVER_IMAGE: cr.yandex/$CR_REGISTRY/traffic-racer/server:${{ github.sha }}
+            POSTGRES_IMAGE: cr.yandex/$CR_REGISTRY/traffic-racer/postgres:${{ github.sha }}
           run: |
-            docker build -f Dockerfile.nginx -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:nginx${{ github.sha }} .
-            docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:nginx${{ github.sha }}
-
-        - name: Build server
-          run: |
-            docker build -f Dockerfile.server -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }} .
-            docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }}
-      
-        - name: Build db
-          run: |
-            docker build -f Dockerfile.db -t cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }} .
-            docker push cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }}
+          docker compose build
+          docker tag nginx:latest ${{env.NGINX_IMAGE}}
+          docker push ${{env.NGINX_IMAGE}}
+          docker tag server:latest ${{env.SERVER_IMAGE}}
+          docker push  ${{env.SERVER_IMAGE}}
+          docker tag postgres:latest ${{env.POSTGRES_IMAGE}}
+          docker push ${{env.POSTGRESS_IMAGE}}
 
   deploy:
     
@@ -53,14 +60,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v3
 
+        - name: 'Create env file'
+          run: |
+            echo "${{ secrets.ENV_FILE }}" > .env
+
       - name: Deploy COI VM
         id: deploy-coi
         uses: yc-actions/yc-coi-deploy@v1.0.1
         
         env:
-          NGINX_IMAGE: cr.yandex/crpjtg1eocevrotq2577/traffic-racer:nginx${{ github.sha }}
-          SERVER_IMAGE: cr.yandex/crpjtg1eocevrotq2577/traffic-racer:server${{ github.sha }}
-          DB_IMAGE: cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }}
+          NGINX_IMAGE: ${{env.NGINX_IMAGE}}
+          SERVER_IMAGE: ${{env.SERVER_IMAGE}}
+          POSTGRES_IMAGE: cr.yandex/crpjtg1eocevrotq2577/traffic-racer:db${{ github.sha }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SERVER_NAME: ${{ secrets.SERVER_NAME }}
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
@@ -80,5 +91,5 @@ jobs:
           vm-subnet-id: ${{ secrets.VM_SUBNET_ID }}
           vm-core-fraction: 5
           vm-zone-id: ru-central1-b
-          user-data-path: './user-data.yaml'
-          docker-compose-path: './docker-compose.yaml'
+          user-data-path: './yandexCloud/user-data.yaml'
+          docker-compose-path: './yandexCloud/docker-compose.YC.yaml'

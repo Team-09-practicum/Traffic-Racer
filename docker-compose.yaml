@@ -2,66 +2,61 @@ version: "3.9"
 
 services:
     nginx:
-      image: {{env.NGINX_IMAGE}}
-      build:
-            context: .
-            dockerfile: Dockerfile.nginx
-      # image: nginx:alpine
-      # container_name: nginx
+      image: nginx:alpine
+      container_name: nginx
       restart: always
-      env_file:
-          ./.env
-      # tty: true
-      # volumes:
-        # - ./packages/client/nginx.conf:/etc/nginx/nginx.conf
-        # - ./packages/client/dist:/app/
+      tty: true
+      volumes:
+        - ./packages/client/nginx.conf:/etc/nginx/nginx.conf
+        - ./packages/client/dist:/app/
+        #  cертификаты ssl хранятся на ВМ в YC
+        # - ./etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/
+        # - ./etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/ 
       ports:
         - "80:80"
         - "443:443"
       environment:
-        SERVER_NAME: {{env.SERVER_NAME}}
-        # NGINX_CERT: {{ env.NGINX_CERT}}
-        # NGINX_CERT_KEY: {{env.NGINX_CERT_KEY}}
+        SERVER_NAME: ${SERVER_NAME}
       networks:
         - postgres
       depends_on:
         - server
   
     server:
-        container_name: prakticum-server
-        image: {{env.SERVER_IMAGE }}
+        container_name: server
+        image: server
         env_file:
           ./.env
         build:
             context: .
             dockerfile: Dockerfile.server
             args:
-              SERVER_PORT: {{env.SERVER_PORT}}
+              SERVER_PORT: ${SERVER_PORT}
         restart: always
         ports:
-            - "{{env.SERVER_PORT}}:{{env.SERVER_PORT}}"
+            - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
-          SERVER_PORT: {{env.SERVER_PORT}}
+          SERVER_PORT: ${SERVER_PORT}
         networks:
         - postgres
         depends_on:
             - postgres
         command:
-          ./packages/server/utils/waitForDataBaseConnect/wait-for.sh postgres:{{env.POSTGRES_PORT}} -- node /app/packages/server/dist/index.js
+          ./packages/server/utils/waitForDataBaseConnect/wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
 
     postgres:
-      image: {{env.DB_IMAGE}}
+      image: postgres:14
       env_file:
         ./.env
       build:
         context: .
         dockerfile: Dockerfile.db
       ports:
-        - "{{env.POSTGRES_PORT}}:{{env.POSTGRES_PORT}}"
+        - "${POSTGRES_PORT}:${POSTGRES_PORT}"
       environment:
-        POSTGRES_PASSWORD: {{env.POSTGRES_PASSWORD}}
-        POSTGRES_USER: {{env.POSTGRES_USER}}
-        POSTGRES_DB: {{env.POSTGRES_DB}}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_DB: ${POSTGRES_DB}
       volumes:
         - ./tmp/pgdata:/var/lib/postgresql/data
       networks:
@@ -69,7 +64,7 @@ services:
 
 networks:
     postgres:
-      driver: bridge
-      
+      name: postgres
+      external: true
 
 

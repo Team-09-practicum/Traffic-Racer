@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+    nginx:
+      container_name: nginx
+      image: {{env.NGINX_IMAGE}}
+      restart: always
+      tty: true
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - /etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/
+        - /etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/ 
+      environment:
+        SERVER_NAME: {{env.SERVER_NAME}}
+      depends_on:
+        - server
+  
+    server:
+        container_name: server
+        image: {{env.SERVER_IMAGE}}
+        restart: always
+        ports:
+            - "{{env.SERVER_PORT}}:{{env.SERVER_PORT}}"
+        environment:
+          SERVER_PORT: {{env.SERVER_PORT}}
+        depends_on:
+            - postgres
+        command:
+          ./packages/server/utils/waitForDataBaseConnect/wait-for.sh postgres:{{env.POSTGRES_PORT}} -- node /app/packages/server/dist/index.js
+
+    postgres:
+      container_name: postgres
+      image: {{env.POSTGRES_IMAGE}}
+      ports:
+        - "{{env.POSTGRES_PORT}}:{{env.POSTGRES_PORT}}"
+      environment:
+        POSTGRES_PASSWORD: {{env.POSTGRES_PASSWORD}}
+        POSTGRES_USER: {{env.POSTGRES_USER}}
+        POSTGRES_DB: {{env.POSTGRES_DB}}
+      volumes:
+        - /var/lib/postgresql/data/:/var/lib/postgresql/data
+
+

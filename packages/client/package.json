@@ -71,7 +71,6 @@
     "ts-jest": "28.0.8",
     "typescript": "4.8.2",
     "vite": "3.0.7",
-    "vite-plugin-copy": "0.1.6",
     "workbox-build": "6.5.4"
   },
   "license": "MIT"
