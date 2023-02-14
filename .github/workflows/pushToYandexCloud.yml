@@ -51,18 +51,17 @@ jobs:
             docker push ${{env.POSTGRESS_IMAGE}}
 
   deploy:
-    
-    runs-on: ubuntu-latest
     needs:
       - build
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v3
 
-        - name: 'Create env file'
-          run: |
-            echo "${{ secrets.ENV_FILE }}" > .env
+      - name: 'Create env file'
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Deploy COI VM
         id: deploy-coi
