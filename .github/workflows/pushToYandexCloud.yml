@@ -42,7 +42,7 @@ jobs:
             SERVER_IMAGE: cr.yandex/$CR_REGISTRY/traffic-racer/server:${{ github.sha }}
             POSTGRES_IMAGE: cr.yandex/$CR_REGISTRY/traffic-racer/postgres:${{ github.sha }}
           run: |
-          docker compose build
+          docker-compose build
           docker tag nginx:latest ${{env.NGINX_IMAGE}}
           docker push ${{env.NGINX_IMAGE}}
           docker tag server:latest ${{env.SERVER_IMAGE}}
