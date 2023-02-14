@@ -7,8 +7,11 @@ import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
 import { useWindowSize } from '@/pages/gamePage/hooks/useWindowSize';
 import { SoundOffButton } from './components/soundOffButton/SoundOffButton';
+import { Feedback } from './components/feedback/Feedback';
 import { updateLeaderboard } from '@/controllers/updateLeaderboard';
 import { getUserIdLoginAvatar } from '@/utils/store/selectors/getUserFieldSelectors/getUserFieldSelectors';
+import { appStatusActions } from '@/utils/store/reducers/appStatusSlice/appStatusSlice';
+import { getIsFeedbackOpen } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import './GamePage.scss';
 
 const { Text, Title } = Typography;
@@ -48,6 +51,10 @@ export const GamePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameOver, user]);
+
+  const toggleFeedbackForm = () => {
+    dispatch(appStatusActions.setIsFeedbackOpen(!isFeedbackOpen));
+  };
 
   const toggleFullscreen = useCallback(() => {
     const game = gamePageRef.current;
@@ -114,6 +121,10 @@ export const GamePage = () => {
           <ArrowsAltOutlined className={fullscreenIconClassName} />
         )}
       </button>
+      <button type="button" className="game-page__feedback-button">
+        {!isFullscreenMode && <FormOutlined className="feedback-button" onClick={toggleFeedbackForm} />}
+      </button>
+      <Feedback />
     </div>
   );
 };

@@ -34,4 +34,15 @@
     color: $base;
     font-size: 40px;
   }
+  &__feedback-button {
+    position: absolute;
+    right: 60px;
+    bottom: -5px;
+    padding: 8px;
+    border: none;
+    background: none;
+    color: $text-color-start-end;
+    cursor: pointer;
+    font-size: 40px;
+  }
 }

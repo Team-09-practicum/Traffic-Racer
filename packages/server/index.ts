@@ -10,8 +10,9 @@ import serialize from 'serialize-javascript';
 import { expressCspHeader } from 'express-csp-header';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
+import { feedbackRouter } from './routes/feedbackRoutes';
 import { isDev } from './utils/constants';
-import { dbConnect } from './db';
+import { postgresConnect, mongoConnect } from './db';
 import { getCspDirectives } from './utils/CspDirectives';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
@@ -39,7 +40,8 @@ async function startServer() {
 
   const port = Number(process.env.SERVER_PORT) || 5000;
 
-  dbConnect();
+  postgresConnect();
+  mongoConnect();
 
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
@@ -47,6 +49,7 @@ async function startServer() {
 
   app.use('/api/theme', themeRouter);
   app.use('/api/forum', forumRouter);
+  app.use('/api', feedbackRouter);
 
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));

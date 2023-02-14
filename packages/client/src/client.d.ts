@@ -1,3 +1,6 @@
-// eslint-disable-next-line no-underscore-dangle
-declare const __SERVER_PORT__: number;
-declare module 'rollup-plugin-modify';
+declare global {
+  const __SERVER_PORT__: number;
+  const __TELEGRAM_FEEDBACK_TOKEN__: string;
+  const __TELEGRAM_CHAT_ID__: string;
+}
+export {};
