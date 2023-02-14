@@ -17,8 +17,10 @@ services:
       SERVER_PORT: ${SERVER_PORT}
     networks:
       - postgres
+      - mongo
     depends_on:
       - postgres
+      - mongo
     command: ./packages/server/utils/waitForDataBaseConnect/wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
 
   postgres:
@@ -35,6 +37,24 @@ services:
     networks:
       - postgres
 
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - '${MONGO_PORT}:${MONGO_PORT}'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+      MONGO_INITDB_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - /tmp/mongo-data:/data/db
+    networks:
+      - mongo
+
 networks:
   postgres:
+    driver: bridge
+  mongo:
     driver: bridge
