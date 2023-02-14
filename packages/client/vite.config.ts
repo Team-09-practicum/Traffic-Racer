@@ -13,6 +13,14 @@ export default defineConfig({
   },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
+    __OAUTH_CLIENT_ID__:
+      process.env.NODE_ENV === 'production'
+        ? `'${process.env.OAUTH_CLIENT_ID}'`
+        : `'${process.env.OAUTH_CLIENT_ID_DEV}'`,
+    __OAUTH_REDIRECT_URI__:
+      process.env.NODE_ENV === 'production'
+        ? `'${process.env.OAUTH_REDIRECT_URI}'`
+        : `'${process.env.OAUTH_REDIRECT_URI_DEV}'`,
   },
   plugins: [react(), CompileTsServiceWorker()],
   resolve: {

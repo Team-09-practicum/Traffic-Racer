@@ -2,7 +2,6 @@
 import { signInWithOAuth } from '@/controllers/signInWithOAuth';
 import { showNetworkError } from '@/utils/showNetworkError';
 import { yandexOAuthUrl, redirectURI } from '@/utils/constants';
-import { getServiceId } from '@/controllers/getServiceId';
 
 export interface IGetServiceIdResponse {
   service_id: string;
@@ -14,12 +13,12 @@ export interface IGetServiceIdResponse {
 
 export const signinWithYandex = async () => {
   try {
-    const { service_id } = (await getServiceId()) as IGetServiceIdResponse;
-
     const url = new URL(yandexOAuthUrl);
 
-    url.searchParams.set('client_id', service_id);
+    // eslint-disable-next-line no-undef
+    url.searchParams.set('client_id', __OAUTH_CLIENT_ID__);
     url.searchParams.set('redirect_uri', redirectURI);
+    url.searchParams.set('response_type', 'code');
     window.location.href = url.href;
   } catch (error) {
     showNetworkError();
@@ -36,7 +35,6 @@ export const getYandexToken = async (OAuthCode: string) => {
       code: OAuthCode,
       redirect_uri: redirectURI,
     });
-    window.location.href = '/';
   } catch (error) {
     showNetworkError();
   }
