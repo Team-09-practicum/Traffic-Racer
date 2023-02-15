@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Space, Typography, Row } from 'antd';
-import { ShrinkOutlined, ArrowsAltOutlined } from '@ant-design/icons';
-import { useAppSelector } from '@/utils/store/store';
+import { ShrinkOutlined, ArrowsAltOutlined, FormOutlined } from '@ant-design/icons';
+import { useAppSelector, useAppDispatch } from '@/utils/store/store';
 import { TrafficRacer } from './components/TrafficRacer/TrafficRacer';
 import { GameStart } from './components/startGame/GameStart';
 import { GameEnd } from './components/gameEnd/GameEnd';
@@ -28,6 +28,8 @@ export const GamePage = () => {
   const isFirstStart = !isGameStarted && !isGameOver;
   const gamePageRef = useRef<HTMLDivElement>(null);
   const user = useAppSelector(getUserIdLoginAvatar);
+  const isFeedbackOpen = useAppSelector(getIsFeedbackOpen);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (gamePageRef.current) setPageTopOffset(gamePageRef.current.getBoundingClientRect().top);

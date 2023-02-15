@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button, Form, Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useAppSelector, useAppDispatch } from '@/utils/store/store';
 import { feedbackFormSchema } from '@/utils/validation/validationSchema';
 import { getIsFeedbackOpen } from '@/utils/store/selectors/getAppStatusSelectors/getAppStatusSelectors';
 import { appStatusActions } from '@/utils/store/reducers/appStatusSlice/appStatusSlice';
@@ -17,8 +17,8 @@ export interface IFeedbackForm {
 }
 
 export const Feedback = () => {
-  const isFeedbackOpen = useSelector(getIsFeedbackOpen);
-  const dispatch = useDispatch();
+  const isFeedbackOpen = useAppSelector(getIsFeedbackOpen);
+  const dispatch = useAppDispatch();
   const {
     control,
     handleSubmit,
