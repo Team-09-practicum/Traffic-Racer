@@ -45,7 +45,7 @@ jobs:
             docker push ${{env.NGINX_IMAGE}}
             docker tag server:latest ${{env.SERVER_IMAGE}}
             docker push  ${{env.SERVER_IMAGE}}
-            docker tag postgres:latest ${{env.POSTGRES_IMAGE}}
+            docker tag postgres:14:latest ${{env.POSTGRES_IMAGE}}
             docker push ${{env.POSTGRESS_IMAGE}}
 
   deploy:

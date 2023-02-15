@@ -48,8 +48,8 @@ services:
           ./packages/server/utils/waitForDataBaseConnect/wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
 
     postgres:
-      container_name: postgres
-      image: postgres
+      container_name: postgresDB
+      image: postgres:14
       env_file:
         ./.env
       ports:
