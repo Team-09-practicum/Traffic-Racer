@@ -5,6 +5,11 @@
 Динамичная Endless-игра, разработанная в рамках курса [Мидл фронтенд-разработчик](https://practicum.yandex.ru/middle-frontend/)
 
 [//]: # (docs/gameplay.mp4)
+https://github.com/Team-09-practicum/Traffic-Racer/raw/TM09-126-add-readme/docs/gameplay.mp4
+
+https://github.com/Team-09-practicum/Traffic-Racer/raw/TM09-126-add-readme/docs/gameplay.mp4
+
+https://github.com/Team-09-practicum/Traffic-Racer/blob/TM09-126-add-readme/docs/gameplay.mp4?raw=true
 
 ## Стек технологий
 - `React`, `Redux Toolkit` и `Redux Thunk`
