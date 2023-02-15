@@ -30,11 +30,11 @@ https://user-images.githubusercontent.com/15361093/219150187-5f993bbd-0410-47b3-
 
 Проект представляет из себя `монорепозиторий` на основе [`lerna`](https://github.com/lerna/lerna) и состоит из следующих пакетов:
 
-- **[@Traffic-Race/client](./packages/client)**
+- **[@Traffic-Racer/client](./packages/client)**
     - [React](https://github.com/facebook/react) приложение.
 
 
-- **[@Traffic-Race/server](./packages/server)**
+- **[@Traffic-Racer/server](./packages/server)**
     - [Express](https://github.com/expressjs/express) приложение.
     - Использует в качестве зависимости пакет `@Traffic-Race/client` package.
     - Слушает http://localhost:3000 (CSR) и http://localhost:5000 (SSR).
