@@ -10,8 +10,8 @@ services:
         - "80:80"
         - "443:443"
       volumes:
-        - /etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/
-        - /etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/ 
+        - /etc/letsencrypt/live/traffic-racer.ru/fullchain.pem:/etc/nginx/ssl/fullchain.pem
+        - /etc/letsencrypt/live/traffic-racer.ru/privkey.pem:/etc/nginx/ssl/privkey.pem  
       environment:
         SERVER_NAME: {{env.SERVER_NAME}}
       depends_on:

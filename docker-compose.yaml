@@ -11,8 +11,8 @@ services:
         dockerfile: ./docker/Dockerfile.nginx
       # volumes:
         #  cертификаты ssl хранятся на ВМ в YC
-        # - ./etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/
-        # - ./etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/ 
+        # - ./etc/letsencrypt/live/traffic-racer.ru/fullchain.pem:/etc/nginx/ssl/fullchain.pem
+        # - ./etc/letsencrypt/live/traffic-racer.ru/privkey.pem:/etc/nginx/ssl/privkey.pem 
       ports:
         - "80:80"
         - "443:443"
