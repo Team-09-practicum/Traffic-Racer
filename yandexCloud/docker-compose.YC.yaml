@@ -32,7 +32,7 @@ services:
 
     postgres:
       container_name: postgres
-      image: {{env.POSTGRES_IMAGE}}
+      image: cr.yandex/crpjtg1eocevrotq2577/traffic-racer/postgres:15022023
       ports:
         - "{{env.POSTGRES_PORT}}:{{env.POSTGRES_PORT}}"
       environment:
