@@ -8,7 +8,7 @@ services:
       tty: true
       build:
         context: .
-        dockerfile: Dockerfile.nginx
+        dockerfile: ./docker/Dockerfile.nginx
       # volumes:
         #  cертификаты ssl хранятся на ВМ в YC
         # - ./etc/letsencrypt/live/traffic-racer.ru:/var/www/ssl/
@@ -32,7 +32,7 @@ services:
           ./.env
         build:
             context: .
-            dockerfile: Dockerfile.server
+            dockerfile: ./docker/Dockerfile.server
             args:
               SERVER_PORT: ${SERVER_PORT}
         restart: always
