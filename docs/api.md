@@ -1,4 +1,4 @@
-### Как подключать "ручки"
+## Как подключать "ручки"
 
 1. Добавляем path ручки в `src/utils/constants/api` в `apiPaths`
 2. Создаем api definition в `src/utils/api/defs`, в начале имени указываем метод запроса (например, `postSignUp.ts`), не забываем реэкспортить из `index.ts`
