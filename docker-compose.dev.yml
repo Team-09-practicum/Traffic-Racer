@@ -7,20 +7,18 @@ services:
       container_name: nginx
       restart: always
       volumes:
-        - ./packages/client/nginx.conf:/etc/nginx/nginx.conf
-        - ./packages/client/dist:/app/
+        - /packages/client/dist:/app/
+        - /packages/client/nginx/dev/nginx.conf:/etc/nginx/nginx.conf
       ports:
         - "80:80"
       networks:
         - postgres
-      environment: 
-      - myapp.local:postgres
 
     postgres:
       image: postgres:14
       container_name: postgres
       env_file:
-        ./.env     
+        /.env     
       ports:
         - "${POSTGRES_PORT}:${POSTGRES_PORT}"
       environment:

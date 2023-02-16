@@ -36,8 +36,8 @@ async function startServer() {
     res.json('👋 Howdy from the server :)');
   });
 
-  app.use('/db/theme', themeRouter);
-  app.use('/db/forum', forumRouter);
+  app.use('/api/theme', themeRouter);
+  app.use('/api/forum', forumRouter);
 
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));

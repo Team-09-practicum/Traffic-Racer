@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - TM09-105-deploy-to-yandex-cloud
+      - main
 
   workflow_dispatch:
 
@@ -72,10 +73,10 @@ jobs:
           vm-service-account-id: ${{ secrets.VM_SERVICE_ACCOUNT_ID }}
           vm-cores: 2
           vm-platform-id: 'standard-v2'
-          vm-memory: 512Mb
+          vm-memory: 1Gb
           vm-disk-size: 30GB
           vm-subnet-id: ${{ secrets.VM_SUBNET_ID }}
-          vm-core-fraction: 5
+          vm-core-fraction: 20
           vm-zone-id: ru-central1-b
           user-data-path: './yandexCloud/user-data.yaml'
           docker-compose-path: './yandexCloud/docker-compose.YC.yaml'

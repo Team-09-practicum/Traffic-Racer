@@ -25,6 +25,10 @@ services:
             - "{{env.SERVER_PORT}}:{{env.SERVER_PORT}}"
         environment:
           SERVER_PORT: {{env.SERVER_PORT}}
+          POSTGRES_DB: {{env.POSTGRES_DB}}
+          POSTGRES_PASSWORD: {{env.POSTGRES_PASSWORD}}
+          POSTGRES_USER: {{env.POSTGRES_USER}}
+          POSTGRES_PORT: {{env.POSTGRES_PORT}}
         depends_on:
             - postgres
         command:
