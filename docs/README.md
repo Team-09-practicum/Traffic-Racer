@@ -6,3 +6,4 @@
 - [Описание ручек API](backendAPI.md)
 - [Как использовать Redux](redux.md)
 - [Подключение ручек для клиентской части](api.md)
+- [Работа с Yandex Cloud](YandexClud.md)
