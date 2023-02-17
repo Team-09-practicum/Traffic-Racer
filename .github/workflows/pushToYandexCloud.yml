@@ -3,7 +3,6 @@ name: Push To Yandex Cloud CR
 on:
   push:
     branches:
-      - TM09-105-deploy-to-yandex-cloud
       - main
 
   workflow_dispatch:
