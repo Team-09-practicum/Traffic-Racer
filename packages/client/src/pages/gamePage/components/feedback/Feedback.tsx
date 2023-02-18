@@ -28,7 +28,7 @@ export const Feedback = () => {
     resolver: yupResolver(feedbackFormSchema),
   });
 
-  const cancelFeedback = () => {
+  const closeFeedbackForm = () => {
     dispatch(appStatusActions.setIsFeedbackOpen(!isFeedbackOpen));
   };
 
@@ -36,7 +36,7 @@ export const Feedback = () => {
     const message = `<b>Имя:</b> ${data.first_name}\n<b>Email:</b> ${data.email}\n<b>Сообщение:</b> ${data.message}`;
     await sendFeedback(data);
     await sentFeedbackToTelegram({ text: message });
-    cancelFeedback();
+    closeFeedbackForm();
   };
 
   return (
@@ -45,7 +45,7 @@ export const Feedback = () => {
       title="Обратная связь c разработчиками"
       className="feedback-modal"
       open={isFeedbackOpen}
-      onCancel={cancelFeedback}
+      onCancel={closeFeedbackForm}
       footer={null}>
       <Form name="basic" className="feedback-modal__form" layout="vertical" onFinish={handleSubmit(onSubmit)}>
         <Form.Item label="Имя" validateStatus={errors.first_name ? 'error' : ''} help={errors.first_name?.message}>

@@ -14,7 +14,7 @@ export interface SendToTelegramRequestData {
 }
 
 export const sendFeedback = async (data: SendRequestData) => {
-  const feedbackMessage = await api.postFeedback({
+  await api.postFeedback({
     data,
     onError: (err) => {
       if (isAxiosError(err) && err.response) {
@@ -23,11 +23,10 @@ export const sendFeedback = async (data: SendRequestData) => {
       throw Error(err.message);
     },
   });
-  return feedbackMessage as SendRequestData;
 };
 
 export const sentFeedbackToTelegram = async (text: SendToTelegramRequestData) => {
-  const feedbackToTelegram = await api.postFeedbackToTelegram({
+  await api.postFeedbackToTelegram({
     data: text,
     onSuccess: () => {
       toast('Ваше сообщение успешно отправлено', {
@@ -42,5 +41,4 @@ export const sentFeedbackToTelegram = async (text: SendToTelegramRequestData) =>
       throw Error(err.message);
     },
   });
-  return feedbackToTelegram as SendToTelegramRequestData;
 };
