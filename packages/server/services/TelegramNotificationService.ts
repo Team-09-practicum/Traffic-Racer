@@ -2,10 +2,10 @@
 import TelegramBot from 'node-telegram-bot-api';
 import type { IGithubUser } from '../typings/IGithubUser';
 
-const TOKEN = process.env.TELEGRAM_GITHUB_BOT_TOKEN!;
+const token = process.env.TELEGRAM_GITHUB_BOT_TOKEN!;
 const chatId = process.env.TELEGRAM_GITHUB_BOT_CHAT_ID!;
 
-const bot = new TelegramBot(TOKEN, { polling: true });
+const bot = new TelegramBot(token, { polling: true });
 
 enum Users {
   'Al-nvrsk' = '@Alexey_telegram',
