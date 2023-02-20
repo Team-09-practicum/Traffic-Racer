@@ -8,16 +8,30 @@ import bodyParser from 'body-parser';
 import { queryParser } from 'express-query-parser';
 import serialize from 'serialize-javascript';
 import { expressCspHeader } from 'express-csp-header';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import type { IStateSchema } from 'client/src/typings/IStateSchema';
+import { isDev } from './utils/constants';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
-import { isDev } from './utils/constants';
+
 import { dbConnect } from './db';
 import { getCspDirectives } from './utils/CspDirectives';
+import { getUser } from './utils/getUser/getUser';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
 
 async function startServer() {
   const app = express();
+
+  app.use(
+    '/api/v2',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: { '*': '' },
+      target: 'https://ya-praktikum.tech',
+    })
+  );
+
   app
     .disable('x-powered-by')
     .use(cors())
@@ -65,10 +79,11 @@ async function startServer() {
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
+    const cookies = req.headers.cookie;
 
     try {
       let template: string;
-      let render: (url: string) => Promise<string>;
+      let render: (url: string, store: IStateSchema) => Promise<string>;
 
       if (!isDev()) {
         template = fs.readFileSync(path.resolve(distPath, 'index.html'), 'utf-8');
@@ -78,12 +93,16 @@ async function startServer() {
         template = await vite.transformIndexHtml(url, template);
         render = (await vite.ssrLoadModule(path.resolve(srcPath, 'SsrRender.tsx'))).render;
       }
-      // InitialState для примера. Заменить на стейт, прокидываемый в Redux на клиент
-      const initialState = {};
+
+      const userInfo = await getUser(cookies);
+      const initialState: IStateSchema = {
+        user: { userInfo },
+        appStatus: { isSoundOn: true },
+      };
 
       // @ts-expect-error Property 'nonce' does not exist on type 'Request'
       const stateMarkup = `<script nonce='${req.nonce}'>window.__PRELOADED_STATE__=${serialize(initialState)}</script>`;
-      const appHtml = await render(url);
+      const appHtml = await render(url, initialState);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--store-outlet-->`, stateMarkup);
 

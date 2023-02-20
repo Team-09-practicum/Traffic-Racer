@@ -3,7 +3,7 @@ import type { CSPDirectives } from 'csp-header';
 
 const directives: Partial<CSPDirectives> = {
   'default-src': [SELF],
-  'connect-src': [SELF, 'ya-praktikum.tech', '*.tinymce.com', '*.tiny.cloud'],
+  'connect-src': [SELF, 'ya-praktikum.tech', '*.tinymce.com', '*.tiny.cloud', 'suggestions.dadata.ru'],
   'script-src': [SELF, '*.tinymce.com', '*.tiny.cloud'],
   'style-src': [SELF, INLINE, '*.tinymce.com', '*.tiny.cloud'],
   'img-src': [SELF, 'data:', 'blob:', 'ya-praktikum.tech', '*.tinymce.com', '*.tiny.cloud'],

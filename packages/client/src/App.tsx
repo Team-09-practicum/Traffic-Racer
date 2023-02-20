@@ -4,7 +4,6 @@ import { Layout, ConfigProvider, theme, Switch, Typography } from 'antd';
 import { useAppDispatch, useAppSelector } from '@/utils/store/store';
 import { AppRouter } from '@/utils/router/AppRouter';
 import { Navigation } from '@/components/navigation/Navigation';
-import { fetchUser } from './utils/store/reducers/thunks/fetchUserThunk';
 import { getYandexToken } from '@/utils/OAuth';
 import { getUserTheme } from './utils/store/selectors/getUserTheme/getUserTheme';
 import { getUserId } from './utils/store/selectors/getUserFieldSelectors/getUserFieldSelectors';
@@ -27,9 +26,7 @@ const App = () => {
     if (code) {
       getYandexToken(code);
     }
-
-    dispatch(fetchUser());
-  }, [dispatch]);
+  }, []);
 
   const userId = useAppSelector(getUserId);
   const userTheme = useAppSelector(getUserTheme);

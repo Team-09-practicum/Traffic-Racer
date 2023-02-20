@@ -1,4 +1,6 @@
-export const API_HOST = 'https://ya-praktikum.tech';
+import { isDev } from './isDev';
+
+export const API_HOST = isDev() ? 'http://localhost' : 'http://traffic-racer.ru';
 
 export const API_PATH = '/api/v2';
 

@@ -6,6 +6,6 @@ export enum LoadingStatus {
 }
 
 export interface IAppStatusState {
-  loading: LoadingStatus;
+  loading?: LoadingStatus;
   isSoundOn: boolean;
 }
