@@ -1,5 +1,5 @@
-import { IUserState } from './IUserState';
-import { IAppStatusState } from './IAppStatusState';
+import type { IUserState } from './IUserState';
+import type { IAppStatusState } from './IAppStatusState';
 
 export interface IStateSchema {
   user: IUserState;

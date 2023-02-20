@@ -13,7 +13,6 @@ import type { IStateSchema } from 'client/src/typings/IStateSchema';
 import { isDev } from './utils/constants';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
-
 import { dbConnect } from './db';
 import { getCspDirectives } from './utils/CspDirectives';
 import { WebhookController } from './controllers/webhookController';
