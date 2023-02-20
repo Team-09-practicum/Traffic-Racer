@@ -9,4 +9,5 @@ export const appRoutes: Record<string, string> = {
   topic: '/forum/topic',
   error404: '/404',
   error500: '/500',
+  redirectFromYandexOAuth: '/oauth',
 };

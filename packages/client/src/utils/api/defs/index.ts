@@ -11,7 +11,6 @@ export { getForumIndex } from './getForumIndex';
 export { getForumTopic } from './getForumTopic';
 export { postForumTopic } from './postForumTopic';
 export { postTopicReply } from './postTopicReply';
-export { getOAuthServiceId } from './getOAuthServiceId';
 export { postSignInOAuth } from './postSignInOAuth';
 export { getUserTheme } from './getUserTheme';
 export { postUserTheme } from './postUserTheme';
