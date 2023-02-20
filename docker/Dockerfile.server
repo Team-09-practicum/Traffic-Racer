@@ -10,7 +10,7 @@ WORKDIR /app
 FROM base as builder
 
 COPY package.json yarn.lock
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile && yarn add --dev lerna
 
 COPY . .
 

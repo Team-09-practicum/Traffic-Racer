@@ -1,14 +1,34 @@
 version: "3.9"
 
 services:
+    nginx:
+      image: nginx
+      container_name: nginx
+      restart: always
+      tty: true
+      build:
+        context: .
+        dockerfile: ./docker/Dockerfile.nginx
+      ports:
+        - "80:80"
+        - "443:443"
+      environment:
+        SERVER_NAME: ${SERVER_NAME}
+      networks:
+        - postgres
+      env_file:
+          ./.env
+      depends_on:
+        - server
+  
     server:
-        container_name: prakticum-server
-        image: prackicum-server
+        container_name: server
+        image: server
         env_file:
           ./.env
         build:
             context: .
-            dockerfile: Dockerfile.server
+            dockerfile: ./docker/Dockerfile.server
             args:
               SERVER_PORT: ${SERVER_PORT}
         restart: always
@@ -24,9 +44,10 @@ services:
           ./packages/server/utils/waitForDataBaseConnect/wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
 
     postgres:
+      container_name: postgresDB
       image: postgres:14
       env_file:
-        ./.env     
+        ./.env
       ports:
         - "${POSTGRES_PORT}:${POSTGRES_PORT}"
       environment:
@@ -40,6 +61,6 @@ services:
 
 networks:
     postgres:
-      driver: bridge
+      name: postgres
 
 
