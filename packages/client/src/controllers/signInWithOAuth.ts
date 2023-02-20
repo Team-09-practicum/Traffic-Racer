@@ -8,7 +8,7 @@ export interface IOAuthSigninData {
 }
 
 export const signInWithOAuth = async (data: IOAuthSigninData) => {
-  const response = await api.postSignInOAuth({
+  await api.postSignInOAuth({
     data,
     onError: (err) => {
       if (isAxiosError(err) && err.response) {
@@ -17,5 +17,4 @@ export const signInWithOAuth = async (data: IOAuthSigninData) => {
       throw Error(err.message);
     },
   });
-  return response;
 };

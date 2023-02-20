@@ -7,7 +7,8 @@ export default {
   testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
   globals: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
+    __OAUTH_CLIENT_ID__: true,
+    __OAUTH_REDIRECT_URI__: true,
   },
   moduleNameMapper: {
     '\\.(css|scss)$': 'identity-obj-proxy',

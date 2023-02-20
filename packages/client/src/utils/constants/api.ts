@@ -4,11 +4,10 @@ export const API_HOST = isDev() ? 'http://localhost' : 'http://traffic-racer.ru'
 
 export const API_PATH = '/api/v2';
 
-export const LOCAL_SERVER_PORT = 5000;
+// eslint-disable-next-line no-undef
+export const redirectURI = __OAUTH_REDIRECT_URI__;
 
-export const redirectURI = `http://localhost:${LOCAL_SERVER_PORT}/`;
-
-export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize?response_type=code';
+export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize/';
 
 export const apiPaths = {
   postSignUp: '/auth/signup',
@@ -21,7 +20,6 @@ export const apiPaths = {
   putAvatar: '/user/profile/avatar',
   putProfile: '/user/profile',
   showAvatar: `${API_HOST}${API_PATH}/resources`,
-  getServiceIdURI: '/oauth/yandex/service-id',
   signInURI: '/oauth/yandex',
   getForumIndex: '/api/forum',
   getForumTopic: '/api/forum/topic',

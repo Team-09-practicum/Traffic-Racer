@@ -16,6 +16,7 @@ import { forumRouter } from './routes/forumRoutes';
 
 import { dbConnect } from './db';
 import { getCspDirectives } from './utils/CspDirectives';
+import { WebhookController } from './controllers/webhookController';
 import { getUser } from './utils/getUser/getUser';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
@@ -58,6 +59,8 @@ async function startServer() {
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
   });
+
+  app.post('/webhook/github/pullrequest', WebhookController.handlePullRequest);
 
   app.use('/api/theme', themeRouter);
   app.use('/api/forum', forumRouter);

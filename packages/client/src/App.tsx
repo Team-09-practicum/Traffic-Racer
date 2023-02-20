@@ -10,23 +10,33 @@ import { getUserId } from './utils/store/selectors/getUserFieldSelectors/getUser
 import { userActions } from './utils/store/reducers/userSlice/userSlice';
 import { updateUserTheme } from './controllers/updateUserTheme';
 import { ErrorBoundary, Link } from './components';
+import { getIsAuth } from './utils/store/selectors/getIsAuthSelector/getIsAuthSelector';
 
 import './app.scss';
+import { fetchUser } from './utils/store/reducers/thunks/fetchUserThunk';
 
 const { Header, Content } = Layout;
 const { Title, Paragraph } = Typography;
 
 const App = () => {
   const dispatch = useAppDispatch();
+  const isAuth = useAppSelector(getIsAuth);
 
   useEffect(() => {
+    const loginWithYandex = async (code: string) => {
+      await getYandexToken(code);
+      dispatch(fetchUser());
+    };
+
     if (typeof window === 'undefined') return;
     const code = new URLSearchParams(window.location.search).get('code');
 
-    if (code) {
-      getYandexToken(code);
+    if (!isAuth && code) {
+      loginWithYandex(code);
+    } else if (!isAuth) {
+      dispatch(fetchUser());
     }
-  }, []);
+  }, [dispatch, isAuth]);
 
   const userId = useAppSelector(getUserId);
   const userTheme = useAppSelector(getUserTheme);
