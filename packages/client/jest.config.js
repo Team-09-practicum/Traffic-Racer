@@ -7,6 +7,9 @@ export default {
   testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
   globals: {
+    __SERVER_PORT__: true,
+    __TELEGRAM_FEEDBACK_TOKEN__: true,
+    __TELEGRAM_CHAT_ID__: true,
     __OAUTH_CLIENT_ID__: true,
     __OAUTH_REDIRECT_URI__: true,
   },

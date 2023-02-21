@@ -12,5 +12,7 @@ export { getForumTopic } from './getForumTopic';
 export { postForumTopic } from './postForumTopic';
 export { postTopicReply } from './postTopicReply';
 export { postSignInOAuth } from './postSignInOAuth';
+export { postFeedback } from './postFeedback';
+export { postFeedbackToTelegram } from './postFeedbackToTelegram';
 export { getUserTheme } from './getUserTheme';
 export { postUserTheme } from './postUserTheme';

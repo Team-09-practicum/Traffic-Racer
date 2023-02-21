@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 
 services:
     nginx:
@@ -59,8 +59,26 @@ services:
       networks:
         - postgres
 
+
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - '${MONGO_PORT}:${MONGO_PORT}'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+      MONGO_INITDB_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - /tmp/mongo-data:/data/db
+    networks:
+      - mongo
+
 networks:
-    postgres:
-      name: postgres
-
-
+  postgres:
+    driver: bridge
+  mongo:
+    driver: bridge

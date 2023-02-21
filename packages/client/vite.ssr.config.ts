@@ -40,4 +40,8 @@ export default defineConfig({
   ssr: {
     format: 'cjs',
   },
+  define: {
+    __TELEGRAM_FEEDBACK_TOKEN__: `'${process.env.TELEGRAM_FEEDBACK_TOKEN}'` || '',
+    __TELEGRAM_CHAT_ID__: `'${process.env.TELEGRAM_CHAT_ID}'` || '',
+  },
 });
