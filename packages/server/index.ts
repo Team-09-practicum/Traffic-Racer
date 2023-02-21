@@ -16,7 +16,6 @@ import { forumRouter } from './routes/forumRoutes';
 import { feedbackRouter } from './routes/feedbackRoutes';
 import { postgresConnect, mongoConnect } from './db';
 import { getCspDirectives } from './utils/CspDirectives';
-import { WebhookController } from './controllers/webhookController';
 import { getUser } from './utils/getUser/getUser';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
@@ -61,11 +60,9 @@ async function startServer() {
     res.json('👋 Howdy from the server :)');
   });
 
-  app.post('/webhook/github/pullrequest', WebhookController.handlePullRequest);
-
   app.use('/api/theme', themeRouter);
   app.use('/api/forum', forumRouter);
-  app.use('/api', feedbackRouter);
+  app.use('/api/feedback', feedbackRouter);
 
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));
@@ -102,7 +99,7 @@ async function startServer() {
       const userInfo = await getUser(cookies);
       const initialState: IStateSchema = {
         user: { userInfo },
-        appStatus: { isSoundOn: true },
+        appStatus: { isSoundOn: true, isFeedbackOpen: false },
       };
 
       // @ts-expect-error Property 'nonce' does not exist on type 'Request'
