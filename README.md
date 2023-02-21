@@ -33,6 +33,9 @@ https://user-images.githubusercontent.com/15361093/219150187-5f993bbd-0410-47b3-
 - **[@Traffic-Racer/client](./packages/client)**
     - [React](https://github.com/facebook/react) приложение.
 
+### Как правильно писать коммиты?
+Можно почитать в соответствующей разделе [документации](docs/README.md)
+
 
 - **[@Traffic-Racer/server](./packages/server)**
     - [Express](https://github.com/expressjs/express) приложение.
