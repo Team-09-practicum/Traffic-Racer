@@ -46,4 +46,18 @@ services:
       volumes:
         - /var/lib/postgresql/data/:/var/lib/postgresql/data
 
-
+    mongo:
+      image: mongo
+      restart: always
+      ports:
+        - '${env.MONGO_PORT}:${env.MONGO_PORT}'
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: ${env.MONGO_ROOT_USER}
+        MONGO_INITDB_ROOT_PASSWORD: ${env.MONGO_ROOT_PASSWORD}
+        MONGO_INITDB_DATABASE: ${env.MONGO_DB}
+        MONGO_INITDB_USERNAME: ${env.MONGO_USER}
+        MONGO_INITDB_PASSWORD: ${env.MONGO_PASSWORD}
+    volumes:
+      - /var/lib/mongo/data:/data/db
+    networks:
+      - mongo

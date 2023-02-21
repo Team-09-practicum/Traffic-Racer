@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env NODE_ENV=development vite",
     "build": "tsc && vite build --config vite.config.ts",
     "build:ssr": "tsc && vite build --config vite.ssr.config.ts && yarn build",
     "preview": "vite preview",

@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
+import { isDev } from './isDev';
 
-export const API_HOST = 'https://ya-praktikum.tech';
+export const API_HOST = isDev() ? 'http://localhost' : 'https://traffic-racer.ru';
 
 export const API_PATH = '/api/v2';
 
@@ -10,6 +9,7 @@ export const redirectURI = __OAUTH_REDIRECT_URI__;
 
 export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize/';
 
+// eslint-disable-next-line max-len, no-undef
 export const telegramFeedbackURL = `https://api.telegram.org/bot${__TELEGRAM_FEEDBACK_TOKEN__}/sendMessage?chat_id=${__TELEGRAM_CHAT_ID__}&parse_mode=html`;
 
 export const apiPaths = {
