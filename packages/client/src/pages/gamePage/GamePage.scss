@@ -1,0 +1,48 @@
+@import './constants';
+
+.game-page {
+  position: relative;
+  height: 100%;
+
+  &__score {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: $text-color-start-end;
+
+    .ant-typography {
+      color: inherit;
+    }
+  }
+  &__sound {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: $text-color-start-end;
+  }
+  &__fullscreen-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  &__fullscreen-button-icon {
+    color: $base;
+    font-size: 40px;
+  }
+  &__feedback-button {
+    position: absolute;
+    right: 60px;
+    bottom: -5px;
+    padding: 8px;
+    border: none;
+    background: none;
+    color: $text-color-start-end;
+    cursor: pointer;
+    font-size: 40px;
+  }
+}

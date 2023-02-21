@@ -1,0 +1,16 @@
+.auth-page {
+  height: 100%;
+
+  &__col {
+    width: 300px;
+    text-align: center;
+  }
+
+  &__form {
+    text-align: left;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}

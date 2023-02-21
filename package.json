@@ -2,15 +2,18 @@
   "name": "client-server-template-with-vite",
   "private": true,
   "scripts": {
-    "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap && git config --local commit.template .gitcommittemplate",
-    "build": "lerna run build",
+    "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap && git config --local commit.template .gitcommittemplate && yarn linking",
+    "build": "lerna run build:ssr --scope=client && lerna run build --scope=server",
     "dev:client": "lerna run dev  --scope=client",
     "dev:server": "lerna run dev --scope=server",
     "dev": "lerna run dev",
+    "dev:sql": "docker-compose -f docker-compose.dev.yml up",
+    "prod": "docker compose up",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "linking": "lerna run link --scope=client && lerna run linked --scope=server"
   },
   "license": "MIT",
   "workspaces": [

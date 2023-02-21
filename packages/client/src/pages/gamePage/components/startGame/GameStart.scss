@@ -1,0 +1,51 @@
+@import '../../constants';
+.game-start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($background-color, 0.5);
+  pointer-events: none;
+  & > &__text {
+    margin: 16px auto;
+    color: $text-color-start-end;
+
+    .ant-typography {
+      color: inherit;
+    }
+
+    &_blink {
+      animation: blink 2s linear infinite;
+    }
+  }
+
+  &__fullscreen-instructions {
+    margin-bottom: 16px;
+
+    & > .game-start__fullscreen-text-instructions {
+      color: $base;
+    }
+  }
+
+  &__fullscreen-buttons {
+    display: inline;
+    color: $base;
+  }
+}
+
+@keyframes blink {
+  0% {
+    color: $text-color-start-end;
+  }
+  50% {
+    color: $background-color;
+  }
+  100% {
+    color: $text-color-start-end;
+  }
+}

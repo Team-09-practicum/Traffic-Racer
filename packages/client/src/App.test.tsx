@@ -1,14 +1,27 @@
-import App from './App'
-import { render, screen } from '@testing-library/react'
+import React from 'react';
+import { act, render, screen } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { StoreProvider } from './utils/store/StoreProvider';
+import App from './App';
+import { AppRouter } from './utils/router/AppRouter';
 
-const appContent = 'Вот тут будет жить ваше приложение :)'
+jest.mock('./utils/router/AppRouter');
 
-// @ts-ignore
-global.fetch = jest.fn(() =>
-  Promise.resolve({ json: () => Promise.resolve('hey') })
-)
-
-test('Example test', async () => {
-  render(<App />)
-  expect(screen.getByText(appContent)).toBeDefined()
-})
+describe('App.test', () => {
+  test('should check that components was rendered', async () => {
+    await act(async () => {
+      render(
+        <StoreProvider>
+          <Router>
+            <App />
+          </Router>
+        </StoreProvider>
+      );
+    });
+    expect(screen.getByTestId('layoutAntDesign')).toBeInTheDocument();
+    expect(screen.getByTestId('navigation')).toBeInTheDocument();
+    expect(screen.getByTestId('content')).toBeInTheDocument();
+    expect(screen.getByTestId('switch')).toBeInTheDocument();
+    expect(AppRouter).toBeCalled();
+  });
+});

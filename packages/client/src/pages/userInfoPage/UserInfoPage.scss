@@ -1,0 +1,27 @@
+.profile-page {
+  &__form {
+    border-radius: 16px;
+  }
+  &__col {
+    width: 300px;
+    text-align: center;
+  }
+
+  &__avatar {
+    margin-bottom: 16px;
+    width: 130px;
+    height: 130px;
+    &:hover {
+      background: #000;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+  &__button {
+    width: 100%;
+    margin-top: 16px;
+  }
+  &__avatar-input {
+    border: none;
+  }
+}

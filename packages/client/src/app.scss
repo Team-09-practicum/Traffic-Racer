@@ -1,0 +1,40 @@
+@import './styles/colors.scss';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.layout {
+  min-height: 100vh;
+
+  &__content {
+    padding-top: 30px;
+  }
+}
+
+.ant-layout .ant-layout-header {
+  padding-inline: unset;
+}
+
+.ant-switch {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  opacity: 0.6;
+  transition: 0.5s opacity;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.rendering-error-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,28 +1,56 @@
-import { Client } from 'pg'
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import dotenv from 'dotenv';
+import path from 'path';
+import mongoose from 'mongoose';
+import { isDev } from './utils/constants';
 
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
-  process.env
+dotenv.config({ path: path.join(__dirname, '..', '..', '.env') });
 
-export const createClientAndConnect = async (): Promise<Client | null> => {
+const {
+  POSTGRES_USER,
+  POSTGRES_PASSWORD,
+  POSTGRES_DB,
+  POSTGRES_PORT,
+  MONGO_USER,
+  MONGO_PASSWORD,
+  MONGO_DB,
+  MONGO_PORT,
+  MONGO_HOST,
+} = process.env;
+
+const sequelizeOptions: SequelizeOptions = {
+  host: isDev() ? 'localhost' : 'postgres',
+  port: Number(POSTGRES_PORT),
+  username: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  database: POSTGRES_DB,
+  dialect: 'postgres',
+  models: [path.join(__dirname, '/models')],
+};
+
+export const sequelize = new Sequelize(sequelizeOptions);
+
+export async function postgresConnect() {
   try {
-    const client = new Client({
-      user: POSTGRES_USER,
-      host: 'localhost',
-      database: POSTGRES_DB,
-      password: POSTGRES_PASSWORD,
-      port: Number(POSTGRES_PORT),
-    })
-
-    await client.connect()
-
-    const res = await client.query('SELECT NOW()')
-    console.log('  ➜ 🎸 Connected to the database at:', res?.rows?.[0].now)
-    client.end()
-
-    return client
-  } catch (e) {
-    console.error(e)
+    await sequelize.authenticate();
+    await sequelize.sync({ alter: true });
+    console.log('\x1b[32m', `✨Connection to DB on ${POSTGRES_PORT} has been established successfully✨`, '\x1b[0m');
+  } catch (error) {
+    console.error('Unable sequelize to connect to the database:', error);
   }
-
-  return null
 }
+
+export const mongoConnect = async (): Promise<void> => {
+  try {
+    mongoose.set('strictQuery', false);
+    await mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`);
+
+    console.log('  ➜ 🎸 Connected to the Mongo database');
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(`Mongo DB connect error: ${e.message}`);
+    } else {
+      console.error(e);
+    }
+  }
+};
