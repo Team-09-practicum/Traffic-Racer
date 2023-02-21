@@ -90,3 +90,12 @@ export const replyInTopicSchema = yup.object().shape({
     .string()
     .test('Минимум один символ', 'Пожалуйста, введите текст сообщения', (value) => convert(value || '').length > 0),
 });
+
+export const feedbackFormSchema = yup.object().shape({
+  first_name: yup
+    .string()
+    .required('Пожалуйста, введите Ваше имя')
+    .matches(/[A-ZА-Я][a-zа-я-]*/, 'Имя должно начинаться с заглавной буквы'),
+  email: yup.string().required('Пожалуйста, введите email').email('Неверный email'),
+  message: yup.string().required('Пожалуйста, введите сообщение'),
+});

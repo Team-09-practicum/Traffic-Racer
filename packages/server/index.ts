@@ -13,7 +13,8 @@ import type { IStateSchema } from 'client/src/typings/IStateSchema';
 import { isDev } from './utils/constants';
 import { themeRouter } from './routes/themeRoutes';
 import { forumRouter } from './routes/forumRoutes';
-import { dbConnect } from './db';
+import { feedbackRouter } from './routes/feedbackRoutes';
+import { postgresConnect, mongoConnect } from './db';
 import { getCspDirectives } from './utils/CspDirectives';
 import { WebhookController } from './controllers/webhookController';
 import { getUser } from './utils/getUser/getUser';
@@ -53,7 +54,8 @@ async function startServer() {
 
   const port = Number(process.env.SERVER_PORT) || 5000;
 
-  dbConnect();
+  postgresConnect();
+  mongoConnect();
 
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
@@ -63,6 +65,7 @@ async function startServer() {
 
   app.use('/api/theme', themeRouter);
   app.use('/api/forum', forumRouter);
+  app.use('/api', feedbackRouter);
 
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));

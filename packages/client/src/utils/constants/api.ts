@@ -9,6 +9,9 @@ export const redirectURI = __OAUTH_REDIRECT_URI__;
 
 export const yandexOAuthUrl = 'https://oauth.yandex.ru/authorize/';
 
+// eslint-disable-next-line max-len, no-undef
+export const telegramFeedbackURL = `https://api.telegram.org/bot${__TELEGRAM_FEEDBACK_TOKEN__}/sendMessage?chat_id=${__TELEGRAM_CHAT_ID__}&parse_mode=html`;
+
 export const apiPaths = {
   postSignUp: '/auth/signup',
   postSignIn: '/auth/signin',
@@ -26,4 +29,5 @@ export const apiPaths = {
   postForumTopic: '/api/forum/topic',
   postTopicReply: '/api/forum/topic/comment',
   userTheme: '/api/theme/',
+  postFeedback: '/api/feedback/send',
 };

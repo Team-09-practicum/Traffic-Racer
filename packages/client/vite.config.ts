@@ -13,6 +13,8 @@ export default defineConfig({
   },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
+    __TELEGRAM_FEEDBACK_TOKEN__: `'${process.env.TELEGRAM_FEEDBACK_TOKEN}'`,
+    __TELEGRAM_CHAT_ID__: `'${process.env.TELEGRAM_CHAT_ID}'`,
     __OAUTH_CLIENT_ID__:
       process.env.NODE_ENV === 'production'
         ? `'${process.env.OAUTH_CLIENT_ID}'`
