@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_HOST } from '../constants';
 
-export const getUser = async (cookies: string | undefined) => {
+export const getUser = async (cookies?: string) => {
   try {
     const user = await axios.get(`http://${API_HOST}/api/v2/auth/user`, {
       withCredentials: true,

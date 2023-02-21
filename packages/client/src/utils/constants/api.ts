@@ -1,6 +1,6 @@
 import { isDev } from './isDev';
 
-export const API_HOST = isDev() ? 'http://localhost' : 'http://traffic-racer.ru';
+export const API_HOST = isDev() ? 'http://localhost' : 'https://traffic-racer.ru';
 
 export const API_PATH = '/api/v2';
 
